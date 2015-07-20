@@ -2,12 +2,12 @@
 
 namespace Axn\Illuminate\Database\Eloquent;
 
+use Exception;
 use Illuminate\Database\Eloquent\Builder as BaseEloquentBuilder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\Relations\MorphOneOrMany;
 use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Exception;
 
 class Builder extends BaseEloquentBuilder
 {

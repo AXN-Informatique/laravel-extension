@@ -2,8 +2,8 @@
 
 namespace Axn\Illuminate\Database\Eloquent\Relations;
 
-use Illuminate\Database\Eloquent\Relations\MorphTo as BaseMorphTo;
 use ReflectionClass;
+use Illuminate\Database\Eloquent\Relations\MorphTo as BaseMorphTo;
 
 class MorphTo extends BaseMorphTo
 {

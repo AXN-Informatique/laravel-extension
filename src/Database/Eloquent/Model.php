@@ -2,9 +2,9 @@
 
 namespace Axn\Illuminate\Database\Eloquent;
 
+use ReflectionClass;
 //use Illuminate\Database\Eloquent\Model as BaseModel;
 use Axn\Illuminate\Database\Eloquent\Relations\MorphTo;
-use ReflectionClass;
 
 trait Model /*extends BaseModel*/
 {

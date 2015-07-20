@@ -1,39 +1,24 @@
 <?php
 
-if (!function_exists('capture')) {
-    /**
-     * Capture et retourne un flux de sortie (un "var_dump" par exemple).
-     *
-     * @param  string|Closure $callable
-     * @param  array          $args
-     * @return string
-     */
-    function capture($callable, array $args = [])
-    {
-        ob_start();
-        call_user_func_array($callable, $args);
+use Illuminate\Support\Debug\Dumper;
 
-        return ob_get_clean();
-    }
-}
-
-if (!function_exists('write_dump')) {
+if (!function_exists('dw')) {
     /**
-     * Enregistre un message dans le fichier "dump.html" dans le dossier "public".
+     * Dump les valeurs passées en paramètres et écrit le résultat dans le fichier
+     * public/dump.html.
      *
-     * @param  mixed   $message
-     * @param  boolean $append
      * @return void
      */
-    function write_dump($message, $append = false)
+    function dw()
     {
-        $originalMaxDepth = ini_get('xdebug.var_display_max_depth');
-        ini_set('xdebug.var_display_max_depth', -1);
+        ob_start();
 
-        $formatted = capture('var_dump', [$message])."\n";
-        ini_set('xdebug.var_display_max_depth', $originalMaxDepth);
+        foreach (func_get_args() as $arg) {
+            (new Dumper)->dump($arg);
+            echo "\n";
+        }
 
-        file_put_contents(public_path().'/dump.html', $formatted, $append ? FILE_APPEND : 0);
+        file_put_contents(public_path().'/dump.html', ob_get_clean(), FILE_APPEND);
     }
 }
 
