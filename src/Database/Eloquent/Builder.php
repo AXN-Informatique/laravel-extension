@@ -169,14 +169,14 @@ class Builder extends BaseEloquentBuilder
     }
 
     /**
-	 * Ajoute les mises à jour des champs "updated_at" des tables pour lesquelles
+     * Ajoute les mises à jour des champs "updated_at" des tables pour lesquelles
      * il y a modification de champs.
-	 *
-	 * @param  array $values
-	 * @return array
-	 */
-	protected function addUpdatedAtColumn(array $values)
-	{
+     *
+     * @param  array $values
+     * @return array
+     */
+    protected function addUpdatedAtColumn(array $values)
+    {
         $added = false;
 
         foreach ($values as $column => $value) {
@@ -195,5 +195,5 @@ class Builder extends BaseEloquentBuilder
         }
 
         return $added ? $values : parent::addUpdatedAtColumn($values);
-	}
+    }
 }

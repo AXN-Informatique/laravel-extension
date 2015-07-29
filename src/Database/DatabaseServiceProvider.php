@@ -6,15 +6,15 @@ use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class DatabaseServiceProvider extends BaseServiceProvider
 {
-	/**
-	 * Register any application services.
-	 *
-	 * @return void
-	 */
-	public function register()
-	{
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
         $this->replaceMySqlConnection();
-	}
+    }
 
     /**
      * Remplace l'instance MySqlConnection dans l'IoC par son extension.
