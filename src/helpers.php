@@ -19,6 +19,21 @@ if (!function_exists('dw')) {
         }
 
         file_put_contents(public_path().'/dump.html', ob_get_clean(), FILE_APPEND);
+    
+    }
+}
+
+if ( ! function_exists('vd'))
+{
+    /**
+     * Dump the passed variables and does NOT end the script.
+     *
+     * @param  mixed
+     * @return void
+     */
+    function vd()
+    {
+        array_map(function($x) { (new Dumper)->dump($x); }, func_get_args());
     }
 }
 
