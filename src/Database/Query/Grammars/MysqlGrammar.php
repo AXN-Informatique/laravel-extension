@@ -15,11 +15,11 @@ class MysqlGrammar extends BaseMysqlGrammar
      */
     public function compileDelete(Builder $query)
     {
-        list(, $alias) = explode(' as ', $query->from);
-
         $sql = parent::compileDelete($query);
 
-        if (!empty($alias)) {
+        if (strpos($query->from, ' as ')) {
+            list(, $alias) = explode(' as ', $query->from);
+
             $sql = preg_replace('/^delete.* from/U', 'delete '.$this->wrap($alias).' from', $sql);
         }
 

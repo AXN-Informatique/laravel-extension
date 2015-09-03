@@ -1,5 +1,10 @@
 # Changelog for Laravel Extension
 
+## 1.2.0 (2015-09-03)
+
+- Correction dans MysqlGrammar.
+- Ajout de la commande OptimizeAll.
+
 ## 1.1.0 (2015-09-01)
 
 - Ajout de la fonction vd() - var_dump and NOT die !
