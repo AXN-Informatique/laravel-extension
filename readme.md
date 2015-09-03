@@ -64,7 +64,7 @@ les enregistrements "soft deleted" :
 Ajouter la commande à la liste des commandes dans la classe app/Console/Kernel.php :
 
 ```
-'Axn\Illuminate\Foundation\Console\Commands\OptimizeAll',
+'Axn\Illuminate\Foundation\Console\OptimizeAll',
 ```
 
 Pour lancer la commande :

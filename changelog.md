@@ -1,5 +1,13 @@
 # Changelog for Laravel Extension
 
+## 1.2.2 (2015-09-03)
+
+- Correction typo dans le readme.
+
+## 1.2.1 (2015-09-03)
+
+- Mise à jour du readme.
+
 ## 1.2.0 (2015-09-03)
 
 - Correction dans MysqlGrammar.
