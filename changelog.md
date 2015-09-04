@@ -1,5 +1,11 @@
 # Changelog for Laravel Extension
 
+## 1.3.0 (2015-09-04)
+
+- Ajout de la commande "migrate:test".
+- Utilisation du helper vd() dans le helper dw().
+- Modification de commentaires dans les helpers.
+
 ## 1.2.2 (2015-09-03)
 
 - Correction typo dans le readme.
@@ -11,7 +17,7 @@
 ## 1.2.0 (2015-09-03)
 
 - Correction dans MysqlGrammar.
-- Ajout de la commande OptimizeAll.
+- Ajout de la commande "optimize:all".
 
 ## 1.1.0 (2015-09-01)
 

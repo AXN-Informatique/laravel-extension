@@ -2,53 +2,50 @@
 
 use Illuminate\Support\Debug\Dumper;
 
-if (!function_exists('dw')) {
+if (!function_exists('vd')) {
     /**
-     * Dump les valeurs passées en paramètres et écrit le résultat dans le fichier
-     * public/dump.html.
-     *
-     * @return void
-     */
-    function dw()
-    {
-        ob_start();
-
-        foreach (func_get_args() as $arg) {
-            (new Dumper)->dump($arg);
-            echo "\n";
-        }
-
-        file_put_contents(public_path().'/dump.html', ob_get_clean(), FILE_APPEND);
-    
-    }
-}
-
-if ( ! function_exists('vd'))
-{
-    /**
-     * Dump the passed variables and does NOT end the script.
+     * Dump les valeurs passées en paramètres à l'aide du Dumper de Laravel,
+     * sans terminer le script à la fin.
      *
      * @param  mixed
      * @return void
      */
     function vd()
     {
-        array_map(function($x) { (new Dumper)->dump($x); }, func_get_args());
+        array_map(function($x) { (new Dumper)->dump($x)."\n"; }, func_get_args());
+    }
+}
+
+if (!function_exists('dw')) {
+    /**
+     * Dump les valeurs passées en paramètres à l'aide du Dumper de Laravel,
+     * puis écrit le résultat dans le fichier "public/dump.html".
+     *
+     * @param  mixed
+     * @return void
+     */
+    function dw()
+    {
+        ob_start();
+
+        call_user_func_array('vd', func_get_args());
+
+        file_put_contents(public_path().'/dump.html', ob_get_clean(), FILE_APPEND);
+
     }
 }
 
 if (!function_exists('v')) {
     /**
-     * Retourne la valeur d'une variable si celle-ci existe. Si celle-ci n'existe
-     * pas (variable non définie ou chaîne vide), une valeur par défaut est retournée.
+     * Retourne la valeur d'une variable. Si celle-ci n'existe pas (variable non
+     * définie ou chaîne vide), une valeur par défaut est retournée à la place.
      *
-     * ATTENTION : Le fait de passer par référence la variable à tester a pour
-     * conséquence de la créer en mémoire (NULL), ce qui peut être problématique,
-     * notamment avec les tableaux.
+     * ATTENTION : Si la variable n'existe pas, le passage par référence a pour
+     * conséquence de la créer ! (avec valeur NULL)
      *
      * @param  mixed               &$value
-     * @param  mixed               $defaultValue Valeur à retourner si $value n'est pas défini.
-     * @param  string|Closure|null $callback     Fonction de callback sur $value si défini.
+     * @param  mixed               $defaultValue Valeur à retourner si $value non défini
+     * @param  string|Closure|null $callback     Callback sur $value si $value défini
      * @return type
      */
     function v(&$value, $defaultValue = null, $callback = null)

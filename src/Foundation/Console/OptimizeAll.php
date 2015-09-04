@@ -3,9 +3,9 @@
 namespace Axn\Illuminate\Foundation\Console;
 
 use Illuminate\Console\Command;
-use Illuminate\View\Engines\CompilerEngine;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Illuminate\View\Engines\CompilerEngine;
 
 class OptimizeAll extends Command
 {
@@ -21,7 +21,7 @@ class OptimizeAll extends Command
      *
      * @var string
      */
-    protected $description = 'Runs all optimization commands.';
+    protected $description = 'Runs all optimization commands';
 
     /**
      * Execute the console command.
