@@ -13,6 +13,6 @@ class MySqlConnection extends BaseMySqlConnection
      */
     protected function getDefaultQueryGrammar()
     {
-        return new Query\Grammars\MysqlGrammar;
+        return new Query\Grammars\MySqlGrammar;
     }
 }

@@ -2,10 +2,10 @@
 
 namespace Axn\Illuminate\Database\Query\Grammars;
 
-use Illuminate\Database\Query\Grammars\MysqlGrammar as BaseMysqlGrammar;
+use Illuminate\Database\Query\Grammars\MySqlGrammar as BaseMySqlGrammar;
 use Illuminate\Database\Query\Builder;
 
-class MysqlGrammar extends BaseMysqlGrammar
+class MySqlGrammar extends BaseMySqlGrammar
 {
     /**
      * Compile une requête "delete" en SQL en tenant compte de l'alias sur le "from".
