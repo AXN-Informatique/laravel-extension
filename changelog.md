@@ -5,6 +5,8 @@
 - Ajout de la commande "migrate:test".
 - Utilisation du helper vd() dans le helper dw().
 - Modification de commentaires dans les helpers.
+- Correction d'un problème de casse.
+- Modification du readme.
 
 ## 1.2.2 (2015-09-03)
 

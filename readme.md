@@ -2,6 +2,7 @@
 
 Ce package regroupe toutes les extensions faites du framework Laravel 5.
 
+
 ## Installation
 
 Inclure le package avec Composer :
@@ -10,15 +11,16 @@ Inclure le package avec Composer :
 composer require axn/laravel-extension
 ```
 
+
 ## Utilisation de l'extension d'Eloquent
 
-Ajouter le service provider au tableau des providers dans config/app.php :
+Ajouter le service provider au tableau des providers dans `config/app.php` :
 
 ```
 'Axn\Illuminate\Database\DatabaseServiceProvider',
 ```
 
-Ajouter le trait Axn\Illuminate\Database\Eloquent\Model aux modèles pour lesquels
+Ajouter le trait `Axn\Illuminate\Database\Eloquent\Model` aux modèles pour lesquels
 l'extension d'Eloquent est souhaitée :
 
 ```php
@@ -59,9 +61,10 @@ les enregistrements "soft deleted" :
  - leftJoinRel()
  - leftJoinRelWithTrashed()
 
+
 ## Utilisation de la commande "optimize:all"
 
-Ajouter la commande à la liste des commandes dans la classe app/Console/Kernel.php :
+Ajouter la commande à la liste des commandes dans la classe `app/Console/Kernel.php` :
 
 ```
 'Axn\Illuminate\Foundation\Console\OptimizeAll',
@@ -82,9 +85,10 @@ Cela permet de lancer toutes les commandes d'optimisation en une seule :
 
 Avec une compilation des vues Blade (qui était autrefois présente dans la commande "optimize").
 
+
 ## Utilisation de la commande "migrate:test"
 
-Ajouter la commande à la liste des commandes dans la classe app/Console/Kernel.php :
+Ajouter la commande à la liste des commandes dans la classe `app/Console/Kernel.php` :
 
 ```
 'Axn\Illuminate\Foundation\Console\MigrateTest',
@@ -98,18 +102,28 @@ php artisan migrate:test
 
 Les options suivantes sont disponibles :
 
-```
---conn  Connexion à utiliser dans config/database.php (par défaut : "testing")
-```
+ * **--conn :** Connexion à utiliser dans config/database.php (par défaut : "testing")
 
 Cela permet de tester, sur une connexion autre que celle principale, que les migrations
 et seeds se lancent bien (pas d'exception levée en cours de migration/rollback/seeding).
+
+Par défaut, la connexion "testing" est utilisée. Vous pouvez utliser la configuration
+suivante pour celle-ci (à ajouter dans `config/database.php`, tableau "connections") :
+
+```
+'testing' => [
+    'driver'   => 'sqlite',
+    'database' => ':memory:',
+    'prefix'   => '',
+]
+```
+
 
 ## Autre...
 
 **Foundation/Testing/NestedViewsAssertions.php :**
 
-En complément du trait Illuminate\Foundation\Testing\AssertionsTrait pour faire des
+En complément du trait `Illuminate\Foundation\Testing\AssertionsTrait` pour faire des
 assertions sur les vues imbriquées.
 
 **helpers.php :**
