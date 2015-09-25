@@ -37,23 +37,23 @@ class MigrateTest extends Command
             $this->laravel['db']->getConfig($testingDbConn); // Pour lever une exception si la connexion n'est pas configurée
             $this->laravel['db']->setDefaultConnection($testingDbConn);
 
-            $this->info('> Running "migrate" command:');
+            $this->comment('> Running "migrate" command:');
             $this->call('migrate');
             echo "\n";
 
-            $this->info('> Running "db:seed" command:');
+            $this->comment('> Running "db:seed" command:');
             $this->call('db:seed');
             echo "\n";
 
-            $this->info('> Running "migrate:reset" command:');
+            $this->comment('> Running "migrate:reset" command:');
             $this->call('migrate:reset');
             echo "\n";
 
             $this->info('Completed!');
         }
         catch (Exception $e) {
-            $this->info('Exception catched:');
-            $this->comment($e->getMessage());
+            $this->error('Exception catched:');
+            $this->line($e->getMessage());
         }
 
         $this->laravel['db']->setDefaultConnection($defaultDbConn);
