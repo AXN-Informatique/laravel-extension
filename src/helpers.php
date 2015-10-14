@@ -51,13 +51,14 @@ if (!function_exists('v')) {
     function v(&$value, $defaultValue = null, $callback = null)
     {
         if (!isset($value) || $value === '') {
-            $value = $defaultValue;
+            return $defaultValue;
         }
         elseif (is_callable($callback)) {
-            $value = call_user_func($callback, $value);
+            return call_user_func($callback, $value);
         }
-
-        return $value;
+        else {
+            return $value;
+        }
     }
 }
 
