@@ -1,6 +1,6 @@
 # Changelog for Laravel Extension
 
-## 1.0.1.dev
+## 1.0.1 (2015-10-22)
 
 - Changements mineurs au niveau des couleurs en console.
 - Correction du retour de la fonction helper v().
