@@ -1,6 +1,6 @@
 # Changelog for Laravel Extension
 
-## 1.1.0.dev
+## 1.1.0 (2015-10-26)
 
 - Ajout du helper vv().
 
