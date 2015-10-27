@@ -24,10 +24,43 @@ class Builder extends BaseEloquentBuilder
     protected $relatedModels = [];
 
     /**
+     * Get the hydrated models without eager loading.
+     *
+     * @param  array  $columns
+     * @return array|static[]
+     */
+    public function getModels($columns = array('*'))
+    {
+        $this->orderByDefault();
+
+        return parent::getModels($columns);
+    }
+
+    /**
+	 * Applies $model->orderBy clause if its present and no ordering has been set on the query.
+     * https://github.com/innoscience/eloquental/blob/master/src/Query/Builder.php
+	 *
+	 * @return Builder
+	 */
+	public function orderByDefault()
+    {
+		if ($this->model->getOrderBy() && !$this->query->orders) {
+			if (array_key_exists(0, $this->model->getOrderBy())) {
+				throw new Exception(get_class($this->model).'->orderBy property must be an associated array comprised of $column => $direction values.');
+			}
+			foreach ($this->model->getOrderBy() as $column => $direction) {
+				$this->query->orderBy($column, $direction);
+			}
+		}
+
+		return $this;
+	}
+
+    /**
      * Modifie l'alias de la table utilisée dans la clause "from".
      *
      * @param  string $alias
-     * @return \Axn\Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     public function alias($alias)
     {
@@ -48,7 +81,7 @@ class Builder extends BaseEloquentBuilder
      * @param  string  $alias
      * @param  string  $type
      * @param  boolean $withTrashed
-     * @return \Axn\Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     public function joinRel($relationName, $alias = '', $type = 'inner', $withTrashed = false)
     {
@@ -77,7 +110,7 @@ class Builder extends BaseEloquentBuilder
      * @param  string  $relationName
      * @param  string  $alias
      * @param  string  $type
-     * @return \Axn\Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     public function joinRelWithTrashed($relationName, $alias = '', $type = 'inner')
     {
@@ -90,7 +123,7 @@ class Builder extends BaseEloquentBuilder
      * @param  string  $relationName
      * @param  string  $alias
      * @param  boolean $withTrashed
-     * @return \Axn\Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     public function leftJoinRel($relationName, $alias = '', $withTrashed = false)
     {
@@ -102,7 +135,7 @@ class Builder extends BaseEloquentBuilder
      *
      * @param  string $relationName
      * @param  string $alias
-     * @return \Axn\Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     public function leftJoinRelWithTrashed($relationName, $alias = '')
     {
@@ -151,7 +184,7 @@ class Builder extends BaseEloquentBuilder
         }
         // Relation non supportée...
         else {
-            throw new Exception("Relation not supported for making join.");
+            throw new Exception(get_class($relation).' relation not supported for making join.');
         }
 
         return (function($join) use ($localKey, $foreignKey, $relation, $withTrashed) {

@@ -1,5 +1,9 @@
 # Changelog for Laravel Extension
 
+## 1.2.0-dev
+
+- Database : ajout de la possibilité de spécifier un ordre par défaut.
+
 ## 1.1.0 (2015-10-26)
 
 - Ajout du helper vv().
