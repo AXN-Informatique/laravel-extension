@@ -55,9 +55,9 @@ User::alias('u')
 Des alias à joinRel() sont également disponibles pour faire des LEFT JOIN ou pour inclure
 les enregistrements "soft deleted" :
 
- - joinRelWithTrashed()
- - leftJoinRel()
- - leftJoinRelWithTrashed()
+- joinRelWithTrashed()
+- leftJoinRel()
+- leftJoinRelWithTrashed()
 
 ## Utilisation de la commande "optimize:all"
 
@@ -75,12 +75,31 @@ php artisan optimize:all
 
 Cela permet de lancer toutes les commandes d'optimisation en une seule :
 
- - php artisan clear-compiled
- - php artisan optimize --force
- - php artisan config:cache
- - php artisan route:cache
+- php artisan optimize --force
+- php artisan config:cache
+- php artisan route:cache
 
 Avec une compilation des vues Blade (qui était autrefois présente dans la commande "optimize").
+
+## Utilisation de la commande "optimize:clear"
+
+Ajouter la commande à la liste des commandes dans la classe `app/Console/Kernel.php` :
+
+```
+'Axn\Illuminate\Foundation\Console\OptimizeClear',
+```
+
+Pour lancer la commande :
+
+```
+php artisan optimize:clear
+```
+
+Cela permet de lancer toutes les commandes de nettoyage des optimisations en une seule :
+
+- php artisan route:clear
+- php artisan config:clear
+- php artisan clear-compiled
 
 ## Utilisation de la commande "migrate:test"
 

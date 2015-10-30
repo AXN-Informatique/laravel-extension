@@ -5,23 +5,22 @@ namespace Axn\Illuminate\Foundation\Console;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
-use Illuminate\View\Engines\CompilerEngine;
 
-class OptimizeAll extends Command
+class OptimizeClear extends Command
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'optimize:all';
+    protected $name = 'optimize:clear';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Runs all optimization commands';
+    protected $description = 'Runs all optimization clear commands';
 
     /**
      * Execute the console command.
@@ -30,39 +29,12 @@ class OptimizeAll extends Command
      */
     public function handle()
     {
-        $this->call('optimize', ['--force' => true]);
+        $this->call('route:clear');
 
-        $this->call('config:cache');
+        $this->call('config:clear');
 
-        $this->call('route:cache');
-
-        $this->compileViews();
+        $this->call('clear-compiled');
     }
-
-    /**
-	 * Compile all view files.
-	 *
-	 * @return void
-	 */
-	protected function compileViews()
-	{
-        $this->info('Compiling views');
-
-		foreach ($this->laravel['view']->getFinder()->getPaths() as $path) {
-			foreach ($this->laravel['files']->allFiles($path) as $file) {
-				try {
-					$engine = $this->laravel['view']->getEngineFromPath($file);
-				}
-				catch (\InvalidArgumentException $e) {
-					continue;
-				}
-
-				if ($engine instanceof CompilerEngine) {
-					$engine->getCompiler()->compile($file);
-				}
-			}
-		}
-	}
 
     /**
 	 * Get the console command arguments.
