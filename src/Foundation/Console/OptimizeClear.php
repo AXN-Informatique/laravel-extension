@@ -34,6 +34,7 @@ class OptimizeClear extends Command
         $this->call('config:clear');
 
         $this->call('clear-compiled');
+        $this->info('Compiled file cleared!');
     }
 
     /**
