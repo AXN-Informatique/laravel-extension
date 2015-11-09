@@ -19,7 +19,7 @@ class Builder extends BaseEloquentBuilder
     /**
      * Liste des modèles liés à la table (incluant celui de la table dans le "from").
      *
-     * @var array[\Axn\Illuminate\Database\Eloquent\Model]
+     * @var array[Model]
      */
     protected $relatedModels = [];
 
@@ -29,7 +29,7 @@ class Builder extends BaseEloquentBuilder
      * @param  array  $columns
      * @return array|static[]
      */
-    public function getModels($columns = array('*'))
+    public function getModels($columns = ['*'])
     {
         $this->orderByDefault();
 
@@ -37,12 +37,12 @@ class Builder extends BaseEloquentBuilder
     }
 
     /**
-	 * Applies $model->orderBy clause if its present and no ordering has been set on the query.
+	 * Applique l'ordre par défaut si défini et qu'aucun autre ordre n'a été spécifié.
      * https://github.com/innoscience/eloquental/blob/master/src/Query/Builder.php
 	 *
 	 * @return Builder
 	 */
-	public function orderByDefault()
+	protected function orderByDefault()
     {
 		if ($this->model->getOrderBy() && !$this->query->orders) {
 			if (array_key_exists(0, $this->model->getOrderBy())) {
@@ -166,8 +166,8 @@ class Builder extends BaseEloquentBuilder
     /**
      * Construit la condition de jointure en fonction de la relation.
      *
-     * @param  \Illuminate\Database\Eloquent\Relations\Relation $relation
-     * @param  boolean $withTrashed
+     * @param  Relation $relation
+     * @param  boolean  $withTrashed
      * @return \Closure
      */
     private function buildCond(Relation $relation, $withTrashed)

@@ -9,7 +9,7 @@ class MySqlConnection extends BaseMySqlConnection
     /**
      * Get the default query grammar instance.
      *
-     * @return \Axn\Illuminate\Database\Query\Grammars\MySqlGrammar
+     * @return Query\Grammars\MySqlGrammar
      */
     protected function getDefaultQueryGrammar()
     {

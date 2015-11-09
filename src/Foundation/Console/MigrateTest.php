@@ -52,8 +52,8 @@ class MigrateTest extends Command
             $this->info('Completed!');
         }
         catch (Exception $e) {
-            $this->error('Exception catched:');
-            $this->line($e->getMessage());
+            $this->error('Exception catched: '.$e->getMessage());
+            $this->line($e->getTraceAsString());
         }
 
         $this->laravel['db']->setDefaultConnection($defaultDbConn);

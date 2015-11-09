@@ -95,7 +95,7 @@ if (!function_exists('carbon')) {
      * @param  string|null              $date
      * @param  string|null              $format
      * @param  DateTimeZone|string|null $tz
-     * @return Carbon\Carbon|null
+     * @return Carbon|null
      */
     function carbon($date = null, $format = null, $tz = null)
     {

@@ -35,10 +35,32 @@ class User extends Model
 }
 ```
 
-Cette extension offre la possibilité de faire des jointures en utilisant les relations
-definies dans le modèle. Seules les relations BelongsTo, HasOneOrMany et MorphOneOrMany
-sont gérées. Ainsi, pour joindre une table en relation BelongsToMany, il faut d'abord
-passé par la table pivot. Exemple :
+### Ordonnement par défaut
+
+Il est possible de spécifier un ordonnement à appliquer par défaut pour les requêtes
+de sélection. Pour cela, définir l'attribut `orderBy` dans le modèle.
+
+Exemple :
+
+```php
+class User extends Model
+{
+    use EloquentExtension;
+
+    protected $orderBy = [
+        'lastname' => 'asc',
+        'firstname' => 'asc'
+    ];
+}
+```
+
+### Jointures via relations
+
+Des jointures peuvent être effectuées en utilisant les relations definies dans le modèle.
+Seules les relations BelongsTo, HasOneOrMany et MorphOneOrMany sont gérées. Ainsi,
+pour joindre une table en relation BelongsToMany, il faut d'abord passé par la table pivot.
+
+Exemple :
 
 ```php
 User::joinRel('userRoles')

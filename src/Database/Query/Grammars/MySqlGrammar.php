@@ -10,7 +10,7 @@ class MySqlGrammar extends BaseMySqlGrammar
     /**
      * Compile une requête "delete" en SQL en tenant compte de l'alias sur le "from".
      *
-     * @param  \Illuminate\Database\Query\Builder  $query
+     * @param  Builder  $query
      * @return string
      */
     public function compileDelete(Builder $query)
