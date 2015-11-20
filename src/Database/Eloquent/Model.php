@@ -27,4 +27,26 @@ trait Model /*extends BaseModel*/
     {
         return isset($this->orderBy) ? $this->orderBy : null;
     }
+
+    /**
+     * Crée plusieurs nouveaux enregistrements.
+     *
+     * @param  array[array] $attributesList
+     * @return void
+     */
+    public static function createMany(array $attributesList)
+    {
+        $model = new static;
+
+        if ($model->usesTimestamps()) {
+            $now = $model->freshTimestampString();
+
+            foreach ($attributesList as &$attributes) {
+                $attributes[$model->getCreatedAtColumn()] = $now;
+                $attributes[$model->getUpdatedAtColumn()] = $now;
+            }
+        }
+
+        static::query()->getQuery()->insert($attributesList);
+    }
 }

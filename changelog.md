@@ -6,6 +6,7 @@
 - Foundation/Console : ajout de la commande artisan "optimize:clear".
 - Foundation/Console : suppression de "clear-compiled" de la commande "optimize:all".
 - Foundation/Console : affichage de la trace si exception catched dans la commande "migrate:test".
+- Ajout du helper dump().
 - Nettoyage commentaires.
 
 ## 1.1.0 (2015-10-26)
