@@ -1,6 +1,6 @@
 # Changelog for Laravel Extension
 
-## 1.2.0-dev
+## 1.2.0 (2015-11-23)
 
 - Database : ajout de la possibilité de spécifier un ordre par défaut.
 - Foundation/Console : ajout de la commande artisan "optimize:clear".
