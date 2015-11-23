@@ -18,7 +18,7 @@ if (!function_exists('dump')) {
 
         array_map(function($x) {(new Dumper)->dump($x)."\n";}, func_get_args());
 
-        return ob_end_clean();
+        return ob_get_clean();
     }
 }
 

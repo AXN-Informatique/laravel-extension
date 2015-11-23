@@ -1,5 +1,9 @@
 # Changelog for Laravel Extension
 
+## 1.2.1 (2015-11-23)
+
+- Helper dump() : ob_get_clean() et non ob_end_clean().
+
 ## 1.2.0 (2015-11-23)
 
 - Database : ajout de la possibilité de spécifier un ordre par défaut.
