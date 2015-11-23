@@ -3,7 +3,7 @@
 use Illuminate\Support\Debug\Dumper;
 use Carbon\Carbon;
 
-if (!function_exists('dump')) {
+if (!function_exists('d')) {
     /**
      * Dump les valeurs passées en paramètres à l'aide du Dumper de Laravel,
      * sans terminer le script à la fin et en retournant le résultat au lieu
@@ -12,7 +12,7 @@ if (!function_exists('dump')) {
      * @param  mixed
      * @return string
      */
-    function dump()
+    function d()
     {
         ob_start();
 
@@ -24,7 +24,7 @@ if (!function_exists('dump')) {
 
 if (!function_exists('vd')) {
     /**
-     * Idem dump(), mais rend le résultat directement dans le flux comme var_dump().
+     * Idem d(), mais rend le résultat directement dans le flux comme var_dump().
      *
      * @param  mixed
      * @return void
@@ -37,14 +37,14 @@ if (!function_exists('vd')) {
 
 if (!function_exists('dw')) {
     /**
-     * Idem dump(), mais écrit le résultat dans "public/dump.html".
+     * Idem d(), mais écrit le résultat dans "public/dump.html".
      *
      * @param  mixed
      * @return void
      */
     function dw()
     {
-        $dump = call_user_func_array('dump', func_get_args());
+        $dump = call_user_func_array('d', func_get_args());
 
         file_put_contents(public_path('dump.html'), $dump, FILE_APPEND);
     }

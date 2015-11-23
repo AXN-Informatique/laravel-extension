@@ -1,5 +1,9 @@
 # Changelog for Laravel Extension
 
+## 1.2.2 (2015-11-23)
+
+- Helper dump() renommé d() car nom déjà utilisé par Symfony...
+
 ## 1.2.1 (2015-11-23)
 
 - Helper dump() : ob_get_clean() et non ob_end_clean().
