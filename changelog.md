@@ -1,5 +1,10 @@
 # Changelog for Laravel Extension
 
+## 1.2.3 (2015-11-24)
+
+- Helper d() renommé dump_html() pour avoir un nom plus parlant, et utilisation
+  du HtmlDumper pour avoir un retour HTML même en console.
+
 ## 1.2.2 (2015-11-23)
 
 - Helper dump() renommé d() car nom déjà utilisé par Symfony...

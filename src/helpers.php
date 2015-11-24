@@ -1,22 +1,27 @@
 <?php
 
 use Illuminate\Support\Debug\Dumper;
+use Illuminate\Support\Debug\HtmlDumper;
+use Symfony\Component\VarDumper\Cloner\VarCloner;
 use Carbon\Carbon;
 
-if (!function_exists('d')) {
+if (!function_exists('dump_html')) {
     /**
-     * Dump les valeurs passées en paramètres à l'aide du Dumper de Laravel,
+     * Dump les valeurs passées en paramètres à l'aide du HtmlDumper de Laravel,
      * sans terminer le script à la fin et en retournant le résultat au lieu
      * de le rendre directement dans le flux.
      *
      * @param  mixed
      * @return string
      */
-    function d()
+    function dump_html()
     {
         ob_start();
 
-        array_map(function($x) {(new Dumper)->dump($x)."\n";}, func_get_args());
+        array_map(
+            function($x) { (new HtmlDumper)->dump((new VarCloner)->cloneVar($x)); },
+            func_get_args()
+        );
 
         return ob_get_clean();
     }
@@ -24,32 +29,35 @@ if (!function_exists('d')) {
 
 if (!function_exists('vd')) {
     /**
-     * Idem d(), mais rend le résultat directement dans le flux comme var_dump().
+     * Comme var_dump() mais avec le dumper de Laravel.
      *
      * @param  mixed
      * @return void
      */
     function vd()
     {
-        array_map(function($x) {(new Dumper)->dump($x)."\n";}, func_get_args());
+        array_map(
+            function($x) { (new Dumper)->dump($x)."\n"; },
+            func_get_args()
+        );
     }
 }
 
 if (!function_exists('dw')) {
     /**
-     * Idem d(), mais écrit le résultat dans "public/dump.html".
+     * Dump les valeurs passées en paramètres à l'aide du helper dump_html()
+     * et écrit le résultat dans le fichier "public/dump.html".
      *
      * @param  mixed
      * @return void
      */
     function dw()
     {
-        $dump = call_user_func_array('d', func_get_args());
+        $dump = call_user_func_array('dump_html', func_get_args());
 
         file_put_contents(public_path('dump.html'), $dump, FILE_APPEND);
     }
 }
-
 
 if (!function_exists('v')) {
     /**
