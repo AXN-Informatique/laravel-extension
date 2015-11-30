@@ -1,5 +1,9 @@
 # Changelog for Laravel Extension
 
+## 1.2.4 (2015-11-30)
+
+- Foundation/Console : ajout de l'extension du ConsoleKernel (trait).
+
 ## 1.2.3 (2015-11-24)
 
 - Helper d() renommé dump_html() pour avoir un nom plus parlant, et utilisation

@@ -157,6 +157,34 @@ suivante pour celle-ci (à ajouter dans `config/database.php`, tableau "connecti
 
 ## Autre...
 
+**Foundation/Console/Kernel.php :**
+
+Trait apportant des fonctionnalités supplémentaires au ConsoleKernel de Laravel,
+permettant notamment d'aliaser automatiquement les modèles lorsque l'on est dans Tinker.
+
+Exemple :
+
+```php
+// app/Console/Kernel.php
+
+use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Axn\Illuminate\Foundation\Console\Kernel as ConsoleKernelExtension;
+
+class Kernel extends ConsoleKernel
+{
+    use ConsoleKernelExtension;
+
+    // ...
+
+    public function bootstrap()
+    {
+        parent::bootstrap();
+
+        $this->aliasModelsIfInTinker('Models');
+    }
+}
+```
+
 **Foundation/Testing/NestedViewsAssertions.php :**
 
 En complément du trait `Illuminate\Foundation\Testing\AssertionsTrait` pour faire des
