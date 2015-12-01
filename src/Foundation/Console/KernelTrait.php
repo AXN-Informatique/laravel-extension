@@ -8,7 +8,8 @@ use Illuminate\Foundation\AliasLoader;
 use Illuminate\Foundation\Console\TinkerCommand;
 use Symfony\Component\Console\Input\ArgvInput;
 
-trait Kernel
+// En complément de \Illuminate\Foundation\Console\Kernel
+trait KernelTrait
 {
     use AppNamespaceDetectorTrait;
 

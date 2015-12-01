@@ -1,5 +1,17 @@
 # Changelog for Laravel Extension
 
+## 1.3.0-dev
+
+- Database : renommage du trait "Model" en "ModelTrait".
+- Foundation/Console : renommage du trait "Kernel" en "KernelTrait".
+- Helpers :
+    * Modification du handler du VarDumper du composant "symfony/var-dumper".
+    * Suppression de vd() - Utiliser dump() à la place.
+    * Suppression de dw() - Utiliser dump_put() à la place.
+    * Suppression de dump_html() - Utiliser dump_get() à la place.
+    * v() s'utilise à présent comme vv() et remplace donc ce dernier.
+    * Suppression de vv().
+
 ## 1.2.4 (2015-11-30)
 
 - Foundation/Console : ajout de l'extension du ConsoleKernel (trait).

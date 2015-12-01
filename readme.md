@@ -192,4 +192,11 @@ assertions sur les vues imbriquées.
 
 **helpers.php :**
 
-En complément des helpers de Laravel.
+En complément des helpers de Laravel :
+
+- **dump_get()** : Retourne le résultat d'un dump à l'aide du dumper HTML de Laravel.
+- **dump_put()** : Écrit le résultat d'un dump dans "public/dump.html" à l'aide du dumper HTML de Laravel.
+- **v()**        : Retourne la valeur d'une variable mais a la particularité de ne pas générer d'erreur
+                   si la variable n'existe pas et de retourner une valeur par défaut.
+- **carbon()**   : Retourne une instance de Carbon\Carbon.
+

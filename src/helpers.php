@@ -2,121 +2,83 @@
 
 use Illuminate\Support\Debug\Dumper;
 use Illuminate\Support\Debug\HtmlDumper;
+use Symfony\Component\VarDumper\VarDumper;
 use Symfony\Component\VarDumper\Cloner\VarCloner;
 use Carbon\Carbon;
 
-if (!function_exists('dump_html')) {
+/*
+ * Permet d'avoir un rendu HTML aux couleurs de Laravel avec VarDumper::dump()
+ * et dump() (composant "symfony/var-dumper").
+ */
+VarDumper::setHandler(function($var) {
+    (new Dumper)->dump($var);
+});
+
+if (!function_exists('dump_get')) {
     /**
-     * Dump les valeurs passées en paramètres à l'aide du HtmlDumper de Laravel,
-     * sans terminer le script à la fin et en retournant le résultat au lieu
-     * de le rendre directement dans le flux.
+     * Dump les valeurs passées en paramètres à l'aide du dumper HTML de Laravel,
+     * puis retourne le résultat.
      *
      * @param  mixed
      * @return string
      */
-    function dump_html()
+    function dump_get()
     {
         ob_start();
 
-        array_map(
-            function($x) { (new HtmlDumper)->dump((new VarCloner)->cloneVar($x)); },
-            func_get_args()
-        );
+        foreach (func_get_args() as $var) {
+            (new HtmlDumper)->dump((new VarCloner)->cloneVar($var));
+        }
 
         return ob_get_clean();
     }
 }
 
-if (!function_exists('vd')) {
+if (!function_exists('dump_put')) {
     /**
-     * Comme var_dump() mais avec le dumper de Laravel.
+     * Dump les valeurs passées en paramètres à l'aide du dumper HTML de Laravel,
+     * puis écrit le résultat dans le fichier "public/dump.html".
      *
      * @param  mixed
      * @return void
      */
-    function vd()
+    function dump_put()
     {
-        array_map(
-            function($x) { (new Dumper)->dump($x)."\n"; },
-            func_get_args()
-        );
-    }
-}
+        ob_start();
 
-if (!function_exists('dw')) {
-    /**
-     * Dump les valeurs passées en paramètres à l'aide du helper dump_html()
-     * et écrit le résultat dans le fichier "public/dump.html".
-     *
-     * @param  mixed
-     * @return void
-     */
-    function dw()
-    {
-        $dump = call_user_func_array('dump_html', func_get_args());
+        foreach (func_get_args() as $var) {
+            (new HtmlDumper)->dump((new VarCloner)->cloneVar($var));
+        }
 
-        file_put_contents(public_path('dump.html'), $dump, FILE_APPEND);
+        file_put_contents(public_path('dump.html'), ob_get_clean(), FILE_APPEND);
     }
 }
 
 if (!function_exists('v')) {
     /**
-     * Retourne la valeur d'une variable. Si celle-ci n'existe pas (variable non
-     * définie ou chaîne vide), une valeur par défaut est retournée à la place.
+     * Retourne la valeur d'une variable, si celle-ci existe et n'est pas une
+     * chaîne vide, ou une valeur par défaut sinon.
      *
-     * ---------------------------------------------------------------------
-     * ATTENTION : Si la variable n'existe pas, le passage par référence a pour
-     * conséquence de la créer (avec valeur NULL), ce qui peut être problématique
-     * si $var est une référence à une dimension d'un tableau ou à un attribut
-     * d'objet car ces éléments seront alors créés...
-     *
-     * Exemple :
-     *   Si $arr = [] et que l'on fait : v($arr['a']['b'])
-     *   alors $arr vaut à présent : ['a' => ['b' => null]]
-     *
-     * Préférer dans ce cas l'utilisation du helper vv().
-     * ---------------------------------------------------------------------
+     * Utiliser le paramètre $key pour accéder aux profondeurs d'un tableau/objet !
+     * Exemple : v($arr, 'a.b') accède à $arr['a']['b'], ou $arr['a']->b, etc.
      *
      * @param  mixed               &$var
-     * @param  mixed               $default  Valeur à retourner si $var non défini ou chaîne vide
-     * @param  string|Closure|null $callback Callback sur $var si $var défini
+     * @param  string|null         $key      Profondeur dans $var
+     * @param  mixed               $default  À retourner si valeur non définie ou chaîne vide
+     * @param  string|Closure|null $callback Callback sur la valeur si définie
      * @return mixed
      */
-    function v(&$var, $default = null, $callback = null)
+    function v(&$var, $key = null, $default = null, $callback = null)
     {
-        if (!isset($var) || $var === '') {
-            return $default;
-        }
-        elseif (is_callable($callback)) {
-            return call_user_func($callback, $var);
-        }
-        else {
-            return $var;
-        }
-    }
-}
-
-if (!function_exists('vv')) {
-    /**
-     * Idem helper v() mais avec un paramètre $key pour accéder aux dimensions
-     * d'un tableau ou attributs d'un objet, évitant ainsi la création de toute
-     * la profondeur si celle-ci n'existe pas.
-     *
-     * @param  mixed               &$var
-     * @param  string              $key
-     * @param  mixed               $default  Valeur à retourner si $var non défini ou chaîne vide
-     * @param  string|Closure|null $callback Callback sur $var si $var défini
-     * @return mixed
-     */
-    function vv(&$var, $key, $default = null, $callback = null)
-    {
-        if (!isset($var) || !is_array($var) && !is_object($var)) {
-            return $default;
-        }
-
         $data = data_get($var, $key);
 
-        return v($data, $default, $callback);
+        if ($data === null || $data === '') {
+            return $default;
+        } elseif (is_callable($callback)) {
+            return call_user_func($callback, $data);
+        } else {
+            return $data;
+        }
     }
 }
 

@@ -2,9 +2,8 @@
 
 namespace Axn\Illuminate\Database\Eloquent;
 
-//use Illuminate\Database\Eloquent\Model as BaseModel;
-
-trait Model /*extends BaseModel*/
+// En complément de \Illuminate\Database\Eloquent\Model
+trait ModelTrait
 {
     /**
      * Retourne une nouvelle instance du builder d'Eloquent.
