@@ -9,8 +9,8 @@
     * Suppression de vd() - Utiliser dump() à la place.
     * Suppression de dw() - Utiliser dump_put() à la place.
     * Suppression de dump_html() - Utiliser dump_get() à la place.
-    * v() s'utilise à présent comme vv() et remplace donc ce dernier.
-    * Suppression de vv().
+    * Simplification de v().
+    * Suppression de vv() - Utiliser data_get() à la place.
 
 ## 1.2.4 (2015-11-30)
 

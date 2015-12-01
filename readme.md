@@ -194,9 +194,8 @@ assertions sur les vues imbriquées.
 
 En complément des helpers de Laravel :
 
-- **dump_get()** : Retourne le résultat d'un dump à l'aide du dumper HTML de Laravel.
-- **dump_put()** : Écrit le résultat d'un dump dans "public/dump.html" à l'aide du dumper HTML de Laravel.
-- **v()**        : Retourne la valeur d'une variable mais a la particularité de ne pas générer d'erreur
-                   si la variable n'existe pas et de retourner une valeur par défaut.
-- **carbon()**   : Retourne une instance de Carbon\Carbon.
+- **dump_get()** : Retourne le résultat d'un dump obtenu à l'aide du dumper HTML de Laravel.
+- **dump_put()** : Écrit dans "public/dump.html" le résultat d'un dump obtenu à l'aide du dumper HTML de Laravel.
+- **v()**        : Tente de retourner la valeur d'une variable, sans générer d'erreur si celle-ci n'existe pas.
+- **carbon()**   : Crée une instance Carbon à partir d'une date ou d'un timestamp.
 

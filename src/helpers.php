@@ -16,8 +16,7 @@ VarDumper::setHandler(function($var) {
 
 if (!function_exists('dump_get')) {
     /**
-     * Dump les valeurs passées en paramètres à l'aide du dumper HTML de Laravel,
-     * puis retourne le résultat.
+     * Retourne le résultat d'un dump obtenu à l'aide du dumper HTML de Laravel.
      *
      * @param  mixed
      * @return string
@@ -36,8 +35,8 @@ if (!function_exists('dump_get')) {
 
 if (!function_exists('dump_put')) {
     /**
-     * Dump les valeurs passées en paramètres à l'aide du dumper HTML de Laravel,
-     * puis écrit le résultat dans le fichier "public/dump.html".
+     * Écrit dans "public/dump.html" le résultat d'un dump obtenu à l'aide
+     * du dumper HTML de Laravel
      *
      * @param  mixed
      * @return void
@@ -56,29 +55,16 @@ if (!function_exists('dump_put')) {
 
 if (!function_exists('v')) {
     /**
-     * Retourne la valeur d'une variable, si celle-ci existe et n'est pas une
-     * chaîne vide, ou une valeur par défaut sinon.
+     * Tente de retourner la valeur d'une variable, sans générer d'erreur
+     * si celle-ci n'existe pas (grâce au passage par référence).
      *
-     * Utiliser le paramètre $key pour accéder aux profondeurs d'un tableau/objet !
-     * Exemple : v($arr, 'a.b') accède à $arr['a']['b'], ou $arr['a']->b, etc.
-     *
-     * @param  mixed               &$var
-     * @param  string|null         $key      Profondeur dans $var
-     * @param  mixed               $default  À retourner si valeur non définie ou chaîne vide
-     * @param  string|Closure|null $callback Callback sur la valeur si définie
+     * @param  mixed &$var
+     * @param  mixed $default
      * @return mixed
      */
-    function v(&$var, $key = null, $default = null, $callback = null)
+    function v(&$var, $default = null)
     {
-        $data = data_get($var, $key);
-
-        if ($data === null || $data === '') {
-            return $default;
-        } elseif (is_callable($callback)) {
-            return call_user_func($callback, $data);
-        } else {
-            return $data;
-        }
+        return isset($var) ? $var : $default;
     }
 }
 
