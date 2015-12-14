@@ -20,7 +20,7 @@ trait ModelTrait
     /**
      * Retourne la valeur de l'attribut $orderBy si celui-ci a été défini.
      *
-     * @return array|null
+     * @return string|array|null
      */
     public function getOrderBy()
     {
@@ -28,24 +28,29 @@ trait ModelTrait
     }
 
     /**
-     * Crée plusieurs nouveaux enregistrements.
+     * Crée plusieurs nouveaux enregistrements en une requête grâce à la méthode
+     * insert() du QueryBuilder en prenant soin de renseigner les champs "created_at"
+     * et "updated_at" de chaque enregistrement avant insertion.
      *
-     * @param  array[array] $attributesList
+     * ATTENTION : Cette méthode ne déclenche pas les évènements et ne fait aucun
+     * retour !
+     *
+     * @param  array[array] $data
      * @return void
      */
-    public static function createMany(array $attributesList)
+    public static function createMany(array $data)
     {
         $model = new static;
 
         if ($model->usesTimestamps()) {
             $now = $model->freshTimestampString();
 
-            foreach ($attributesList as &$attributes) {
+            foreach ($data as &$attributes) {
                 $attributes[$model->getCreatedAtColumn()] = $now;
                 $attributes[$model->getUpdatedAtColumn()] = $now;
             }
         }
 
-        static::query()->getQuery()->insert($attributesList);
+        static::query()->getQuery()->insert($data);
     }
 }

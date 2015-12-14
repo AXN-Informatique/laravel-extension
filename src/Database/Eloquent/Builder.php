@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Builder extends BaseEloquentBuilder
 {
     /**
-     * Nom du trait utilisé par le modèle pour les soft deletes.
+     * Nom du trait utilisé par le modèle pour gérer les soft deletes.
      */
     const SOFT_DELETES_TRAIT = 'Illuminate\Database\Eloquent\SoftDeletes';
 
@@ -31,30 +31,10 @@ class Builder extends BaseEloquentBuilder
      */
     public function getModels($columns = ['*'])
     {
-        $this->orderByDefault();
+        $this->applyDefaultOrderBy();
 
         return parent::getModels($columns);
     }
-
-    /**
-	 * Applique l'ordre par défaut si défini et qu'aucun autre ordre n'a été spécifié.
-     * https://github.com/innoscience/eloquental/blob/master/src/Query/Builder.php
-	 *
-	 * @return Builder
-	 */
-	protected function orderByDefault()
-    {
-		if ($this->model->getOrderBy() && !$this->query->orders) {
-			if (array_key_exists(0, $this->model->getOrderBy())) {
-				throw new Exception(get_class($this->model).'->orderBy property must be an associated array comprised of $column => $direction values.');
-			}
-			foreach ($this->model->getOrderBy() as $column => $direction) {
-				$this->query->orderBy($column, $direction);
-			}
-		}
-
-		return $this;
-	}
 
     /**
      * Modifie l'alias de la table utilisée dans la clause "from".
@@ -143,6 +123,81 @@ class Builder extends BaseEloquentBuilder
     }
 
     /**
+     * Idem méthode joinRel() mais en type RIGHT.
+     *
+     * @param  string  $relationName
+     * @param  string  $alias
+     * @param  boolean $withTrashed
+     * @return Builder
+     */
+    public function rightJoinRel($relationName, $alias = '', $withTrashed = false)
+    {
+        return $this->joinRel($relationName, $alias, 'right', $withTrashed);
+    }
+
+    /**
+     * Idem méthode rightJoinRel() mais en incluant les enregistrements supprimés.
+     *
+     * @param  string $relationName
+     * @param  string $alias
+     * @return Builder
+     */
+    public function rightJoinRelWithTrashed($relationName, $alias = '')
+    {
+        return $this->rightJoinRel($relationName, $alias, true);
+    }
+
+    /**
+     * Ajoute les mises à jour des champs "updated_at" des tables pour lesquelles
+     * il y a modification de champs.
+     *
+     * @param  array $values
+     * @return array
+     */
+    protected function addUpdatedAtColumn(array $values)
+    {
+        $added = false;
+
+        foreach ($values as $column => $value) {
+            if (!strpos($column, '.')) continue;
+
+            list($alias, $column) = explode('.', $column);
+
+            if (isset($this->relatedModels[$alias]) && $this->relatedModels[$alias]->usesTimestamps()) {
+                $updatedAtColumn = "$alias.".$this->relatedModels[$alias]->getUpdatedAtColumn();
+
+                if (!array_key_exists($updatedAtColumn, $values)) {
+                    $values[$updatedAtColumn] = $this->model->freshTimestampString();
+                    $added = true;
+                }
+            }
+        }
+
+        return $added ? $values : parent::addUpdatedAtColumn($values);
+    }
+
+    /**
+	 * Applique l'ordre par défaut si défini et qu'aucun autre ordre n'a été spécifié.
+     *
+     * https://github.com/innoscience/eloquental/blob/master/src/Query/Builder.php
+	 *
+	 * @return void
+	 */
+	private function applyDefaultOrderBy()
+    {
+		if (!$this->model->getOrderBy() || $this->query->orders) return;
+
+        foreach ((array) $this->model->getOrderBy() as $column => $direction) {
+            if (is_int($column)) {
+                $column    = $direction;
+                $direction = 'asc';
+            }
+
+            $this->query->orderBy($column, $direction);
+        }
+	}
+
+    /**
      * Analyse le nom de la relation pour en extraire l'alias de la table sur laquelle
      * effectuer la jointure.
      *
@@ -172,7 +227,7 @@ class Builder extends BaseEloquentBuilder
      */
     private function buildCond(Relation $relation, $withTrashed)
     {
-        // HasOneOrMany (et MorphOneOrMany)
+        // HasOneOrMany (comprend aussi MorphOneOrMany)
         if ($relation instanceof HasOneOrMany) {
             $localKey = $relation->getParent()->getQualifiedKeyName();
             $foreignKey = $relation->getRelated()->getTable().'.'.$relation->getPlainForeignKey();
@@ -199,34 +254,5 @@ class Builder extends BaseEloquentBuilder
                 $join->whereNull($relation->getRelated()->getQualifiedDeletedAtColumn());
             }
         });
-    }
-
-    /**
-     * Ajoute les mises à jour des champs "updated_at" des tables pour lesquelles
-     * il y a modification de champs.
-     *
-     * @param  array $values
-     * @return array
-     */
-    protected function addUpdatedAtColumn(array $values)
-    {
-        $added = false;
-
-        foreach ($values as $column => $value) {
-            if (strpos($column, '.')) {
-                list($alias, $column) = explode('.', $column);
-
-                if (isset($this->relatedModels[$alias]) && $this->relatedModels[$alias]->usesTimestamps()) {
-                    $updatedAtColumn = "$alias.".$this->relatedModels[$alias]->getUpdatedAtColumn();
-
-                    if (!array_key_exists($updatedAtColumn, $values)) {
-                        $values[$updatedAtColumn] = $this->model->freshTimestampString();
-                        $added = true;
-                    }
-                }
-            }
-        }
-
-        return $added ? $values : parent::addUpdatedAtColumn($values);
     }
 }

@@ -3,7 +3,9 @@
 ## 1.3.0-dev
 
 - Database : renommage du trait "Model" en "ModelTrait".
+- Database : ajout des méthodes rightJoinRel() et rightJoinRelWithTrashed() au builder.
 - Foundation/Console : renommage du trait "Kernel" en "KernelTrait".
+- Foundation/Testing : renommage du trait "NestedViewsAssertions" en "NestedViewsAssertionsTrait".
 - Helpers :
     * Modification du handler du VarDumper du composant "symfony/var-dumper".
     * Suppression de vd() - Utiliser dump() à la place.

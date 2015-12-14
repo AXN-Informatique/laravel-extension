@@ -2,7 +2,7 @@
 
 namespace Axn\Illuminate\Foundation\Testing;
 
-trait NestedViewsAssertions
+trait NestedViewsAssertionsTrait
 {
     /**
      * Variables des vues imbriquées.
@@ -41,20 +41,16 @@ trait NestedViewsAssertions
     {
         if (is_array($key)) {
             $this->assertNestedViewHasAll($viewName, $key);
-        }
-        elseif (!isset($this->nestedViewsData[$viewName])) {
+        } elseif (!isset($this->nestedViewsData[$viewName])) {
             $this->assertTrue(false, 'The view was not called.');
-        }
-        else {
+        } else {
             $data = $this->nestedViewsData[$viewName];
 
             if (is_null($value)) {
                 $this->assertArrayHasKey($key, $data);
-            }
-            elseif (isset($data[$key])) {
+            } elseif (isset($data[$key])) {
                 $this->assertEquals($value, $data[$key]);
-            }
-            else {
+            } else {
                 $this->assertTrue(false, 'The view has no bound data with this key.');
             }
         }

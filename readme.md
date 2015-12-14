@@ -18,18 +18,18 @@ Ajouter le service provider au tableau des providers dans `config/app.php` :
 'Axn\Illuminate\Database\DatabaseServiceProvider',
 ```
 
-Ajouter le trait `Axn\Illuminate\Database\Eloquent\Model` aux modèles pour lesquels
+Ajouter le trait `Axn\Illuminate\Database\Eloquent\ModelTrait` aux modèles pour lesquels
 l'extension d'Eloquent est souhaitée :
 
 ```php
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Axn\Illuminate\Database\Eloquent\Model as EloquentExtension;
+use Axn\Illuminate\Database\Eloquent\ModelTrait;
 
 class User extends Model
 {
-    use EloquentExtension;
+    use ModelTrait;
 
     // ...
 }
@@ -54,10 +54,29 @@ class User extends Model
 }
 ```
 
+### Insertion de plusieurs enregistrements en une requête
+
+Grâce à la méthode `createMany()` il est possible de créer plusieurs enregistrements en une seule requête,
+tout comme il est possible de le faire avec la méthode `insert()` du QueryBuilder en lui passant
+un tableau multidimensionnel, à la différence que `createMany()` va automatiquement renseigner
+les champs `created_at` et `updated_at` comme le fait la méthode `create()`. **Par contre attention :
+cette méthode ne déclenche pas les évènements et ne fait aucun retour !**
+
+Exemple :
+
+```php
+Role::createMany([
+    ['name' => 'supa'    , 'display_name' => 'Super-Administrateur'],
+    ['name' => 'admin'   , 'display_name' => 'Administrateur'],
+    ['name' => 'operator', 'display_name' => 'Opérateur']
+]);
+```
+
 ### Jointures via relations
 
 Des jointures peuvent être effectuées en utilisant les relations definies dans le modèle.
-Seules les relations BelongsTo, HasOneOrMany et MorphOneOrMany sont gérées. Ainsi,
+
+Attention : seules les relations BelongsTo, HasOneOrMany et MorphOneOrMany sont gérées. Ainsi,
 pour joindre une table en relation BelongsToMany, il faut d'abord passé par la table pivot.
 
 Exemple :
@@ -157,7 +176,7 @@ suivante pour celle-ci (à ajouter dans `config/database.php`, tableau "connecti
 
 ## Autre...
 
-**Foundation/Console/Kernel.php :**
+### Foundation/Console/KernelTrait.php
 
 Trait apportant des fonctionnalités supplémentaires au ConsoleKernel de Laravel,
 permettant notamment d'aliaser automatiquement les modèles lorsque l'on est dans Tinker.
@@ -168,11 +187,11 @@ Exemple :
 // app/Console/Kernel.php
 
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use Axn\Illuminate\Foundation\Console\Kernel as ConsoleKernelExtension;
+use Axn\Illuminate\Foundation\Console\KernelTrait;
 
 class Kernel extends ConsoleKernel
 {
-    use ConsoleKernelExtension;
+    use KernelTrait;
 
     // ...
 
@@ -185,12 +204,23 @@ class Kernel extends ConsoleKernel
 }
 ```
 
-**Foundation/Testing/NestedViewsAssertions.php :**
+### Foundation/Testing/NestedViewsAssertionsTrait.php
 
 En complément du trait `Illuminate\Foundation\Testing\AssertionsTrait` pour faire des
-assertions sur les vues imbriquées.
+assertions sur les vues imbriquées. À ajouter à la classe `TestCase` :
 
-**helpers.php :**
+```php
+use Axn\Illuminate\Foundation\Testing\NestedViewsAssertionsTrait;
+
+class TestCase extends Illuminate\Foundation\Testing\TestCase
+{
+    use NestedViewsAssertionsTrait;
+
+    // ...
+}
+```
+
+### helpers.php
 
 En complément des helpers de Laravel :
 
@@ -198,4 +228,3 @@ En complément des helpers de Laravel :
 - **dump_put()** : Écrit dans "public/dump.html" le résultat d'un dump obtenu à l'aide du dumper HTML de Laravel.
 - **v()**        : Tente de retourner la valeur d'une variable, sans générer d'erreur si celle-ci n'existe pas.
 - **carbon()**   : Crée une instance Carbon à partir d'une date ou d'un timestamp.
-
