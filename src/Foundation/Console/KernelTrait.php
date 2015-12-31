@@ -26,32 +26,32 @@ trait KernelTrait
     }
 
 	/**
-     * Alias les classes modèles avec leur nom pour un accès rapide à ceux-ci
-     * lorsque l'on est dans Tinker.
+     * Recherche et alias automatiquement toutes les classes modèles avec leur
+     * nom pour avoir un accès rapide à ceux-ci lorsque l'on est dans Tinker.
      *
-     * @param  string $modelsDir
+     * À appeler dans la méthode bootstrap() du Console Kernel de l'application,
+     * après l'appel à parent::bootstrap().
+     *
      * @return void
      */
-    protected function aliasModelsIfInTinker($modelsDir = '')
+    protected function aliasModelsIfInTinker()
     {
         if (!$this->getCurrentCommand() instanceof TinkerCommand) return;
 
-        $modelsFiles = $this->app['files']->allFiles(app_path($modelsDir));
+        $appFiles  = $this->app['files']->allFiles($this->app['path']);
+        $appNs     = $this->getAppNamespace();
 
-        $modelsNs = $this->getAppNamespace()
-                    .($modelsDir ? str_replace('/', '\\', $modelsDir).'\\' : '');
-
-        foreach ($modelsFiles as $file) {
+        foreach ($appFiles as $file) {
             $name  = $file->getBasename('.php');
             $dir   = $file->getRelativePath();
-            $class = $modelsNs.($dir ? str_replace('/', '\\', $dir).'\\' : '').$name;
+            $class = $appNs.($dir ? str_replace('/', '\\', $dir).'\\' : '').$name;
 
             try {
                 $rc = new ReflectionClass($class);
 
-                if (!$rc->isInstantiable()
-                    || !$rc->isSubclassOf('Illuminate\Database\Eloquent\Model'))
+                if (!$rc->isInstantiable() || !$rc->isSubclassOf('Illuminate\Database\Eloquent\Model')) {
                     continue;
+                }
 
                 AliasLoader::getInstance()->alias($name, $class);
             }

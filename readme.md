@@ -199,7 +199,7 @@ class Kernel extends ConsoleKernel
     {
         parent::bootstrap();
 
-        $this->aliasModelsIfInTinker('Models');
+        $this->aliasModelsIfInTinker();
     }
 }
 ```
