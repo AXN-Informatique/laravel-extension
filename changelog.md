@@ -1,10 +1,10 @@
 # Changelog for Laravel Extension
 
-## 1.3.0-dev
+## 2.0.0-dev
 
 - Database : renommage du trait "Model" en "ModelTrait".
 - Database : ajout des méthodes rightJoinRel() et rightJoinRelWithTrashed() au builder.
-- Foundation/Console : renommage du trait "Kernel" en "KernelTrait".
+- Foundation/Console : suppression du trait "Kernel" (solution non convainquante).
 - Foundation/Testing : renommage du trait "NestedViewsAssertions" en "NestedViewsAssertionsTrait".
 - Helpers :
     * Modification du handler du VarDumper du composant "symfony/var-dumper".
