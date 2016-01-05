@@ -66,6 +66,7 @@ class Builder extends BaseEloquentBuilder
     public function joinRel($relationName, $alias = '', $type = 'inner', $withTrashed = false)
     {
         $this->parseRelationName($relationName, $parentAlias);
+
         $alias = $alias ?: $relationName;
 
         if (!isset($this->relatedModels[$alias])) {
@@ -159,7 +160,9 @@ class Builder extends BaseEloquentBuilder
         $added = false;
 
         foreach ($values as $column => $value) {
-            if (!strpos($column, '.')) continue;
+            if (!strpos($column, '.')) {
+                continue;
+            }
 
             list($alias, $column) = explode('.', $column);
 
@@ -176,6 +179,10 @@ class Builder extends BaseEloquentBuilder
         return $added ? $values : parent::addUpdatedAtColumn($values);
     }
 
+    // ------------------------------------------------------------------------
+    // HELPERS
+    // ------------------------------------------------------------------------
+
     /**
 	 * Applique l'ordre par défaut si défini et qu'aucun autre ordre n'a été spécifié.
      *
@@ -185,7 +192,9 @@ class Builder extends BaseEloquentBuilder
 	 */
 	private function applyDefaultOrderBy()
     {
-		if (!$this->model->getOrderBy() || $this->query->orders) return;
+		if (!$this->model->getOrderBy() || $this->query->orders) {
+            return;
+        }
 
         foreach ((array) $this->model->getOrderBy() as $column => $direction) {
             if (is_int($column)) {

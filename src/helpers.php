@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Debug\Dumper;
 use Illuminate\Support\Debug\HtmlDumper;
 use Symfony\Component\VarDumper\VarDumper;
@@ -26,7 +27,7 @@ if (!function_exists('dump_get')) {
         ob_start();
 
         foreach (func_get_args() as $var) {
-            (new HtmlDumper)->dump((new VarCloner)->cloneVar($var));
+            (new HtmlDumper)->dump( (new VarCloner)->cloneVar($var) );
         }
 
         return ob_get_clean();
@@ -46,7 +47,7 @@ if (!function_exists('dump_put')) {
         ob_start();
 
         foreach (func_get_args() as $var) {
-            (new HtmlDumper)->dump((new VarCloner)->cloneVar($var));
+            (new HtmlDumper)->dump( (new VarCloner)->cloneVar($var) );
         }
 
         file_put_contents(public_path('dump.html'), ob_get_clean(), FILE_APPEND);
@@ -84,5 +85,18 @@ if (!function_exists('carbon')) {
         } else {
             return Carbon::parse($date, $tz);
         }
+    }
+}
+
+if (!function_exists('collect_models')) {
+    /**
+     * Crée une collection de modèles (entités Eloquent).
+     *
+     * @param  array[\Illuminate\Database\Eloquent\Model] $models
+     * @return EloquentCollection
+     */
+    function collect_models($models = null)
+    {
+        return new EloquentCollection($models);
     }
 }

@@ -196,7 +196,8 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
 
 En complément des helpers de Laravel :
 
-- **dump_get()** : Retourne le résultat d'un dump obtenu à l'aide du dumper HTML de Laravel.
-- **dump_put()** : Écrit dans "public/dump.html" le résultat d'un dump obtenu à l'aide du dumper HTML de Laravel.
-- **v()**        : Tente de retourner la valeur d'une variable, sans générer d'erreur si celle-ci n'existe pas.
-- **carbon()**   : Crée une instance Carbon à partir d'une date ou d'un timestamp.
+- **dump_get()**       : Retourne le résultat d'un dump obtenu à l'aide du dumper HTML de Laravel.
+- **dump_put()**       : Écrit dans "public/dump.html" le résultat d'un dump obtenu à l'aide du dumper HTML de Laravel.
+- **v()**              : Tente de retourner la valeur d'une variable, sans générer d'erreur si celle-ci n'existe pas.
+- **carbon()**         : Crée une instance Carbon à partir d'une date ou d'un timestamp.
+- **collect_models()** : Crée une collection de modèles (entités Eloquent).

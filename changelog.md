@@ -13,6 +13,7 @@
     * Suppression de dump_html() - Utiliser dump_get() à la place.
     * Simplification de v().
     * Suppression de vv() - Utiliser data_get() à la place.
+    * Ajout du helper collect_models().
 
 ## 1.2.4 (2015-11-30)
 
