@@ -8,8 +8,8 @@
             "Axn\\Illuminate\\": "src/"
         },
         "files": [
-            "src/bootstrap.php",
-            "src/helpers.php"
+            "src/helpers.php",
+            "src/bootstrap.php"
         ]
     }
 }
