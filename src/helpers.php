@@ -1,19 +1,9 @@
 <?php
 
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
-use Illuminate\Support\Debug\Dumper;
 use Illuminate\Support\Debug\HtmlDumper;
-use Symfony\Component\VarDumper\VarDumper;
 use Symfony\Component\VarDumper\Cloner\VarCloner;
 use Carbon\Carbon;
-
-/*
- * Permet d'avoir un rendu HTML aux couleurs de Laravel avec VarDumper::dump()
- * et dump() (composant "symfony/var-dumper").
- */
-VarDumper::setHandler(function($var) {
-    (new Dumper)->dump($var);
-});
 
 if (!function_exists('dump_get')) {
     /**

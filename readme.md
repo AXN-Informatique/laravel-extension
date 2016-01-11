@@ -10,15 +10,23 @@ Inclure le package avec Composer :
 composer require axn/laravel-extension
 ```
 
+Si vous souhaitez enregistrer l'ensemble des extensions d'un coup, ajoutez le service
+provider global au tableau des providers dans `config/app.php` :
+
+```
+'Axn\Illuminate\ServiceProvider',
+```
+
 ## Utilisation de l'extension d'Eloquent
 
-Ajouter le service provider au tableau des providers dans `config/app.php` :
+Si vous n'utilisez pas le provider global, ajoutez le service provider suivant au
+tableau des providers dans `config/app.php` :
 
 ```
 'Axn\Illuminate\Database\DatabaseServiceProvider',
 ```
 
-Ajouter le trait `Axn\Illuminate\Database\Eloquent\ModelTrait` aux modèles pour lesquels
+Ajoutez le trait `Axn\Illuminate\Database\Eloquent\ModelTrait` aux modèles pour lesquels
 l'extension d'Eloquent est souhaitée :
 
 ```php
@@ -93,20 +101,25 @@ User::alias('u')
     ->get();
 ```
 
-Des alias à joinRel() sont également disponibles pour faire des LEFT JOIN ou pour inclure
-les enregistrements "soft deleted" :
+Des alias à joinRel() sont également disponibles pour faire des jointures LEFT/RIGHT
+ou pour inclure les enregistrements "soft deleted" :
 
 - joinRelWithTrashed()
 - leftJoinRel()
 - leftJoinRelWithTrashed()
+- rightJoinRel()
+- rightJoinRelWithTrashed()
 
-## Utilisation de la commande "optimize:all"
+## Commandes Artisan
 
-Ajouter la commande à la liste des commandes dans la classe `app/Console/Kernel.php` :
+Si vous n'utilisez pas le provider global, ajoutez le service provider suivant au
+tableau des providers dans `config/app.php` :
 
 ```
-'Axn\Illuminate\Foundation\Console\OptimizeAll',
+'Axn\Illuminate\Foundation\Providers\ArtisanServiceProvider',
 ```
+
+### Commande "optimize:all"
 
 Pour lancer la commande :
 
@@ -122,13 +135,7 @@ Cela permet de lancer toutes les commandes d'optimisation en une seule :
 
 Avec une compilation des vues Blade (qui était autrefois présente dans la commande "optimize").
 
-## Utilisation de la commande "optimize:clear"
-
-Ajouter la commande à la liste des commandes dans la classe `app/Console/Kernel.php` :
-
-```
-'Axn\Illuminate\Foundation\Console\OptimizeClear',
-```
+### Commande "optimize:clear"
 
 Pour lancer la commande :
 
@@ -142,13 +149,7 @@ Cela permet de lancer toutes les commandes de nettoyage des optimisations en une
 - php artisan config:clear
 - php artisan clear-compiled
 
-## Utilisation de la commande "migrate:test"
-
-Ajouter la commande à la liste des commandes dans la classe `app/Console/Kernel.php` :
-
-```
-'Axn\Illuminate\Foundation\Console\MigrateTest',
-```
+### Commande "migrate:test"
 
 Pour lancer la commande :
 

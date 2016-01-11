@@ -2,12 +2,17 @@
 
 ## 2.0.0-dev
 
-- Database : renommage du trait "Model" en "ModelTrait".
-- Database : ajout des méthodes rightJoinRel() et rightJoinRelWithTrashed() au builder.
-- Foundation/Console : suppression du trait "Kernel" (solution non convainquante).
-- Foundation/Testing : renommage du trait "NestedViewsAssertions" en "NestedViewsAssertionsTrait".
+- Ajout d'un provider pour enregistrer toutes les commandes.
+- Ajout d'un provider pour enregistrer tous les providers et alias.
+- Ajout d'un fichier de bootstrap pour modifier le handler du dumper de Symfony.
+- Database :
+    * Renommage du trait "Model" en "ModelTrait".
+    * Ajout des méthodes rightJoinRel() et rightJoinRelWithTrashed() au builder.
+- Foundation/Console :
+    * Suppression du trait "Kernel" (solution non convainquante).
+- Foundation/Testing :
+    * Renommage du trait "NestedViewsAssertions" en "NestedViewsAssertionsTrait".
 - Helpers :
-    * Modification du handler du VarDumper du composant "symfony/var-dumper".
     * Suppression de vd() - Utiliser dump() à la place.
     * Suppression de dw() - Utiliser dump_put() à la place.
     * Suppression de dump_html() - Utiliser dump_get() à la place.
