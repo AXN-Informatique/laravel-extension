@@ -1,5 +1,7 @@
 {
     "name": "axn/laravel-extension",
+    "homepage": "https://bitbucket.org/axn/laravel-extension",
+	"description": "Regroupe toutes les extensions faites du framework Laravel 5.",
     "require": {
         "illuminate/support": "^5.0"
     },
