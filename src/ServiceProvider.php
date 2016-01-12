@@ -14,6 +14,7 @@ class ServiceProvider extends BaseServiceProvider
      */
     protected $providers = [
         'Axn\Illuminate\Database\DatabaseServiceProvider',
+        'Axn\Illuminate\Database\MigrationServiceProvider',
         'Axn\Illuminate\Foundation\Providers\ArtisanServiceProvider',
     ];
 

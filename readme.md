@@ -10,21 +10,23 @@ Inclure le package avec Composer :
 composer require axn/laravel-extension
 ```
 
-Si vous souhaitez enregistrer l'ensemble des extensions d'un coup, ajoutez le service
+Si vous souhaitez enregistrer l'ensemble des providers d'un coup, ajoutez le service
 provider global au tableau des providers dans `config/app.php` :
 
 ```
 'Axn\Illuminate\ServiceProvider',
 ```
 
-## Utilisation de l'extension d'Eloquent
-
-Si vous n'utilisez pas le provider global, ajoutez le service provider suivant au
-tableau des providers dans `config/app.php` :
+Vous pouvez sinon choisir vous-mêmes les providers à utiliser (tous ces providers sont
+compris dans le provider global) :
 
 ```
 'Axn\Illuminate\Database\DatabaseServiceProvider',
+'Axn\Illuminate\Database\MigrationServiceProvider',
+'Axn\Illuminate\Foundation\Providers\ArtisanServiceProvider',
 ```
+
+## Utilisation de l'extension d'Eloquent
 
 Ajoutez le trait `Axn\Illuminate\Database\Eloquent\ModelTrait` aux modèles pour lesquels
 l'extension d'Eloquent est souhaitée :
@@ -112,13 +114,6 @@ ou pour inclure les enregistrements "soft deleted" :
 
 ## Commandes Artisan
 
-Si vous n'utilisez pas le provider global, ajoutez le service provider suivant au
-tableau des providers dans `config/app.php` :
-
-```
-'Axn\Illuminate\Foundation\Providers\ArtisanServiceProvider',
-```
-
 ### Commande "optimize:all"
 
 Pour lancer la commande :
@@ -159,10 +154,11 @@ php artisan migrate:test
 
 Les options suivantes sont disponibles :
 
-* **--conn :** Connexion à utiliser dans `config/database.php` (par défaut : "testing")
+* **--database :** Connexion à utiliser dans `config/database.php` (par défaut : "testing")
+* **--seed :** Indique si la commande de seeding doit être lancée.
 
 Cela permet de tester, sur une connexion autre que celle principale, que les migrations
-et seeds se lancent bien (pas d'exception levée en cours de migration/rollback/seeding).
+et seeds se lancent bien (c'est-à-dire qu'aucune exception n'est levée).
 
 Par défaut, la connexion "testing" est utilisée. Vous pouvez utliser la configuration
 suivante pour celle-ci (à ajouter dans `config/database.php`, tableau "connections") :

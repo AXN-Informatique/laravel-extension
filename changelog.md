@@ -10,6 +10,7 @@
     * Ajout des méthodes rightJoinRel() et rightJoinRelWithTrashed() au builder.
 - Foundation/Console :
     * Suppression du trait "Kernel" (solution non convainquante).
+    * Commande MigrateTest : renommage, déplacement, ajout/renommage d'options.
 - Foundation/Testing :
     * Renommage du trait "NestedViewsAssertions" en "NestedViewsAssertionsTrait".
 - Helpers :

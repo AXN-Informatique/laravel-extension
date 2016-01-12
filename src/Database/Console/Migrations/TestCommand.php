@@ -1,13 +1,13 @@
 <?php
 
-namespace Axn\Illuminate\Foundation\Console;
+namespace Axn\Illuminate\Database\Console\Migrations;
 
 use Exception;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class MigrateTest extends Command
+class TestCommand extends Command
 {
 	/**
 	 * The console command name.
@@ -30,7 +30,7 @@ class MigrateTest extends Command
 	 */
 	public function handle()
 	{
-        $testingDbConn = $this->option('conn');
+        $testingDbConn = $this->option('database');
         $defaultDbConn = $this->laravel['db']->getName();
 
         try {
@@ -41,9 +41,11 @@ class MigrateTest extends Command
             $this->call('migrate');
             echo "\n";
 
-            $this->comment('> Running "db:seed" command:');
-            $this->call('db:seed');
-            echo "\n";
+            if ($this->option('seed')) {
+                $this->comment('> Running "db:seed" command:');
+                $this->call('db:seed');
+                echo "\n";
+            }
 
             $this->comment('> Running "migrate:reset" command:');
             $this->call('migrate:reset');
@@ -79,7 +81,8 @@ class MigrateTest extends Command
 	protected function getOptions()
 	{
 		return [
-			['conn', null, InputOption::VALUE_OPTIONAL, 'DB connection to use', 'testing'],
+			['database', null, InputOption::VALUE_OPTIONAL, 'The database connection to use.', 'testing'],
+            ['seed', null, InputOption::VALUE_NONE, 'Indicates if the seed task should be run.'],
 		];
 	}
 }

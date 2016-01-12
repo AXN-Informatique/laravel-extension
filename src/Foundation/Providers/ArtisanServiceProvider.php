@@ -3,7 +3,6 @@
 namespace Axn\Illuminate\Foundation\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Axn\Illuminate\Foundation\Console\MigrateTest;
 use Axn\Illuminate\Foundation\Console\OptimizeAll;
 use Axn\Illuminate\Foundation\Console\OptimizeClear;
 
@@ -22,7 +21,6 @@ class ArtisanServiceProvider extends ServiceProvider
 	 * @var array
 	 */
 	protected $commands = [
-		'MigrateTest'   => 'command.migrate.test',
 		'OptimizeAll'   => 'command.optimize.all',
 		'OptimizeClear' => 'command.optimize.clear',
 	];
@@ -41,18 +39,6 @@ class ArtisanServiceProvider extends ServiceProvider
 		}
 
 		$this->commands(array_values($this->commands));
-	}
-
-	/**
-	 * Register the command.
-	 *
-	 * @return void
-	 */
-	protected function registerMigrateTestCommand()
-	{
-		$this->app->singleton('command.migrate.test', function() {
-			return new MigrateTest;
-		});
 	}
 
 	/**
