@@ -25,7 +25,7 @@ class ViewServiceProvider extends ServiceProvider
     {
         $blade = $this->app['view']->getEngineResolver()->resolve('blade')->getCompiler();
 
-        $blade::directive('hasYield', function($section) {
+        $blade->directive('hasYield', function($section) {
             return "<?php if (array_key_exists($section, app('view')->getSections())): ?>";
         });
     }
