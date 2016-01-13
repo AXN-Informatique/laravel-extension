@@ -35,12 +35,16 @@ class ViewServiceProvider extends ServiceProvider
     {
         $blade = $this->app['view']->getEngineResolver()->resolve('blade')->getCompiler();
 
-        $blade->directive('hasYield', function($expression) {
-            return "<?php if (array_key_exists($expression, \$__env->getSections())): ?>";
+        $blade->extend(function($view, $compiler) {
+            $pattern = '/(?<!\w)(\s*)@hasYield(\s*\(.*\))/';
+
+            return preg_replace($pattern, '$1<?php if (array_key_exists($2, \$__env->getSections())): ?>', $view);
         });
 
-        $blade->directive('hasNotYield', function($expression) {
-            return "<?php if (!array_key_exists($expression, \$__env->getSections())): ?>";
+        $blade->extend(function($view, $compiler) {
+            $pattern = '/(?<!\w)(\s*)@hasNotYield(\s*\(.*\))/';
+
+            return preg_replace($pattern, '$1<?php if (!array_key_exists($2, \$__env->getSections())): ?>', $view);
         });
     }
 }

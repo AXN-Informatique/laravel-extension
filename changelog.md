@@ -1,5 +1,10 @@
 # Changelog for Laravel Extension
 
+## 2.1.1 (2016-01-13)
+
+- Fix compatibilité Laravel v5.0
+- laravel/framework en dépendance au lieu de illuminate/support
+
 ## 2.1.0 (2016-01-13)
 
 - Ajout de directives personnalisées hasYield et hasNotYield à Blade
