@@ -16,6 +16,7 @@ class ServiceProvider extends BaseServiceProvider
         'Axn\Illuminate\Database\DatabaseServiceProvider',
         'Axn\Illuminate\Database\MigrationServiceProvider',
         'Axn\Illuminate\Foundation\Providers\ArtisanServiceProvider',
+        'Axn\Illuminate\View\ViewServiceProvider',
     ];
 
     /**

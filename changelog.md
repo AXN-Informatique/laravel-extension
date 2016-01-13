@@ -1,5 +1,9 @@
 # Changelog for Laravel Extension
 
+## 2.1.0-dev
+
+- Ajout de directives personnalisées à Blade
+
 ## 2.0.0 (2016-01-12)
 
 - Ajout d'un provider pour enregistrer toutes les commandes.
