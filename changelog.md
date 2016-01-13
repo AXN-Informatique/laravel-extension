@@ -1,8 +1,8 @@
 # Changelog for Laravel Extension
 
-## 2.1.0-dev
+## 2.1.0 (2016-01-13)
 
-- Ajout de directives personnalisées à Blade
+- Ajout de directives personnalisées hasYield et hasNotYield à Blade
 
 ## 2.0.0 (2016-01-12)
 

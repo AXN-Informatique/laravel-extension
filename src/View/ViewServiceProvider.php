@@ -16,6 +16,11 @@ class ViewServiceProvider extends ServiceProvider
         //
     }
 
+    /**
+     * Bootstrap any application services.
+     *
+     * @return void
+     */
     public function boot()
     {
         $this->registerBladeDirective();
@@ -30,8 +35,12 @@ class ViewServiceProvider extends ServiceProvider
     {
         $blade = $this->app['view']->getEngineResolver()->resolve('blade')->getCompiler();
 
-        $blade->directive('hasYield', function($section) {
-            return "<?php if (array_key_exists($section, app('view')->getSections())): ?>";
+        $blade->directive('hasYield', function($expression) {
+            return "<?php if (array_key_exists($expression, \$__env->getSections())): ?>";
+        });
+
+        $blade->directive('hasNotYield', function($expression) {
+            return "<?php if (!array_key_exists($expression, \$__env->getSections())): ?>";
         });
     }
 }

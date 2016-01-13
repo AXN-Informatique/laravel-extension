@@ -24,6 +24,7 @@ compris dans le provider global) :
 'Axn\Illuminate\Database\DatabaseServiceProvider',
 'Axn\Illuminate\Database\MigrationServiceProvider',
 'Axn\Illuminate\Foundation\Providers\ArtisanServiceProvider',
+'Axn\Illuminate\View\ViewServiceProvider',
 ```
 
 ## Utilisation de l'extension d'Eloquent
@@ -45,9 +46,9 @@ class User extends Model
 }
 ```
 
-### Ordonnement par défaut
+### Ordre de tri par défaut
 
-Il est possible de spécifier un ordonnement à appliquer par défaut pour les requêtes
+Il est possible de spécifier un ordre de tri à appliquer par défaut pour les requêtes
 de sélection. Pour cela, définir l'attribut `orderBy` dans le modèle.
 
 Exemple :
@@ -169,6 +170,25 @@ suivante pour celle-ci (à ajouter dans `config/database.php`, tableau "connecti
     'database' => ':memory:',
     'prefix'   => '',
 ]
+```
+
+## Directives Blade
+
+L'extension fournie des directives additionnelles :
+
+- @hasYield('nom-de-section') indique si une section donnée existe
+- @hasNotYield('nom-de-section') la réciproque de la précédente
+
+```
+@hasYield('section-a')
+   // si une section "section-a" existe ...
+@endif
+
+@hasNotYield('section-b')
+   // si une section "section-b" n'existe pas ...
+@else
+    //...
+@endif
 ```
 
 ## Autre...
