@@ -36,9 +36,10 @@ trait ModelTrait
      * retour !
      *
      * @param  array[array] $data
+     * @param  int          $maxPerQuery Nombre max d'enregistrements par requête.
      * @return void
      */
-    public static function createMany(array $data)
+    public static function createMany(array $data, $maxPerQuery = 50)
     {
         $model = new static;
 
@@ -51,6 +52,8 @@ trait ModelTrait
             }
         }
 
-        static::query()->getQuery()->insert($data);
+        foreach (array_chunk($data, $maxPerQuery) as $bunch) {
+            static::query()->getQuery()->insert($bunch);
+        }
     }
 }

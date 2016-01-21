@@ -1,5 +1,10 @@
 # Changelog for Laravel Extension
 
+## 2.1.2-dev
+
+- Database :
+    * ModelTrait::createMany() : limitation du nombre d'enregistrements par requête (50 par défaut).
+
 ## 2.1.1 (2016-01-13)
 
 - Fix compatibilité Laravel v5.0
