@@ -1,9 +1,10 @@
 # Changelog for Laravel Extension
 
-## 2.1.2-dev
+## 2.1.2 (2016-02-23)
 
 - Database :
     * ModelTrait::createMany() : limitation du nombre d'enregistrements par requête (50 par défaut).
+    * Désactivation de l'ORDER BY par défaut si jointure.
 
 ## 2.1.1 (2016-01-13)
 

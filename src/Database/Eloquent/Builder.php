@@ -192,7 +192,7 @@ class Builder extends BaseEloquentBuilder
 	 */
 	private function applyDefaultOrderBy()
     {
-		if (!$this->model->getOrderBy() || $this->query->orders) {
+		if (!$this->model->getOrderBy() || $this->query->orders || $this->query->joins) {
             return;
         }
 
