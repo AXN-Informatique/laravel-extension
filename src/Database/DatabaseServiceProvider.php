@@ -23,7 +23,7 @@ class DatabaseServiceProvider extends BaseServiceProvider
      */
     protected function replaceMySqlConnection()
     {
-        $this->app->singleton('db.connection.mysql', function($app, array $parameters) {
+        $this->app->bind('db.connection.mysql', function($app, array $parameters) {
             list($connection, $database, $prefix, $config) = $parameters;
 
             return new MySqlConnection($connection, $database, $prefix, $config);

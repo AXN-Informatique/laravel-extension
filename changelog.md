@@ -1,5 +1,9 @@
 # Changelog for Laravel Extension
 
+## 2.1.3 (2016-03-03)
+
+- Database : bind() à la place de singleton() pour enregistrer MySqlConnection.
+
 ## 2.1.2 (2016-02-23)
 
 - Database :
