@@ -1,15 +1,25 @@
 {
-    "name": "axn/laravel-extension",
-    "homepage": "https://bitbucket.org/axn/laravel-extension",
-	"description": "Regroupe toutes les extensions faites du framework Laravel 5.",
-    "require": {
-        "laravel/framework": "^5.0"
+    "name" : "axn/laravel-extension",
+    "description" : "Regroupe des extensions pour le framework Laravel 5.",
+    "homepage" : "https://bitbucket.org/axn/laravel-extension",
+    "support" : {
+        "issues" : "https://bitbucket.org/axn/laravel-extension/issues?status=new&status=open"
     },
-    "autoload": {
-        "psr-4": {
-            "Axn\\Illuminate\\": "src/"
+    "authors" : [{
+            "name" : "AXN Informatique",
+            "email" : "developpement@axn.fr"
+        }
+    ],
+    "license" : "MIT",
+    "minimum-stability" : "stable",
+    "require" : {
+        "laravel/framework" : "^5.0"
+    },
+    "autoload" : {
+        "psr-4" : {
+            "Axn\\Illuminate\\" : "src/"
         },
-        "files": [
+        "files" : [
             "src/helpers.php",
             "src/bootstrap.php"
         ]
