@@ -3,6 +3,7 @@
 namespace Axn\Illuminate\Database;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 
 class DatabaseServiceProvider extends BaseServiceProvider
 {
@@ -14,6 +15,8 @@ class DatabaseServiceProvider extends BaseServiceProvider
     public function register()
     {
         $this->replaceMySqlConnection();
+
+        $this->registerQueryBuilderMacros();
     }
 
     /**
@@ -28,5 +31,29 @@ class DatabaseServiceProvider extends BaseServiceProvider
 
             return new MySqlConnection($connection, $database, $prefix, $config);
         });
+    }
+
+    /**
+     * Ajoute des extensions (macros) au Query Builder.
+     *
+     * @return void
+     */
+    protected function registerQueryBuilderMacros()
+    {
+        // Tri naturel
+        QueryBuilder::macro(
+            'orderByNatural',
+            function($column, $direction = 'asc') {
+                $column    = $this->grammar->wrap($column);
+                $direction = strtolower($direction) == 'asc' ? 'asc' : 'desc';
+
+                // http://kumaresan-drupal.blogspot.fr/2012/09/natural-sorting-in-mysql-or.html
+                $this->orderByRaw(
+                      "$column + 0 <> 0 ".($direction == 'asc' ? 'desc' : 'asc').", "
+                    . "$column + 0 $direction, "
+                    . "$column $direction"
+                );
+            }
+        );
     }
 }

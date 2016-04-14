@@ -1,6 +1,13 @@
 Changelog for Laravel Extension
 ===============================
 
+2.2.0 (2016-04-14)
+------------------
+
+- Database :
+    * Ajout macro "orderByNatural" au Query Builder.
+    * ModelTrait : nouvelles options disponibles pour ORDER BY par défaut.
+
 2.1.4 (2016-03-22)
 ------------------
 

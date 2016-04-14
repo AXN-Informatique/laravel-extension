@@ -46,21 +46,55 @@ class User extends Model
 }
 ```
 
-### Ordre de tri par défaut
+### Tri naturel
+
+La méthode `orderByNatural` a été ajoutée au Query Builder pour trier de manière naturelle sur les champs
+contenant des données alphanumériques (voir : http://kumaresan-drupal.blogspot.fr/2012/09/natural-sorting-in-mysql-or.html).
+Cette méthode s'utilise comme la méthode `orderBy`.
+
+Exemple :
+
+```php
+DB::table('appartements')->orderByNatural('numero')->get();
+
+// Descendant
+DB::table('appartements')->orderByNatural('numero', 'desc')->get();
+```
+
+### Tri par défaut défini sur les modèles
 
 Il est possible de spécifier un ordre de tri à appliquer par défaut pour les requêtes
-de sélection. Pour cela, définir l'attribut `orderBy` dans le modèle.
+de sélection. Pour cela, définir l'attribut `orderBy` dans le modèle, sous la forme :
+
+```
+protected $orderBy = 'nom_champ';
+
+// OU
+protected $orderBy = [
+    'nom_champ1' => 'option',
+    'nom_champ2' => 'option',
+    ...
+];
+```
+
+`option` peut prendre les valeurs suivantes :
+
+- asc
+- desc
+- natural
+- natural_asc *(alias à "natural")*
+- natural_desc
 
 Exemple :
 
 ```php
 class User extends Model
 {
-    use EloquentExtension;
+    use ModelTrait;
 
     protected $orderBy = [
-        'lastname' => 'asc',
-        'firstname' => 'asc'
+        'lastname'  => 'asc',
+        'firstname' => 'desc',
     ];
 }
 ```

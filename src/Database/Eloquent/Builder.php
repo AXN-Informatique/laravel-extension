@@ -196,13 +196,19 @@ class Builder extends BaseEloquentBuilder
             return;
         }
 
-        foreach ((array) $this->model->getOrderBy() as $column => $direction) {
+        foreach ((array) $this->model->getOrderBy() as $column => $option) {
             if (is_int($column)) {
-                $column    = $direction;
-                $direction = 'asc';
+                $this->query->orderBy($option);
             }
-
-            $this->query->orderBy($column, $direction);
+            elseif ($option == 'natural' || $option == 'natural_asc') {
+                $this->query->orderByNatural($column);
+            }
+            elseif ($option == 'natural_desc') {
+                $this->query->orderByNatural($column, 'desc');
+            }
+            else {
+                $this->query->orderBy($column, $option);
+            }
         }
 	}
 
