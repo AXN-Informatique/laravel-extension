@@ -61,6 +61,20 @@ DB::table('appartements')->orderByNatural('numero')->get();
 DB::table('appartements')->orderByNatural('numero', 'desc')->get();
 ```
 
+**NOTE IMPORTANTE CONCERNANT LARAVEL 5.0 :**
+
+Laravel en version 5.0 ne supporte pas les macros avec le Query Builder. Il a donc fallu implémenter
+un fix pour garantir la compatibilité. Ainsi, la méthode `orderByNatural` a été ajoutée au builder d'Eloquent
+et n'est donc pas disponible via le Query Builder :
+
+```php
+// OK
+Appartement::orderByNatural('numero')->get();
+
+// Erreur
+DB::table('appartements')->orderByNatural('numero')->get();
+```
+
 ### Tri par défaut défini sur les modèles
 
 Il est possible de spécifier un ordre de tri à appliquer par défaut pour les requêtes
