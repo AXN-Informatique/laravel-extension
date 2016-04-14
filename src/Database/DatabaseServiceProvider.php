@@ -48,7 +48,7 @@ class DatabaseServiceProvider extends BaseServiceProvider
                 $direction = strtolower($direction) == 'asc' ? 'asc' : 'desc';
 
                 // http://kumaresan-drupal.blogspot.fr/2012/09/natural-sorting-in-mysql-or.html
-                $this->orderByRaw(
+                return $this->orderByRaw(
                       "$column + 0 <> 0 ".($direction == 'asc' ? 'desc' : 'asc').", "
                     . "$column + 0 $direction, "
                     . "$column $direction"
