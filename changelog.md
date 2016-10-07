@@ -1,7 +1,7 @@
 Changelog for Laravel Extension
 ===============================
 
-3.0.0 (2016-10-07)
+3.0.0-dev
 ------------------
 
 - Suppression compatibilité Laravel <= 5.1

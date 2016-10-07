@@ -244,14 +244,15 @@ Et ajoutez en-dessous :
 ```
 // custom logging configuration
 $configureLogging = new Axn\Illuminate\Foundation\Bootstrap\ConfigureLogging($app);
-$app->configureMonologUsing([$configureLogging, 'getMonologConfigurator']);
+$app->configureMonologUsing([$configureLogging, 'configure']);
 ```
 
-Vous pouvez publier le fichier de configuration :
+Afin de modifier la configuration, vous pouvez publier le fichier de configuration :
 
 ```
 php artisan vendor:publish --provider="Axn\Illuminate\ServiceProvider" --tag="config"
 ```
+
 
 ## Autre...
 

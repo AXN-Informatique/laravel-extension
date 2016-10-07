@@ -7,7 +7,7 @@ use Monolog\Formatter\HtmlFormatter;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Handler\SwiftMailerHandler;
-use Monolog\Logger as Monolog;
+use Monolog\Logger;
 use Monolog\Processor\IntrospectionProcessor;
 use Monolog\Processor\MemoryUsageProcessor;
 use Monolog\Processor\MemoryPeakUsageProcessor;
@@ -18,16 +18,21 @@ class ConfigureLogging
 {
     protected $config;
 
-    private $monolog;
+    private $logger;
 
     public function __construct(Application $app)
     {
         $this->config= $app->make('config')->get('logging');
     }
 
-    public function getMonologConfigurator(Monolog $monolog)
+    /**
+     * Entry point for the Monolog Configuration.
+     *
+     * @param Logger $monolog
+     */
+    public function configure(Logger $monolog)
     {
-        $this->monolog = $monolog;
+        $this->logger = $monolog;
 
         $this->setCommonsProcessors();
 
@@ -48,43 +53,57 @@ class ConfigureLogging
 
         $handler = new RotatingFileHandler(
             $config['file'],
-            $config['max_files']
+            $config['max_files'],
+            $config['level']
         );
 
         $handler->setFormatter(new LineFormatter(null, null, true, true));
 
-        $this->monolog->pushHandler($handler);
+        $this->logger->pushHandler($handler);
     }
 
     protected function setHtmlFilesHandler()
     {
+        $config = $this->config['handlers']['html_files'];
+
+        if (!$config['enable']) {
+            return;
+        }
+
         $handler = new RotatingFileHandler(
-            $this->app->storagePath() . '/logs/laravel.html',
-            $this->app->make('config')->get('app.log_max_files', 5)
+            $config['file'],
+            $config['max_files'],
+            $config['level']
         );
 
         $handler->setFormatter(new HtmlFormatter());
 
-        $this->monolog->pushHandler($handler);
+        $this->logger->pushHandler($handler);
     }
 
     protected function setSwiftMailerHandler()
     {
+        $config = $this->config['handlers']['mailer'];
+
+        if (!$config['enable']) {
+            return;
+        }
+
         $mailer = Swift_Mailer::newInstance(Swift_MailTransport::newInstance());
 
         $message = Swift_Message::newInstance()
-            ->setSubject('Laravel error logging')
-            ->setFrom(['no-reply@axn.fr' => 'AXN Informatique'])
-            ->setTo(['developpement@axn.fr' => 'Dev spe']);
+            ->setFrom($config['from'])
+            ->setTo($config['to']);
 
         $handler = new SwiftMailerHandler(
             $mailer,
-            $message
+            $message,
+            $config['level']
         );
 
         $handler->setFormatter(new HtmlFormatter());
 
-        $this->monolog->pushHandler($handler);
+        $this->logger->pushHandler($handler);
     }
 
     /**
@@ -96,29 +115,29 @@ class ConfigureLogging
         $config = $this->config['processors'];
 
         if ($config['introspection']) {
-            $this->monolog->pushProcessor(new IntrospectionProcessor());
+            $this->logger->pushProcessor(new IntrospectionProcessor());
         }
 
         if ($config['web']) {
-            $this->monolog->pushProcessor(new WebProcessor());
+            $this->logger->pushProcessor(new WebProcessor());
         }
 
         if ($config['memory_usage']) {
-            $this->monolog->pushProcessor(new MemoryUsageProcessor());
+            $this->logger->pushProcessor(new MemoryUsageProcessor());
         }
 
         if ($config['memory_peak_usage']) {
-            $this->monolog->pushProcessor(new MemoryPeakUsageProcessor());
+            $this->logger->pushProcessor(new MemoryPeakUsageProcessor());
         }
 
         if ($config['psr_log_message']) {
-            $this->monolog->pushProcessor(new PsrLogMessageProcessor());
+            $this->logger->pushProcessor(new PsrLogMessageProcessor());
         }
 
         if ($config['get_and_post']) {
-            $this->monolog->pushProcessor(function ($record) {
-                $record['extra']['HTTP _GET'] = isset($_GET) ? $_GET : [];
-                $record['extra']['HTTP _POST'] = isset($_POST) ? $_POST : [];
+            $this->logger->pushProcessor(function ($record) {
+                $record['extra']['HTTP _GET'] = !empty($_GET) ? $_GET : [];
+                $record['extra']['HTTP _POST'] = !empty($_POST) ? $_POST : [];
 
                 return $record;
             });
