@@ -1,6 +1,6 @@
 {
     "name" : "axn/laravel-extension",
-    "description" : "Regroupe des extensions pour le framework Laravel 5.",
+    "description" : "Regroupe des extensions pour le framework Laravel 5.1+",
     "homepage" : "https://bitbucket.org/axn/laravel-extension",
     "support" : {
         "issues" : "https://bitbucket.org/axn/laravel-extension/issues?status=new&status=open"
@@ -12,7 +12,7 @@
     ],
     "license" : "MIT",
     "require" : {
-        "laravel/framework" : "^5.0"
+        "laravel/framework" : "^5.1"
     },
     "autoload" : {
         "psr-4" : {

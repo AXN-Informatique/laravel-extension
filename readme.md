@@ -61,20 +61,6 @@ DB::table('appartements')->orderByNatural('numero')->get();
 DB::table('appartements')->orderByNatural('numero', 'desc')->get();
 ```
 
-**NOTE IMPORTANTE CONCERNANT LARAVEL 5.0 :**
-
-Laravel en version 5.0 ne supporte pas les macros avec le Query Builder. Il a donc fallu implémenter
-un fix pour garantir la compatibilité. Ainsi, la méthode `orderByNatural` a été ajoutée au builder d'Eloquent
-et n'est donc pas disponible via le Query Builder :
-
-```php
-// OK
-Appartement::orderByNatural('numero')->get();
-
-// Erreur
-DB::table('appartements')->orderByNatural('numero')->get();
-```
-
 ### Tri par défaut défini sur les modèles
 
 Il est possible de spécifier un ordre de tri à appliquer par défaut pour les requêtes
@@ -239,6 +225,34 @@ L'extension fournie des directives additionnelles :
 @endif
 ```
 
+## Logging configuration
+
+Laravel fournis un système de log basique, l'extension permet de configurer des logs un peu plus avancés.
+
+Pour utiliser cette configuration avancée des logs vous devez ajouter sa prise en compte dans le fichier
+``/bootstrap/app.php`` cherchez le code suivant :
+
+```
+$app->singleton(
+    Illuminate\Contracts\Debug\ExceptionHandler::class,
+    App\Exceptions\Handler::class
+);
+```
+
+Et ajoutez en-dessous :
+
+```
+// custom logging configuration
+$configureLogging = new Axn\Illuminate\Foundation\Bootstrap\ConfigureLogging($app);
+$app->configureMonologUsing([$configureLogging, 'getMonologConfigurator']);
+```
+
+Vous pouvez publier le fichier de configuration :
+
+```
+php artisan vendor:publish --provider="Axn\Illuminate\ServiceProvider" --tag="config"
+```
+
 ## Autre...
 
 ### Foundation/Testing/NestedViewsAssertionsTrait.php
@@ -266,3 +280,11 @@ En complément des helpers de Laravel :
 - **v()**              : Tente de retourner la valeur d'une variable, sans générer d'erreur si celle-ci n'existe pas.
 - **carbon()**         : Crée une instance Carbon à partir d'une date ou d'un timestamp.
 - **collect_models()** : Crée une collection de modèles (entités Eloquent).
+
+### bootstrap.php
+
+Comme le helpers.php ce fichier est inclu avec l'autoload de composer (c'est à dire très tôt).
+
+Actuellement ce fichier comprend une initialisation des styles du dumper de variables
+pour prendre les styles de Laravel plutôt que ceux de Symfony.
+

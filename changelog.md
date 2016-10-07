@@ -1,6 +1,12 @@
 Changelog for Laravel Extension
 ===============================
 
+3.0.0 (2016-10-07)
+------------------
+
+- Suppression compatibilité Laravel <= 5.1
+- Ajout du configurateur de logs
+
 2.2.1 (2016-04-14)
 ------------------
 

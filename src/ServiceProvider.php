@@ -29,6 +29,17 @@ class ServiceProvider extends BaseServiceProvider
     ];
 
     /**
+     * Bootstrap the application services.
+     *
+     */
+    public function boot()
+    {
+        $this->publishes([
+            __DIR__ . '/../resources/config/logging.php' => $this->app->configPath() . '/' . 'logging.php',
+        ], 'config');
+    }
+
+    /**
      * Register any application services.
      *
      * @return void

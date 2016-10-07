@@ -35,6 +35,16 @@ class ViewServiceProvider extends ServiceProvider
     {
         $blade = $this->app['view']->getEngineResolver()->resolve('blade')->getCompiler();
 
+        $blade->directive('hasYield', function($expression) {
+            return "<?php if (array_key_exists($expression, \$__env->getSections())): ?>";
+        });
+
+        $blade->directive('hasNotYield', function($expression) {
+            return "<?php if (!array_key_exists($expression, \$__env->getSections())): ?>";
+        });
+
+        /* Compatibilité Laravel < 5.1 + tatillonnage Lucas :p
+
         $blade->extend(function($view, $compiler) {
             $pattern = '/(?<!\w)(\s*)@(hasYield|hasyield)(\s*\(.*\))/';
 
@@ -46,5 +56,6 @@ class ViewServiceProvider extends ServiceProvider
 
             return preg_replace($pattern, '$1<?php if (!array_key_exists($3, \$__env->getSections())): ?>', $view);
         });
+        */
     }
 }
