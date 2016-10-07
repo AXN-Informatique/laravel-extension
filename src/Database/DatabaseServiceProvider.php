@@ -16,9 +16,7 @@ class DatabaseServiceProvider extends BaseServiceProvider
     {
         $this->replaceMySqlConnection();
 
-        if (version_compare($this->app->version(), '5.1.*', '>=')) {
-            $this->registerQueryBuilderMacros();
-        }
+        $this->registerQueryBuilderMacros();
     }
 
     /**

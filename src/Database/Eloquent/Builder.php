@@ -149,26 +149,6 @@ class Builder extends BaseEloquentBuilder
     }
 
     /**
-     * Compatibilité Laravel 5.0 qui ne supporte pas les macros avec le Query Builder.
-     *
-     * Sera supprimé en version 3.0.0.
-     *
-     * @return type
-     */
-    public function orderByNatural($column, $direction = 'asc')
-    {
-        $column    = $this->query->getGrammar()->wrap($column);
-        $direction = strtolower($direction) == 'asc' ? 'asc' : 'desc';
-
-        // http://kumaresan-drupal.blogspot.fr/2012/09/natural-sorting-in-mysql-or.html
-        return $this->orderByRaw(
-              "$column + 0 <> 0 ".($direction == 'asc' ? 'desc' : 'asc').", "
-            . "$column + 0 $direction, "
-            . "$column $direction"
-        );
-    }
-
-    /**
      * Ajoute les mises à jour des champs "updated_at" des tables pour lesquelles
      * il y a modification de champs.
      *
@@ -221,12 +201,10 @@ class Builder extends BaseEloquentBuilder
                 $this->query->orderBy($option);
             }
             elseif ($option == 'natural' || $option == 'natural_asc') {
-                //$this->query->orderByNatural($column);
-                $this->orderByNatural($column); // compatibilité L5.0
+                $this->query->orderByNatural($column);
             }
             elseif ($option == 'natural_desc') {
-                //$this->query->orderByNatural($column, 'desc');
-                $this->orderByNatural($column, 'desc'); // compatibilité L5.0
+                $this->query->orderByNatural($column, 'desc');
             }
             else {
                 $this->query->orderBy($column, $option);

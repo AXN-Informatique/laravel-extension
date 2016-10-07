@@ -23,7 +23,7 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->registerBladeDirective();
+        $this->registerBladeDirectives();
     }
 
     /**
@@ -31,20 +31,20 @@ class ViewServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function registerBladeDirective()
+    public function registerBladeDirectives()
     {
         $blade = $this->app['view']->getEngineResolver()->resolve('blade')->getCompiler();
 
         $blade->extend(function($view, $compiler) {
-            $pattern = '/(?<!\w)(\s*)@hasYield(\s*\(.*\))/';
+            $pattern = '/(?<!\w)(\s*)@(hasYield|hasyield)(\s*\(.*\))/';
 
-            return preg_replace($pattern, '$1<?php if (array_key_exists($2, \$__env->getSections())): ?>', $view);
+            return preg_replace($pattern, '$1<?php if (array_key_exists($3, \$__env->getSections())): ?>', $view);
         });
 
         $blade->extend(function($view, $compiler) {
-            $pattern = '/(?<!\w)(\s*)@hasNotYield(\s*\(.*\))/';
+            $pattern = '/(?<!\w)(\s*)@(hasNotYield|hasnotyield|doesntHaveYield|doesnthaveyield)(\s*\(.*\))/';
 
-            return preg_replace($pattern, '$1<?php if (!array_key_exists($2, \$__env->getSections())): ?>', $view);
+            return preg_replace($pattern, '$1<?php if (!array_key_exists($3, \$__env->getSections())): ?>', $view);
         });
     }
 }
