@@ -3,6 +3,7 @@
 namespace Axn\Illuminate\Foundation\Bootstrap;
 
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Mail\TransportManager;
 use Monolog\Formatter\HtmlFormatter;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\RotatingFileHandler;
