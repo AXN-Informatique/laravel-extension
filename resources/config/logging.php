@@ -179,7 +179,7 @@ return [
          | Mailer handler
          |--------------------------------------------------------------------------
          |
-         | Envoi les logs à une adresse e-mail.
+         | Send log by emails (using a Swift_Mailer).
          |
          */
 

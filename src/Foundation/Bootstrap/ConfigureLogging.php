@@ -54,7 +54,8 @@ class ConfigureLogging
         $handler = new RotatingFileHandler(
             $config['file'],
             $config['max_files'],
-            $config['level']
+            $config['level'],
+            $config['bubble']
         );
 
         $handler->setFormatter(new LineFormatter(null, null, true, true));
@@ -73,7 +74,8 @@ class ConfigureLogging
         $handler = new RotatingFileHandler(
             $config['file'],
             $config['max_files'],
-            $config['level']
+            $config['level'],
+            $config['bubble']
         );
 
         $handler->setFormatter(new HtmlFormatter());
@@ -98,7 +100,8 @@ class ConfigureLogging
         $handler = new SwiftMailerHandler(
             $mailer,
             $message,
-            $config['level']
+            $config['level'],
+            $config['bubble']
         );
 
         $handler->setFormatter(new HtmlFormatter());
