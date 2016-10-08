@@ -13,6 +13,8 @@ use Monolog\Processor\MemoryUsageProcessor;
 use Monolog\Processor\MemoryPeakUsageProcessor;
 use Monolog\Processor\PsrLogMessageProcessor;
 use Monolog\Processor\WebProcessor;
+use Swift_Mailer;
+use Swift_Message;
 
 class ConfigureLogging
 {
