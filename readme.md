@@ -243,8 +243,9 @@ Et ajoutez en-dessous :
 
 ```
 // custom logging configuration
-$configureLogging = new Axn\Illuminate\Foundation\Bootstrap\ConfigureLogging($app);
-$app->configureMonologUsing([$configureLogging, 'configure']);
+$app->configureMonologUsing(function($monolog) use ($app){
+    (new Axn\Illuminate\Foundation\Bootstrap\ConfigureLogging($app))->configure($monolog);
+});
 ```
 
 Afin de modifier la configuration, vous pouvez publier le fichier de configuration :

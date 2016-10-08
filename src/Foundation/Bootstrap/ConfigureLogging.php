@@ -56,7 +56,7 @@ class ConfigureLogging
         }
 
         $handler = new RotatingFileHandler(
-            $config['file'],
+            $config['filename'],
             $config['max_files'],
             $config['level'],
             $config['bubble']
@@ -76,7 +76,7 @@ class ConfigureLogging
         }
 
         $handler = new RotatingFileHandler(
-            $config['file'],
+            $config['filename'],
             $config['max_files'],
             $config['level'],
             $config['bubble']
