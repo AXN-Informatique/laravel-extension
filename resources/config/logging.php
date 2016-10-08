@@ -181,6 +181,8 @@ return [
          |
          | Send log by emails (using a Swift_Mailer).
          |
+         | This handler use the application mail configuration for transport.
+         |
          */
 
         'mailer' => [
