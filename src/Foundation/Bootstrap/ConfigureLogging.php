@@ -16,13 +16,17 @@ use Monolog\Processor\WebProcessor;
 
 class ConfigureLogging
 {
+    protected $app;
+
     protected $config;
 
-    private $logger;
+    protected $logger;
 
     public function __construct(Application $app)
     {
-        $this->config= $app->make('config')->get('logging');
+        $this->app = $app;
+
+        $this->config = $app->make('config')->get('logging');
     }
 
     /**
@@ -91,7 +95,7 @@ class ConfigureLogging
             return;
         }
 
-        $mailer = Swift_Mailer::newInstance(Swift_MailTransport::newInstance());
+        $mailer = Swift_Mailer::newInstance((new TransportManager($this->app))->driver());
 
         $message = Swift_Message::newInstance()
             ->setFrom($config['from'])
