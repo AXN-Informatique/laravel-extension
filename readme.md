@@ -1,33 +1,65 @@
-# Laravel Extension
+Laravel Extension
+=================
 
-Ce package regroupe toutes les extensions faites du framework Laravel 5.
+Includes a set of extensions to the Laravel framework 5.1+
 
-## Installation
+* [Installation](#installation)
+* [Eloquent](#eloquent)
+  * [Natural sort](#natural-sort)
+  * [Default model sort](#default-model-sort)
+  * [Insert multiple records](#insert-multiple-records)
+  * [Joints and relationships](#joints-and-relationships)
+* [Artisan commands](#artisan-commands)
+  * [optimize:all](#optimizeall)
+  * [optimize:clear](#optimizeclear)
+  * [migrate:test](#migratetest)
+* [Blade directives](#blade-directives)
+* [Logging configuration](#logging-configuration)
+* [Other stuff](#other-stuff)
+  * [Foundation/Testing/NestedViewsAssertionsTrait.php](#foundationtestingnestedviewsassertionstraitphp)
+  * [helpers.php](#helpersphp)
+  * [bootstrap.php](#bootstrapphp)
+
+Installation
+------------
 
 Inclure le package avec Composer :
 
-```
+```sh
 composer require axn/laravel-extension
 ```
 
 Si vous souhaitez enregistrer l'ensemble des providers d'un coup, ajoutez le service
 provider global au tableau des providers dans `config/app.php` :
 
-```
-'Axn\Illuminate\ServiceProvider',
+```php
+// config/app.php
+
+'provider' => [
+    //...
+    Axn\Illuminate\ServiceProvider::class,
+    //...
+];
 ```
 
-Vous pouvez sinon choisir vous-mêmes les providers à utiliser (tous ces providers sont
-compris dans le provider global) :
+Sinon, vous pouvez choisir vous-mêmes les providers à utiliser (tous ces providers sont
+compris dans le provider global ci-dessus) :
 
-```
-'Axn\Illuminate\Database\DatabaseServiceProvider',
-'Axn\Illuminate\Database\MigrationServiceProvider',
-'Axn\Illuminate\Foundation\Providers\ArtisanServiceProvider',
-'Axn\Illuminate\View\ViewServiceProvider',
+```php
+// config/app.php
+
+'provider' => [
+    //...
+    Axn\Illuminate\Database\DatabaseServiceProvider::class,
+    Axn\Illuminate\Database\MigrationServiceProvider::class,
+    Axn\Illuminate\Foundation\Providers\ArtisanServiceProvider::class,
+    Axn\Illuminate\View\ViewServiceProvider::class,
+    //...
+];
 ```
 
-## Utilisation de l'extension d'Eloquent
+Eloquent
+--------
 
 Ajoutez le trait `Axn\Illuminate\Database\Eloquent\ModelTrait` aux modèles pour lesquels
 l'extension d'Eloquent est souhaitée :
@@ -46,7 +78,7 @@ class User extends Model
 }
 ```
 
-### Tri naturel
+### Natural sort
 
 La méthode `orderByNatural` a été ajoutée au Query Builder pour trier de manière naturelle sur les champs
 contenant des données alphanumériques (voir : http://kumaresan-drupal.blogspot.fr/2012/09/natural-sorting-in-mysql-or.html).
@@ -61,15 +93,15 @@ DB::table('appartements')->orderByNatural('numero')->get();
 DB::table('appartements')->orderByNatural('numero', 'desc')->get();
 ```
 
-### Tri par défaut défini sur les modèles
+### Default model sort
 
 Il est possible de spécifier un ordre de tri à appliquer par défaut pour les requêtes
 de sélection. Pour cela, définir l'attribut `orderBy` dans le modèle, sous la forme :
 
-```
+```php
 protected $orderBy = 'nom_champ';
 
-// OU
+// OR
 protected $orderBy = [
     'nom_champ1' => 'option',
     'nom_champ2' => 'option',
@@ -82,7 +114,7 @@ protected $orderBy = [
 - asc
 - desc
 - natural
-- natural_asc *(alias à "natural")*
+- natural_asc *(alias de "natural")*
 - natural_desc
 
 Exemple :
@@ -99,13 +131,14 @@ class User extends Model
 }
 ```
 
-### Insertion de plusieurs enregistrements en une requête
+### Insert multiple records
 
 Grâce à la méthode `createMany()` il est possible de créer plusieurs enregistrements en une seule requête,
 tout comme il est possible de le faire avec la méthode `insert()` du QueryBuilder en lui passant
 un tableau multidimensionnel, à la différence que `createMany()` va automatiquement renseigner
-les champs `created_at` et `updated_at` comme le fait la méthode `create()`. **Par contre attention :
-cette méthode ne déclenche pas les évènements et ne fait aucun retour !**
+les champs `created_at` et `updated_at` comme le fait la méthode `create()`. 
+
+**Attention : cette méthode ne déclenche pas les évènements et ne fait aucun retour !**
 
 Exemple :
 
@@ -117,7 +150,7 @@ Role::createMany([
 ]);
 ```
 
-### Jointures via relations
+### Joints and relationships
 
 Des jointures peuvent être effectuées en utilisant les relations definies dans le modèle.
 
@@ -147,9 +180,11 @@ ou pour inclure les enregistrements "soft deleted" :
 - rightJoinRel()
 - rightJoinRelWithTrashed()
 
-## Commandes Artisan
 
-### Commande "optimize:all"
+Artisan commands
+----------------
+
+### optimize:all
 
 Pour lancer la commande :
 
@@ -165,7 +200,7 @@ Cela permet de lancer toutes les commandes d'optimisation en une seule :
 
 Avec une compilation des vues Blade (qui était autrefois présente dans la commande "optimize").
 
-### Commande "optimize:clear"
+### optimize:clear
 
 Pour lancer la commande :
 
@@ -179,7 +214,7 @@ Cela permet de lancer toutes les commandes de nettoyage des optimisations en une
 - php artisan config:clear
 - php artisan clear-compiled
 
-### Commande "migrate:test"
+### migrate:test
 
 Pour lancer la commande :
 
@@ -206,14 +241,14 @@ suivante pour celle-ci (à ajouter dans `config/database.php`, tableau "connecti
 ]
 ```
 
-## Directives Blade
+## Blade directives
 
 L'extension fournie des directives additionnelles :
 
 - @hasYield('nom-de-section') indique si une section donnée existe
 - @hasNotYield('nom-de-section') la réciproque de la précédente
 
-```
+```php
 @hasYield('section-a')
    // si une section "section-a" existe ...
 @endif
@@ -232,7 +267,7 @@ Laravel fournis un système de log basique, l'extension permet de configurer des
 Pour utiliser cette configuration avancée des logs vous devez ajouter sa prise en compte dans le fichier
 ``/bootstrap/app.php`` cherchez le code suivant :
 
-```
+```php
 $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
     App\Exceptions\Handler::class
@@ -241,7 +276,7 @@ $app->singleton(
 
 Et ajoutez en-dessous :
 
-```
+```php
 // custom logging configuration
 $app->configureMonologUsing(function($monolog) use ($app){
     (new Axn\Illuminate\Foundation\Bootstrap\ConfigureLogging($app))->configure($monolog);
@@ -250,12 +285,12 @@ $app->configureMonologUsing(function($monolog) use ($app){
 
 Afin de modifier la configuration, vous pouvez publier le fichier de configuration :
 
-```
+```sh
 php artisan vendor:publish --provider="Axn\Illuminate\ServiceProvider" --tag="config"
 ```
 
 
-## Autre...
+## Other stuff
 
 ### Foundation/Testing/NestedViewsAssertionsTrait.php
 
