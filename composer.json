@@ -1,9 +1,9 @@
 {
     "name" : "axn/laravel-extension",
-    "description" : "Regroupe des extensions pour le framework Laravel 5.1+",
-    "homepage" : "https://bitbucket.org/axn/laravel-extension",
+    "description" : "Includes various extensions to the Laravel framework 5.1+",
+    "homepage" : "https://github.com/AXN-Informatique/laravel-extension",
     "support" : {
-        "issues" : "https://bitbucket.org/axn/laravel-extension/issues?status=new&status=open"
+        "issues" : "https://github.com/AXN-Informatique/laravel-extension/issues"
     },
     "authors" : [{
             "name" : "AXN Informatique",
