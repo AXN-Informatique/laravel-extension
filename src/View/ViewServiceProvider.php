@@ -84,7 +84,7 @@ class ViewServiceProvider extends ServiceProvider
                         $value = e($value);
                     }
 
-                    $value = $value.' '.$requiredMark;
+                    $value = $value.'&nbsp;'.$requiredMark;
 
                     return $form->label($name, $value, $options, false);
                 }
