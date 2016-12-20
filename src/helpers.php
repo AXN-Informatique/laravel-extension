@@ -90,3 +90,29 @@ if (!function_exists('collect_models')) {
         return new EloquentCollection($models);
     }
 }
+
+if (!function_exists('nl_to_p')) {
+    /**
+     * Convert new lines into paragraphs.
+     *
+     * @param string $str
+     * @return string
+     */
+    function nl_to_p($str)
+    {
+        // Convert all line-endings to UNIX format
+        $str = str_replace("\r\n", "\n", $str);
+        $str = str_replace("\r", "\n", $str);
+
+        // Don't allow out-of-control blank lines
+        $str = preg_replace("/\n{2,}/", "\n\n", $str);
+
+        // Replace multiple linebreaks by paragraphs
+        $str = preg_replace('/\n(\s*\n)+/', '</p><p>', $str);
+
+        // Replace the single linebreaks by <br> elements
+        $str = nl2br($str);
+
+        return '<p>'.$str.'</p>';
+    }
+}

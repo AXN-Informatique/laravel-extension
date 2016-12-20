@@ -12,7 +12,9 @@
     ],
     "license" : "MIT",
     "require" : {
-        "laravel/framework" : "5.1.*|5.2.*|5.3.*"
+        "laravel/framework" : "5.1.*|5.2.*|5.3.*",
+        "laravelcollective/html" : "5.3.*",
+        "axn/laravel-common-languages-terms" : "dev-master"
     },
     "autoload" : {
         "psr-4" : {

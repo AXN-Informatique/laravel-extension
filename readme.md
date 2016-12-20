@@ -136,7 +136,7 @@ class User extends Model
 Grâce à la méthode `createMany()` il est possible de créer plusieurs enregistrements en une seule requête,
 tout comme il est possible de le faire avec la méthode `insert()` du QueryBuilder en lui passant
 un tableau multidimensionnel, à la différence que `createMany()` va automatiquement renseigner
-les champs `created_at` et `updated_at` comme le fait la méthode `create()`. 
+les champs `created_at` et `updated_at` comme le fait la méthode `create()`.
 
 **Attention : cette méthode ne déclenche pas les évènements et ne fait aucun retour !**
 
@@ -245,19 +245,42 @@ suivante pour celle-ci (à ajouter dans `config/database.php`, tableau "connecti
 
 L'extension fournie des directives additionnelles :
 
-- @hasYield('nom-de-section') indique si une section donnée existe
-- @hasNotYield('nom-de-section') la réciproque de la précédente
+- `@hasyield('nom-de-section')` indique si une section donnée existe
+- `@doesnthaveyield('nom-de-section')` la réciproque de la précédente
+- `@nltop()` transform new lines into paragraphs
+- `@nltobr()` transform new lines into <br>
 
-```php
-@hasYield('section-a')
+```blade
+@hasyield('section-a')
    // si une section "section-a" existe ...
-@endif
+@endhasyield
 
-@hasNotYield('section-b')
+@doesnthaveyield('section-b')
    // si une section "section-b" n'existe pas ...
-@else
-    //...
-@endif
+@enddoesnthaveyield
+
+
+@nltop("a text with \n new lines \n\n again \n\n\n and again \n\n\n\n\n voilà")
+// <p>a text with <br> new lines </p><p> again </p><p> and again </p><p> voilà</p>
+
+@nltobr("a text with \n new lines \n\n again \n\n\n and again \n\n\n\n\n voilà")
+// a text with <br> new lines <br><br> again <br><br><br> and again <br><br><br><br><br> voilà
+
+```
+
+## Html/Form Macro
+
+```blade
+{!! Form::labelRequired('name', 'Label value') !!}
+// <label for="name">Label value
+//      <span class="required"><i class="fa fa-asterisk"></i><span class="sr-only">required</span></span>
+// </label>
+
+{!! Html::infoRequiredFields() !!}
+// Fields marked with
+// <span class="required"><i class="fa fa-asterisk"></i><span class="sr-only">required</span></span>
+// are mandatory.
+
 ```
 
 ## Logging configuration
@@ -312,11 +335,12 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
 
 En complément des helpers de Laravel :
 
-- **dump_get()**       : Retourne le résultat d'un dump obtenu à l'aide du dumper HTML de Laravel.
-- **dump_put()**       : Écrit dans "public/dump.html" le résultat d'un dump obtenu à l'aide du dumper HTML de Laravel.
-- **v()**              : Tente de retourner la valeur d'une variable, sans générer d'erreur si celle-ci n'existe pas.
-- **carbon()**         : Crée une instance Carbon à partir d'une date ou d'un timestamp.
-- **collect_models()** : Crée une collection de modèles (entités Eloquent).
+- `dump_get()` : Retourne le résultat d'un dump obtenu à l'aide du dumper HTML de Laravel.
+- `dump_put()` : Écrit dans "public/dump.html" le résultat d'un dump obtenu à l'aide du dumper HTML de Laravel.
+- `v()` : Tente de retourner la valeur d'une variable, sans générer d'erreur si celle-ci n'existe pas.
+- `carbon()` : Crée une instance Carbon à partir d'une date ou d'un timestamp.
+- `collect_models()` : Crée une collection de modèles (entités Eloquent).
+- `nl_to_p()` : Convert new lines into paragraphs.
 
 ### bootstrap.php
 

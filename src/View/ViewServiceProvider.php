@@ -2,7 +2,10 @@
 
 namespace Axn\Illuminate\View;
 
+use Collective\Html\FormBuilder;
+use Collective\Html\HtmlBuilder;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\View\Compilers\BladeCompiler;
 
 class ViewServiceProvider extends ServiceProvider
 {
@@ -23,39 +26,69 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->registerBladeDirectives();
-    }
+        // Blade directives
+        $this->app->afterResolving('blade.compiler', function (BladeCompiler $bladeCompiler) {
 
-    /**
-     * Implement custom Blade directives.
-     *
-     * @return void
-     */
-    public function registerBladeDirectives()
-    {
-        $blade = $this->app['view']->getEngineResolver()->resolve('blade')->getCompiler();
+            $bladeCompiler->directive('hasyield', function ($expression) {
+                return "<?php if (array_key_exists($expression, \$__env->getSections())): ?>";
+            });
 
-        $blade->directive('hasYield', function($expression) {
-            return "<?php if (array_key_exists($expression, \$__env->getSections())): ?>";
+            $bladeCompiler->directive('endhasyield', function ($expression) {
+                return "<?php endif; ?>";
+            });
+
+            $bladeCompiler->directive('doesnthaveyield', function ($expression) {
+                return "<?php if (!array_key_exists($expression, \$__env->getSections())): ?>";
+            });
+
+            $bladeCompiler->directive('enddoesnthaveyield', function ($expression) {
+                return "<?php endif; ?>";
+            });
+
+            $bladeCompiler->directive('nltop', function ($expression) {
+                return "<?php echo nl_to_p(e($expression)); ?>";
+            });
+
+            $bladeCompiler->directive('nltobr', function ($expression) {
+                return "<?php echo nl2br(e($expression)); ?>";
+            });
         });
 
-        $blade->directive('hasNotYield', function($expression) {
-            return "<?php if (!array_key_exists($expression, \$__env->getSections())): ?>";
+        $requiredMark = '<span class="required"><i class="fa fa-asterisk"></i><span class="sr-only">'.
+            trans('common::misc.required').'</span></span>';
+
+        // HTML macros
+        $this->app->afterResolving('html', function (HtmlBuilder $html) use ($requiredMark) {
+
+            $html->macro('infoRequiredFields', function () use ($requiredMark) {
+                return trans('common::misc.required_notice', ['mark' => $requiredMark]);
+            });
+
         });
 
-        /* Compatibilité Laravel < 5.1 + tatillonnage Lucas :p
+        // Form macro
+        $this->app->afterResolving('form', function (FormBuilder $form) use ($requiredMark) {
 
-        $blade->extend(function($view, $compiler) {
-            $pattern = '/(?<!\w)(\s*)@(hasYield|hasyield)(\s*\(.*\))/';
+            $form->macro(
+                'labelRequired',
+                function (
+                    $name,
+                    $value = null,
+                    $options = [],
+                    $escape_html = true
+                ) use (
+                    $form,
+                    $requiredMark
+                ) {
+                    if ($escape_html) {
+                        $value = e($value);
+                    }
 
-            return preg_replace($pattern, '$1<?php if (array_key_exists($3, \$__env->getSections())): ?>', $view);
+                    $value = $value.' '.$requiredMark;
+
+                    return $form->label($name, $value, $options, false);
+                }
+            );
         });
-
-        $blade->extend(function($view, $compiler) {
-            $pattern = '/(?<!\w)(\s*)@(hasNotYield|hasnotyield|doesntHaveYield|doesnthaveyield)(\s*\(.*\))/';
-
-            return preg_replace($pattern, '$1<?php if (!array_key_exists($3, \$__env->getSections())): ?>', $view);
-        });
-        */
     }
 }

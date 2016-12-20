@@ -1,15 +1,28 @@
 Changelog for Laravel Extension
 ===============================
 
+4.0.0 (2016-12-20)
+------------------
+
+- Rename `hasYield` into `hasyield` - **bbc**
+- Rename `hasNotYield` into `doesnthaveyield` - **bbc**
+- Add `@endhasyield` directive
+- Add `@enddoesnthaveyield` directive
+- Add `@nltop()` directive
+- Add `@nltobr()` directive
+- Add `nl_to_p()` helper
+- Add `Form::labelRequired()` form macro
+- Add `Html::infoRequiredFields()` html macro
+
 3.2.0 (2016-12-01)
 ------------------
 
-Add Laravel 5.3.* support
+- Add Laravel 5.3.* support
 
 3.1.0 (2016-11-30)
 ------------------
 
-Add Laravel 5.2.* support
+- Add Laravel 5.2.* support
 
 3.0.1 (2016-10-31)
 ------------------
@@ -19,7 +32,7 @@ Add Laravel 5.2.* support
 3.0.0 (2016-10-08)
 ------------------
 
-- Removing Laravel <= 5.1 compatibilities
+- Removing Laravel <= 5.1 compatibilities - **bbc**
 - Added logs configurator
 
 2.2.1 (2016-04-14)
@@ -70,10 +83,10 @@ Add Laravel 5.2.* support
 - Ajout d'un provider pour enregistrer tous les providers et alias.
 - Ajout d'un fichier de bootstrap pour modifier le handler du dumper de Symfony.
 - Database :
-    * Renommage du trait "Model" en "ModelTrait".
+    * Renommage du trait "Model" en "ModelTrait". - **bbc**
     * Ajout des méthodes rightJoinRel() et rightJoinRelWithTrashed() au builder.
 - Foundation/Console :
-    * Suppression du trait "Kernel" (solution non convainquante).
+    * Suppression du trait "Kernel" (solution non convainquante). - **bbc**
     * Commande MigrateTest : renommage, déplacement, ajout/renommage d'options.
 - Foundation/Testing :
     * Renommage du trait "NestedViewsAssertions" en "NestedViewsAssertionsTrait".
