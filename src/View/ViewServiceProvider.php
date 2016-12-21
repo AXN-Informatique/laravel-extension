@@ -4,6 +4,7 @@ namespace Axn\Illuminate\View;
 
 use Collective\Html\FormBuilder;
 use Collective\Html\HtmlBuilder;
+use Collective\Html\HtmlFacade as Html;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\Compilers\BladeCompiler;
 
@@ -54,20 +55,22 @@ class ViewServiceProvider extends ServiceProvider
             });
         });
 
-        $requiredMark = '<span class="required"><i class="fa fa-asterisk"></i><span class="sr-only">'.
-            trans('common::various.required').'</span></span>';
-
         // HTML macros
-        $this->app->afterResolving('html', function (HtmlBuilder $html) use ($requiredMark) {
+        $this->app->afterResolving('html', function (HtmlBuilder $html) {
 
-            $html->macro('infoRequiredFields', function () use ($requiredMark) {
-                return trans('common::various.required_notice', ['mark' => $requiredMark]);
+            $html->macro('requiredMarker', function () {
+                return '<span class="required"><i class="fa fa-asterisk"></i><span class="sr-only">'.
+                    trans('common::misc.required').'</span></span>';
+            });
+
+            $html->macro('infoRequiredFields', function () {
+                return trans('common::misc.info_required_fields', ['mark' => Html::requiredMarker()]);
             });
 
         });
 
         // Form macro
-        $this->app->afterResolving('form', function (FormBuilder $form) use ($requiredMark) {
+        $this->app->afterResolving('form', function (FormBuilder $form) {
 
             $form->macro(
                 'labelRequired',
@@ -76,15 +79,12 @@ class ViewServiceProvider extends ServiceProvider
                     $value = null,
                     $options = [],
                     $escape_html = true
-                ) use (
-                    $form,
-                    $requiredMark
-                ) {
+                ) use ($form) {
                     if ($escape_html) {
                         $value = e($value);
                     }
 
-                    $value = $value.'&nbsp;'.$requiredMark;
+                    $value = $value.'&nbsp;'.Html::requiredMarker();
 
                     return $form->label($name, $value, $options, false);
                 }
