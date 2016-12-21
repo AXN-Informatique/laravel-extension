@@ -55,13 +55,13 @@ class ViewServiceProvider extends ServiceProvider
         });
 
         $requiredMark = '<span class="required"><i class="fa fa-asterisk"></i><span class="sr-only">'.
-            trans('common::misc.required').'</span></span>';
+            trans('common::various.required').'</span></span>';
 
         // HTML macros
         $this->app->afterResolving('html', function (HtmlBuilder $html) use ($requiredMark) {
 
             $html->macro('infoRequiredFields', function () use ($requiredMark) {
-                return trans('common::misc.required_notice', ['mark' => $requiredMark]);
+                return trans('common::various.required_notice', ['mark' => $requiredMark]);
             });
 
         });
