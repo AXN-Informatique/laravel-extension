@@ -1,9 +1,10 @@
 Changelog for Laravel Extension
 ===============================
 
-4.0.3 (2016-12-21)
+4.1.0 (2016-12-21)
 ------------------
 
+- Add `Html::requiredMarker()` html macro
 - fix translations (really)
 
 4.0.2 (2016-12-21)
