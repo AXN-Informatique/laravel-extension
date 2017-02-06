@@ -1,6 +1,11 @@
 Changelog for Laravel Extension
 ===============================
 
+4.2.0 (2017-02-06)
+------------------
+
+- Schema Builder : InnoDB as default engine
+
 4.1.0 (2016-12-21)
 ------------------
 
