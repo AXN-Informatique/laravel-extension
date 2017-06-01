@@ -3,6 +3,7 @@
 namespace Axn\Illuminate\Database;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use Illuminate\Database\Connection;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 
 class DatabaseServiceProvider extends BaseServiceProvider
@@ -26,11 +27,12 @@ class DatabaseServiceProvider extends BaseServiceProvider
      */
     protected function replaceMySqlConnection()
     {
-        $this->app->bind('db.connection.mysql', function($app, array $parameters) {
-            list($connection, $database, $prefix, $config) = $parameters;
-
-            return new MySqlConnection($connection, $database, $prefix, $config);
-        });
+        Connection::resolverFor(
+            'mysql',
+            function($connection, $database, $prefix, $config) {
+                return new MySqlConnection($connection, $database, $prefix, $config);
+            }
+        );
     }
 
     /**
