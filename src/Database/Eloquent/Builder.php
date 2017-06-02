@@ -245,7 +245,7 @@ class Builder extends BaseEloquentBuilder
         // HasOneOrMany (comprend aussi MorphOneOrMany)
         if ($relation instanceof HasOneOrMany) {
             $localKey = $relation->getParent()->getQualifiedKeyName();
-            $foreignKey = $relation->getRelated()->getTable().'.'.$relation->getPlainForeignKey();
+            $foreignKey = $relation->getRelated()->getTable().'.'.$relation->getForeignKeyName();
         }
         // BelongsTo
         elseif ($relation instanceof BelongsTo) {
@@ -261,7 +261,7 @@ class Builder extends BaseEloquentBuilder
             $join->on($localKey, '=', $foreignKey);
 
             if ($relation instanceof MorphOneOrMany) {
-                $morphType = $relation->getRelated()->getTable().'.'.$relation->getPlainMorphType();
+                $morphType = $relation->getRelated()->getTable().'.'.$relation->getMorphType();
                 $join->where($morphType, '=', $relation->getMorphClass());
             }
 
