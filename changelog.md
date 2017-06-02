@@ -1,6 +1,13 @@
 Changelog for Laravel Extension
 ===============================
 
+5.1.1 (2017-06-02)
+------------------
+
+- Database
+    * fix DB connection resolver
+    * fix Eloquent builder joinRel
+
 5.1.0 (2017-02-06)
 ------------------
 
