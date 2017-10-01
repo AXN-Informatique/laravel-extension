@@ -29,8 +29,9 @@ Inclure le package avec Composer :
 composer require axn/laravel-extension
 ```
 
-Si vous souhaitez enregistrer l'ensemble des providers d'un coup, ajoutez le service
-provider global au tableau des providers dans `config/app.php` :
+Dans Laravel 5.5 le service provider sera automatiquement enregistré.
+Dans les anciennes versions du framework, ajoutez simplement ce service provider
+au tableau des providers dans `config/app.php` :
 
 ```php
 // config/app.php
@@ -38,22 +39,6 @@ provider global au tableau des providers dans `config/app.php` :
 'provider' => [
     //...
     Axn\Illuminate\ServiceProvider::class,
-    //...
-];
-```
-
-Sinon, vous pouvez choisir vous-mêmes les providers à utiliser (tous ces providers sont
-compris dans le provider global ci-dessus) :
-
-```php
-// config/app.php
-
-'provider' => [
-    //...
-    Axn\Illuminate\Database\DatabaseServiceProvider::class,
-    Axn\Illuminate\Database\MigrationServiceProvider::class,
-    Axn\Illuminate\Foundation\Providers\ArtisanServiceProvider::class,
-    Axn\Illuminate\View\ViewServiceProvider::class,
     //...
 ];
 ```
