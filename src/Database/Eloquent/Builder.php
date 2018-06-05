@@ -54,98 +54,82 @@ class Builder extends BaseEloquentBuilder
     }
 
     /**
-     * Construit et enregistre une clause "join" en utilisant la relation définie
-     * sur le modèle, à l'instar de la méthode with().
+     * Effectue une jointure en utilisant la relation définie sur le modèle,
+     * à l'instar de la méthode with().
      *
-     * @param  string  $relationName
-     * @param  string  $alias
-     * @param  string  $type
-     * @param  boolean $withTrashed
+     * @param  string        $relationName
+     * @param  string        $alias
+     * @param  \Closure|null $wheres
      * @return Builder
      */
-    public function joinRel($relationName, $alias = '', $type = 'inner', $withTrashed = false)
+    public function joinRel($relationName, $alias = '', $wheres = null)
     {
-        $this->parseRelationName($relationName, $parentAlias);
-
-        $alias = $alias ?: $relationName;
-
-        if (!isset($this->relatedModels[$alias])) {
-            $relation = $this->relatedModels[$parentAlias]->$relationName();
-            $this->relatedModels[$alias] = $relation->getRelated();
-
-            $table = $relation->getRelated()->getTable()." as $alias";
-            $relation->getRelated()->setTable($alias);
-            $relation->getParent()->setTable($parentAlias);
-
-            $cond = $this->buildCond($relation, $withTrashed);
-
-            $this->query->join($table, $cond, null, null, $type);
-        }
-
-        return $this;
+        return $this->applyJoinRel($relationName, $alias, $wheres);
     }
 
     /**
      * Idem méthode joinRel() mais en incluant les enregistrements supprimés.
      *
-     * @param  string  $relationName
-     * @param  string  $alias
-     * @param  string  $type
+     * @param  string        $relationName
+     * @param  string        $alias
+     * @param  \Closure|null $wheres
      * @return Builder
      */
-    public function joinRelWithTrashed($relationName, $alias = '', $type = 'inner')
+    public function joinRelWithTrashed($relationName, $alias = '', $wheres = null)
     {
-        return $this->joinRel($relationName, $alias, $type, true);
+        return $this->applyJoinRel($relationName, $alias, $wheres, 'inner', true);
     }
 
     /**
      * Idem méthode joinRel() mais en type LEFT.
      *
-     * @param  string  $relationName
-     * @param  string  $alias
-     * @param  boolean $withTrashed
+     * @param  string        $relationName
+     * @param  string        $alias
+     * @param  \Closure|null $wheres
      * @return Builder
      */
-    public function leftJoinRel($relationName, $alias = '', $withTrashed = false)
+    public function leftJoinRel($relationName, $alias = '', $wheres = null)
     {
-        return $this->joinRel($relationName, $alias, 'left', $withTrashed);
+        return $this->applyJoinRel($relationName, $alias, $wheres, 'left');
     }
 
     /**
      * Idem méthode leftJoinRel() mais en incluant les enregistrements supprimés.
      *
-     * @param  string $relationName
-     * @param  string $alias
+     * @param  string        $relationName
+     * @param  string        $alias
+     * @param  \Closure|null $wheres
      * @return Builder
      */
-    public function leftJoinRelWithTrashed($relationName, $alias = '')
+    public function leftJoinRelWithTrashed($relationName, $alias = '', $wheres = null)
     {
-        return $this->leftJoinRel($relationName, $alias, true);
+        return $this->applyJoinRel($relationName, $alias, $wheres, 'left', true);
     }
 
     /**
      * Idem méthode joinRel() mais en type RIGHT.
      *
-     * @param  string  $relationName
-     * @param  string  $alias
-     * @param  boolean $withTrashed
+     * @param  string        $relationName
+     * @param  string        $alias
+     * @param  \Closure|null $wheres
      * @return Builder
      */
-    public function rightJoinRel($relationName, $alias = '', $withTrashed = false)
+    public function rightJoinRel($relationName, $alias = '', $wheres = null)
     {
-        return $this->joinRel($relationName, $alias, 'right', $withTrashed);
+        return $this->applyJoinRel($relationName, $alias, $wheres, 'right');
     }
 
     /**
      * Idem méthode rightJoinRel() mais en incluant les enregistrements supprimés.
      *
-     * @param  string $relationName
-     * @param  string $alias
+     * @param  string        $relationName
+     * @param  string        $alias
+     * @param  \Closure|null $wheres
      * @return Builder
      */
-    public function rightJoinRelWithTrashed($relationName, $alias = '')
+    public function rightJoinRelWithTrashed($relationName, $alias = '', $wheres = null)
     {
-        return $this->rightJoinRel($relationName, $alias, true);
+        return $this->applyJoinRel($relationName, $alias, $wheres, 'right', true);
     }
 
     /**
@@ -210,7 +194,40 @@ class Builder extends BaseEloquentBuilder
                 $this->query->orderBy($column, $option);
             }
         }
-	}
+    }
+
+    /**
+     * Applique une clause "join" en utilisant la relation définie sur le modèle,
+     * à l'instar de la méthode with().
+     *
+     * @param  string        $relationName
+     * @param  string        $alias
+     * @param  \Closure|null $wheres
+     * @param  string        $type
+     * @param  boolean       $withTrashed
+     * @return Builder
+     */
+    private function applyJoinRel($relationName, $alias = '', $wheres = null, $type = 'inner', $withTrashed = false)
+    {
+        $this->parseRelationName($relationName, $parentAlias);
+
+        $alias = $alias ?: $relationName;
+
+        if (!isset($this->relatedModels[$alias])) {
+            $relation = $this->relatedModels[$parentAlias]->$relationName();
+            $this->relatedModels[$alias] = $relation->getRelated();
+
+            $table = $relation->getRelated()->getTable()." as $alias";
+            $relation->getRelated()->setTable($alias);
+            $relation->getParent()->setTable($parentAlias);
+
+            $cond = $this->buildCond($relation, $wheres, $withTrashed);
+
+            $this->query->join($table, $cond, null, null, $type);
+        }
+
+        return $this;
+    }
 
     /**
      * Analyse le nom de la relation pour en extraire l'alias de la table sur laquelle
@@ -236,11 +253,12 @@ class Builder extends BaseEloquentBuilder
     /**
      * Construit la condition de jointure en fonction de la relation.
      *
-     * @param  Relation $relation
-     * @param  boolean  $withTrashed
+     * @param  Relation      $relation
+     * @param  \Closure|null $wheres
+     * @param  boolean       $withTrashed
      * @return \Closure
      */
-    private function buildCond(Relation $relation, $withTrashed)
+    private function buildCond(Relation $relation, $wheres, $withTrashed)
     {
         // HasOneOrMany (comprend aussi MorphOneOrMany)
         if ($relation instanceof HasOneOrMany) {
@@ -257,12 +275,16 @@ class Builder extends BaseEloquentBuilder
             throw new Exception(get_class($relation).' relation not supported for making join.');
         }
 
-        return (function($join) use ($localKey, $foreignKey, $relation, $withTrashed) {
+        return (function($join) use ($localKey, $foreignKey, $relation, $wheres, $withTrashed) {
             $join->on($localKey, '=', $foreignKey);
 
             if ($relation instanceof MorphOneOrMany) {
                 $morphType = $relation->getRelated()->getTable().'.'.$relation->getMorphType();
                 $join->where($morphType, '=', $relation->getMorphClass());
+            }
+
+            if ($wheres instanceof \Closure) {
+                $wheres($join);
             }
 
             if (!$withTrashed && in_array(static::SOFT_DELETES_TRAIT, class_uses($relation->getRelated()))) {
