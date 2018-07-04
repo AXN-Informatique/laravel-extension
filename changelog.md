@@ -1,6 +1,12 @@
 Changelog for Laravel Extension
 ===============================
 
+5.3.0 (2018-07-04)
+------------------
+
+- Add Laravel 5.6.* support
+- Possibilité d'ajouter des conditions de jointure avec la méthode joinRel()
+
 5.2.0 (2017-10-01)
 ------------------
 
