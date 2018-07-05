@@ -3,7 +3,7 @@
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Debug\HtmlDumper;
 use Symfony\Component\VarDumper\Cloner\VarCloner;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 
 if (!function_exists('dump_get')) {
     /**
@@ -63,18 +63,30 @@ if (!function_exists('carbon')) {
     /**
      * Crée une instance Carbon à partir d'une date ou d'un timestamp.
      *
-     * @param  string|null              $date
-     * @param  string|null              $format
-     * @param  DateTimeZone|string|null $tz
-     * @return Carbon|null
-     */
+     * @param  \DateTime|int|string|null $date
+     * @param  string|null $format
+     * @param  \DateTimeZone|string|null $tz
+     * @return Carbon
+     * */
     function carbon($date = null, $format = null, $tz = null)
     {
+        if (empty($date)) {
+            return Carbon::now($tz);
+        }
+
+        if ($date instanceof \DateTime) {
+            return Carbon::instance($date);
+        }
+
+        if (is_int($date) || ctype_digit($date)) {
+            return Carbon::createFromTimestamp($date, $tz);
+        }
+
         if (!empty($format)) {
             return Carbon::createFromFormat($format, $date, $tz);
-        } else {
-            return Carbon::parse($date, $tz);
         }
+
+        return Carbon::parse($date, $tz);
     }
 }
 
