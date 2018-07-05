@@ -4,6 +4,7 @@ Changelog for Laravel Extension
 5.4.0-DEV
 ------------------
 
+- Add number_fr() helper
 - Rewrite carbon() helper
 
 5.3.0 (2018-07-04)

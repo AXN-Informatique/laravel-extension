@@ -326,6 +326,7 @@ En complément des helpers de Laravel :
 - `carbon()` : Crée une instance Carbon à partir d'une date ou d'un timestamp.
 - `collect_models()` : Crée une collection de modèles (entités Eloquent).
 - `nl_to_p()` : Convert new lines into paragraphs.
+- `number_fr()` : Retourn un nombre au format français.
 
 ### bootstrap.php
 

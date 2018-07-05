@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Debug\HtmlDumper;
 use Symfony\Component\VarDumper\Cloner\VarCloner;
-use Illuminate\Support\Carbon;
 
 if (!function_exists('dump_get')) {
     /**
@@ -126,5 +126,19 @@ if (!function_exists('nl_to_p')) {
         $str = nl2br($str);
 
         return '<p>'.$str.'</p>';
+    }
+}
+
+if (!function_exists('number_fr')) {
+    /**
+     * Retourn un nombre au format français.
+     *
+     * @param number $value
+     * @param number $decimals
+     * @return string
+     */
+    function number_fr($value, $decimals = 0)
+    {
+        return number_format($value, $decimals, ',', ' ');
     }
 }
