@@ -75,7 +75,13 @@ if (!function_exists('carbon')) {
         }
 
         if ($date instanceof \DateTime) {
-            return Carbon::instance($date);
+            $carbon = Carbon::instance($datetime);
+
+            if (!is_null($tz)) {
+                $carbon->setTimezone($tz);
+            }
+
+            return $carbon;
         }
 
         if (is_int($date) || ctype_digit($date)) {
