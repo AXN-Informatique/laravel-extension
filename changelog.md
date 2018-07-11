@@ -6,12 +6,16 @@ Changelog for Laravel Extension
 
 - Add number_fr() helper
 - Rewrite carbon() helper
+- Database :
+    * joinRel : support des conditions additionnelles définies sur les relations
+    * Possibilité de désactiver l'ordre par défaut défini sur le modèle
 
 5.3.0 (2018-07-04)
 ------------------
 
 - Add Laravel 5.6.* support
-- Possibilité d'ajouter des conditions de jointure avec la méthode joinRel()
+- Database :
+    * joinRel : possibilité d'ajouter des conditions additionnelles
 
 5.2.0 (2017-10-01)
 ------------------
