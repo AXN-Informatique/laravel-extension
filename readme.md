@@ -116,6 +116,14 @@ class User extends Model
 }
 ```
 
+L'application du tri par défaut peut être désactivé via la méthode `disableDefaultOrderBy()` :
+
+```php
+$users = User::disableDefaultOrderBy()->get();
+```
+
+À noter que le tri par défaut est automatiquement désactivé si d'autres clauses ORDER BY ont été appliquées.
+
 ### Insert multiple records
 
 Grâce à la méthode `createMany()` il est possible de créer plusieurs enregistrements en une seule requête,
@@ -135,7 +143,7 @@ Role::createMany([
 ]);
 ```
 
-### Joints and relationships
+### Joins and relationships
 
 Des jointures peuvent être effectuées en utilisant les relations definies dans le modèle.
 
@@ -165,6 +173,16 @@ ou pour inclure les enregistrements "soft deleted" :
 - rightJoinRel()
 - rightJoinRelWithTrashed()
 
+Il est possible d'indiquer des conditions de jointure additionnelles via une fonction
+anonyme en deuxième ou troisième argument :
+
+```php
+User::joinRel('userRoles', function($join) {
+        $join->where('is_main', 1);
+    })
+    ->joinRel('userRoles.role')
+    ->get();
+```
 
 Artisan commands
 ----------------
