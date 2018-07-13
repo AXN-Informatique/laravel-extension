@@ -1,7 +1,7 @@
 Changelog for Laravel Extension
 ===============================
 
-5.4.0-DEV
+5.4.0 (2018-07-13)
 ------------------
 
 - Add number_fr() helper
