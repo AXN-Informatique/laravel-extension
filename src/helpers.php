@@ -7,7 +7,7 @@ use Symfony\Component\VarDumper\Cloner\VarCloner;
 
 if (!function_exists('dump_get')) {
     /**
-     * Retourne le résultat d'un dump obtenu à l'aide du dumper HTML de Laravel.
+     * Returns the result of a dump (Laravel HtmlDumper).
      *
      * @param  mixed
      * @return string
@@ -24,44 +24,9 @@ if (!function_exists('dump_get')) {
     }
 }
 
-if (!function_exists('dump_put')) {
-    /**
-     * Écrit dans "public/dump.html" le résultat d'un dump obtenu à l'aide
-     * du dumper HTML de Laravel
-     *
-     * @param  mixed
-     * @return void
-     */
-    function dump_put()
-    {
-        ob_start();
-
-        foreach (func_get_args() as $var) {
-            (new HtmlDumper)->dump( (new VarCloner)->cloneVar($var) );
-        }
-
-        file_put_contents(public_path('dump.html'), ob_get_clean(), FILE_APPEND);
-    }
-}
-
-if (!function_exists('v')) {
-    /**
-     * Tente de retourner la valeur d'une variable, sans générer d'erreur
-     * si celle-ci n'existe pas (grâce au passage par référence).
-     *
-     * @param  mixed &$var
-     * @param  mixed $default
-     * @return mixed
-     */
-    function v(&$var, $default = null)
-    {
-        return isset($var) ? $var : $default;
-    }
-}
-
 if (!function_exists('carbon')) {
     /**
-     * Crée une instance Carbon à partir d'une date ou d'un timestamp.
+     * Create a Carbon instance from a date string, a DateTime instance or a timestamp.
      *
      * @param  \DateTime|int|string|null $date
      * @param  string|null $format
@@ -98,7 +63,7 @@ if (!function_exists('carbon')) {
 
 if (!function_exists('collect_models')) {
     /**
-     * Crée une collection de modèles (entités Eloquent).
+     * Create a collection of Eloquent models.
      *
      * @param  array[\Illuminate\Database\Eloquent\Model] $models
      * @return EloquentCollection
@@ -113,7 +78,7 @@ if (!function_exists('nl_to_p')) {
     /**
      * Convert new lines into paragraphs.
      *
-     * @param string $str
+     * @param  string $str
      * @return string
      */
     function nl_to_p($str)
@@ -137,10 +102,10 @@ if (!function_exists('nl_to_p')) {
 
 if (!function_exists('number_fr')) {
     /**
-     * Retourn un nombre au format français.
+     * Returns a number in french format.
      *
-     * @param number $value
-     * @param number $decimals
+     * @param  float $value
+     * @param  int $decimals
      * @return string
      */
     function number_fr($value, $decimals = 0)

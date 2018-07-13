@@ -1,28 +1,28 @@
 {
-    "name" : "axn/laravel-extension",
-    "description" : "Includes various extensions to the Laravel framework",
-    "homepage" : "https://github.com/AXN-Informatique/laravel-extension",
-    "support" : {
-        "issues" : "https://github.com/AXN-Informatique/laravel-extension/issues"
+    "name": "axn/laravel-extension",
+    "description": "Includes various extensions to the Laravel framework",
+    "homepage": "https://github.com/AXN-Informatique/laravel-extension",
+    "support": {
+        "issues": "https://github.com/AXN-Informatique/laravel-extension/issues"
     },
-    "authors" : [{
-            "name" : "AXN Informatique",
-            "email" : "developpement@axn.fr"
+    "authors": [
+        {
+            "name": "AXN Informatique",
+            "email": "developpement@axn.fr"
         }
     ],
-    "license" : "MIT",
-    "require" : {
-        "axn/laravel-common-languages-terms" : "dev-master",
-        "laravel/framework" : "5.4.*|5.5.*|5.6.*",
-        "laravelcollective/html" : "5.4.*|5.5.*|5.6.*"
+    "license": "MIT",
+    "require": {
+        "axn/laravel-common-languages-terms": "dev-master",
+        "laravel/framework": "5.4.*|5.5.*|5.6.*",
+        "laravelcollective/html": "5.4.*|5.5.*|5.6.*"
     },
-    "autoload" : {
-        "psr-4" : {
-            "Axn\\Illuminate\\" : "src/"
+    "autoload": {
+        "psr-4": {
+            "Axn\\Illuminate\\": "src/"
         },
-        "files" : [
-            "src/helpers.php",
-            "src/bootstrap.php"
+        "files": [
+            "src/helpers.php"
         ]
     },
     "extra": {

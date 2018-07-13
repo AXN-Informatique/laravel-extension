@@ -1,6 +1,13 @@
 Changelog for Laravel Extension
 ===============================
 
+6.0.0-dev
+------------------
+
+- Now contains only helpers, Blade directives and macros (Database has been moved to axn/laravel-database-extension)
+- Blade directives @hasyield and @doesnthaveyield have been renamed @hassection and @doesnthavesection
+- Helpers dump_put() and v() have been removed
+
 5.4.0 (2018-07-13)
 ------------------
 
