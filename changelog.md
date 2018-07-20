@@ -8,6 +8,11 @@ Changelog for Laravel Extension
 - Blade directives @hasyield and @doesnthaveyield have been renamed @hassection and @doesnthavesection
 - Helpers dump_put() and v() have been removed
 
+5.4.1 (2018-07-20)
+------------------
+
+- Fix carbon() helper compatibility with Laravel < 5.5
+
 5.4.0 (2018-07-13)
 ------------------
 
