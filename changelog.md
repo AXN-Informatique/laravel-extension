@@ -1,6 +1,11 @@
 Changelog for Laravel Extension
 ===============================
 
+5.4.1 (2018-07-20)
+------------------
+
+- Fix carbon() helper compatibility with Laravel < 5.5
+
 5.4.0 (2018-07-13)
 ------------------
 

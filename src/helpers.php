@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Debug\HtmlDumper;
 use Symfony\Component\VarDumper\Cloner\VarCloner;
 
@@ -66,16 +65,22 @@ if (!function_exists('carbon')) {
      * @param  \DateTime|int|string|null $date
      * @param  string|null $format
      * @param  \DateTimeZone|string|null $tz
-     * @return Carbon
+     * @return \Illuminate\Support\Carbon|Carbon\Carbon
      * */
     function carbon($date = null, $format = null, $tz = null)
     {
+        $carbonClass = '\\Illuminate\\Support\\Carbon';
+
+        if (!class_exists($carbonClass)) {
+            $carbonClass = '\\Carbon\\Carbon';
+        }
+
         if (empty($date)) {
-            return Carbon::now($tz);
+            return $carbonClass::now($tz);
         }
 
         if ($date instanceof \DateTime) {
-            $carbon = Carbon::instance($datetime);
+            $carbon = $carbonClass::instance($datetime);
 
             if (!is_null($tz)) {
                 $carbon->setTimezone($tz);
@@ -85,14 +90,14 @@ if (!function_exists('carbon')) {
         }
 
         if (is_int($date) || ctype_digit($date)) {
-            return Carbon::createFromTimestamp($date, $tz);
+            return $carbonClass::createFromTimestamp($date, $tz);
         }
 
         if (!empty($format)) {
-            return Carbon::createFromFormat($format, $date, $tz);
+            return $carbonClass::createFromFormat($format, $date, $tz);
         }
 
-        return Carbon::parse($date, $tz);
+        return $carbonClass::parse($date, $tz);
     }
 }
 
