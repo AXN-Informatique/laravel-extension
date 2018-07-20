@@ -48,7 +48,7 @@ Blade directives
 In addition to Laravel Blade directives:
 
 - `@hassection('section-name')`: Indicates if a section exists
-- `@doesnthaveyield('section-name')`: Indicates if a section does not exist
+- `@doesnthavesection('section-name')`: Indicates if a section does not exist
 - `@nltop()`: Transform new lines into paragraphs
 - `@nltobr()`: Transform new lines into <br>
 
