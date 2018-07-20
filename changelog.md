@@ -1,7 +1,7 @@
 Changelog for Laravel Extension
 ===============================
 
-6.0.0-dev
+6.0.0 (2018-07-20)
 ------------------
 
 - Now contains only helpers, Blade directives and macros (Database has been moved to axn/laravel-database-extension)
