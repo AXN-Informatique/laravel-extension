@@ -45,7 +45,7 @@ if (!function_exists('carbon')) {
         }
 
         if ($date instanceof \DateTime) {
-            $carbon = $carbonClass::instance($datetime);
+            $carbon = $carbonClass::instance($date);
 
             if (!is_null($tz)) {
                 $carbon->setTimezone($tz);
