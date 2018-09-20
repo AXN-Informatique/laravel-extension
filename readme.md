@@ -41,6 +41,7 @@ In addition to Laravel helpers:
 - `collect_models()`: Create a collection of Eloquent models.
 - `nl_to_p()`: Convert new lines into paragraphs.
 - `number_fr()`: Returns a number in french format.
+- `convert_dec_to_time()`: Decimal to time conversion.
 
 Blade directives
 ----------------

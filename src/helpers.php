@@ -118,3 +118,41 @@ if (!function_exists('number_fr')) {
         return number_format($value, $decimals, ',', ' ');
     }
 }
+
+if (!function_exists('convert_dec_to_time')) {
+    /**
+     * Decimal to time conversion
+     *
+     * 1.75 => 01:45:00
+     *
+     * @param string|float $dec
+     * @return string
+     */
+    function convert_dec_to_time($dec)
+    {
+        // prevent french notation
+        $dec = str_replace(',', '.', $dec);
+
+        // start by converting to seconds
+        $seconds = ($dec * 3600);
+
+        // we're given hours, so let's get those the easy way
+        $hours = floor($dec);
+
+        // since we've "calculated" hours, let's remove them from the seconds variable
+        $seconds -= $hours * 3600;
+
+        // calculate minutes left
+        $minutes = floor($seconds / 60);
+
+        // finaly, get the rest of seconds
+        $seconds = $seconds % 60;
+
+        // return the time formatted HH:MM:SS
+        $pad = function ($value) {
+            return str_pad($value, 2, 0, STR_PAD_LEFT);
+        };
+
+        return sprintf('%s:%s:%s', $pad($hours), $pad($minutes), $pad($seconds));
+    }
+}
