@@ -119,16 +119,16 @@ if (!function_exists('number_fr')) {
     }
 }
 
-if (!function_exists('convert_dec_to_time')) {
+if (!function_exists('compute_dec_to_time')) {
     /**
-     * Decimal to time conversion
+     * Decimal to time calculation
      *
-     * 1.75 => 01:45:00
+     * 1.75 => ['hours' => 1, 'minutes' => 45, 'seconds' => 0]
      *
-     * @param string|float $dec
-     * @return string
+     * @param  string|float $dec
+     * @return array
      */
-    function convert_dec_to_time($dec)
+    function compute_dec_to_time($dec)
     {
         // prevent french notation
         $dec = str_replace(',', '.', $dec);
@@ -147,6 +147,23 @@ if (!function_exists('convert_dec_to_time')) {
 
         // finaly, get the rest of seconds
         $seconds = $seconds % 60;
+
+        return compact('hours', 'minutes', 'seconds');
+    }
+}
+
+if (!function_exists('convert_dec_to_time')) {
+    /**
+     * Decimal to time conversion
+     *
+     * 1.75 => 01:45:00
+     *
+     * @param  string|float $dec
+     * @return string
+     */
+    function convert_dec_to_time($dec)
+    {
+        list($hours, $minutes, $seconds) = compute_dec_to_time($dec);
 
         // return the time formatted HH:MM:SS
         $pad = function ($value) {
