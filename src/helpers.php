@@ -156,20 +156,30 @@ if (!function_exists('convert_dec_to_time')) {
     /**
      * Decimal to time conversion
      *
-     * 1.75 => 01:45:00
+     * convert_dec_to_time(1.75)
+     * => 01:45:00
+     *
+     * convert_dec_to_time(1.75, '%2$s:%3$s')
+     * => 45:00
      *
      * @param  string|float $dec
+     * @param  string $pattern ('%s:%s:%s')
      * @return string
      */
-    function convert_dec_to_time($dec)
+    function convert_dec_to_time($dec, $pattern = '%s:%s:%s')
     {
-        list($hours, $minutes, $seconds) = compute_dec_to_time($dec);
+        $time = compute_dec_to_time($dec);
 
         // return the time formatted HH:MM:SS
         $pad = function ($value) {
             return str_pad($value, 2, 0, STR_PAD_LEFT);
         };
 
-        return sprintf('%s:%s:%s', $pad($hours), $pad($minutes), $pad($seconds));
+        return sprintf(
+            $pattern,
+            $pad($time['hours']),
+            $pad($time['minutes']),
+            $pad($time['seconds'])
+        );
     }
 }

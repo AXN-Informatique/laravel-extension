@@ -1,6 +1,12 @@
 Changelog for Laravel Extension
 ===============================
 
+6.4.0 (2018-09-25)
+------------------
+
+- Add pattern parameter to convert_dec_to_time() helper
+- Fix compute_dec_to_time() with list() called
+
 6.3.0 (2018-09-25)
 ------------------
 
