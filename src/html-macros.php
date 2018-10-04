@@ -25,6 +25,6 @@ $html->macro('requiredMarker', function() {
 $html->macro('infoRequiredFields', function() {
     return trans(
         'common::misc.info_required_fields',
-        ['mark' => Html::requiredMarker()]
+        ['mark' => str_html(Html::requiredMarker())]
     );
 });

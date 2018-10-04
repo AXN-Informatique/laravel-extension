@@ -1,6 +1,12 @@
 Changelog for Laravel Extension
 ===============================
 
+6.5.0 (2018-10-04)
+------------------
+
+- Add str_html helper
+- Remove unused dump_get() helper
+
 6.4.0 (2018-09-25)
 ------------------
 

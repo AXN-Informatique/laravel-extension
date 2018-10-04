@@ -1,27 +1,7 @@
 <?php
 
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
-use Illuminate\Support\Debug\HtmlDumper;
-use Symfony\Component\VarDumper\Cloner\VarCloner;
-
-if (!function_exists('dump_get')) {
-    /**
-     * Returns the result of a dump (Laravel HtmlDumper).
-     *
-     * @param  mixed
-     * @return string
-     */
-    function dump_get()
-    {
-        ob_start();
-
-        foreach (func_get_args() as $var) {
-            (new HtmlDumper)->dump( (new VarCloner)->cloneVar($var) );
-        }
-
-        return ob_get_clean();
-    }
-}
+use Illuminate\Support\HtmlString;
 
 if (!function_exists('carbon')) {
     /**
@@ -181,5 +161,10 @@ if (!function_exists('convert_dec_to_time')) {
             $pad($time['minutes']),
             $pad($time['seconds'])
         );
+    }
+
+    function str_html($str)
+    {
+        return new HtmlString($str);
     }
 }
