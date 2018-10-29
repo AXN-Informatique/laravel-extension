@@ -59,6 +59,33 @@ if (!function_exists('collect_models')) {
     }
 }
 
+if (!function_exists('str_html')) {
+    /**
+     * Instantiate HtmlString
+     *
+     * @param string $str
+     * @return \Illuminate\Support\HtmlString
+     */
+    function str_html($str)
+    {
+        return new HtmlString($str);
+    }
+}
+
+if (!function_exists('linebreaks')) {
+    /**
+     * Convert all line-endings to UNIX format ;
+     * ie. replace "\r\n" and "\r" by "\n".
+     *
+     * @param string $str String to transform
+     * @return string
+     */
+    function linebreaks($str)
+    {
+        return str_replace(["\r\n", "\r" ], ["\n", "\n"], $str);
+    }
+}
+
 if (!function_exists('nl_to_p')) {
     /**
      * Convert new lines into paragraphs.
@@ -69,8 +96,7 @@ if (!function_exists('nl_to_p')) {
     function nl_to_p($str)
     {
         // Convert all line-endings to UNIX format
-        $str = str_replace("\r\n", "\n", $str);
-        $str = str_replace("\r", "\n", $str);
+        $str = linebreaks($str);
 
         // Don't allow out-of-control blank lines
         $str = preg_replace("/\n{2,}/", "\n\n", $str);
@@ -161,10 +187,5 @@ if (!function_exists('convert_dec_to_time')) {
             $pad($time['minutes']),
             $pad($time['seconds'])
         );
-    }
-
-    function str_html($str)
-    {
-        return new HtmlString($str);
     }
 }

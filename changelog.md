@@ -1,27 +1,34 @@
 Changelog for Laravel Extension
 ===============================
 
+
+6.6.0 (2018-10-29)
+------------------
+
+- Add `linebreaks()` helper
+- Fix declaration of `str_html()` helper
+
 6.5.0 (2018-10-04)
 ------------------
 
-- Add str_html helper
-- Remove unused dump_get() helper
+- Add `str_html()` helper
+- Remove unused `dump_get()` helper
 
 6.4.0 (2018-09-25)
 ------------------
 
-- Add pattern parameter to convert_dec_to_time() helper
-- Fix compute_dec_to_time() with list() called
+- Add pattern parameter to `convert_dec_to_time()` helper
+- Fix `compute_dec_to_time()` with list() called
 
 6.3.0 (2018-09-25)
 ------------------
 
-- Add compute_dec_to_time() helper
+- Add `compute_dec_to_time()` helper
 
 6.2.0 (2018-09-20)
 ------------------
 
-- Add convert_dec_to_time() helper
+- Add `convert_dec_to_time()` helper
 
 6.1.0 (2018-09-11)
 ------------------
@@ -37,13 +44,13 @@ Changelog for Laravel Extension
 ------------------
 
 - Now contains only helpers, Blade directives and macros (Database has been moved to axn/laravel-database-extension)
-- Blade directives @hasyield and @doesnthaveyield have been renamed @hassection and @doesnthavesection
-- Helpers dump_put() and v() have been removed
+- Blade directives `@hasyield` and `@doesnthaveyield` have been renamed `@hassection` and `@doesnthavesection`
+- Helpers `dump_put()` and `v()` have been removed
 
 5.4.1 (2018-07-20)
 ------------------
 
-- Fix carbon() helper compatibility with Laravel < 5.5
+- Fix `carbon()` helper compatibility with Laravel < 5.5
 
 5.4.0 (2018-07-13)
 ------------------

@@ -38,11 +38,12 @@ In addition to Laravel helpers:
 
 - `carbon()`: Create a Carbon instance from a date string, a DateTime instance or a timestamp.
 - `collect_models()`: Create a collection of Eloquent models.
+- `str_html()`: Create an Illuminate\Support\HtmlString instance.
+- `linebreaks()`: Convert all line-endings to UNIX format.
 - `nl_to_p()`: Convert new lines into paragraphs.
 - `number_fr()`: Returns a number in french format.
 - `compute_dec_to_time()`: Decimal to time calculation (returns an array with hours, minutes and seconds).
 - `convert_dec_to_time()`: Decimal to time conversion (format: HH:MM:SS).
-- `str_html()`: Create an Illuminate\Support\HtmlString instance.
 
 Blade directives
 ----------------
