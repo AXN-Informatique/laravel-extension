@@ -41,9 +41,11 @@ In addition to Laravel helpers:
 - `str_html()`: Create an Illuminate\Support\HtmlString instance.
 - `linebreaks()`: Convert all line-endings to UNIX format.
 - `nl_to_p()`: Convert new lines into paragraphs.
+- `number_formated()`: Returns a number in current language format.
 - `number_fr()`: Returns a number in french format.
 - `compute_dec_to_time()`: Decimal to time calculation (returns an array with hours, minutes and seconds).
 - `convert_dec_to_time()`: Decimal to time conversion (format: HH:MM:SS).
+- `human_readable_bytes_size()`: Convert a bytes size into a human readable size.
 
 Blade directives
 ----------------

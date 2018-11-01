@@ -111,6 +111,23 @@ if (!function_exists('nl_to_p')) {
     }
 }
 
+if (!function_exists('number_formated')) {
+    /**
+     * Returns a number in current language format.
+     *
+     * @param  float $value
+     * @param  int $decimals
+     * @return string
+     */
+    function number_formated($value, $decimals = 0)
+    {
+        return number_format(e($value), $decimals,
+            trans('common::number.decimals_separator'),
+            trans('common::number.thousands_separator')
+        );
+    }
+}
+
 if (!function_exists('number_fr')) {
     /**
      * Returns a number in french format.
@@ -187,5 +204,26 @@ if (!function_exists('convert_dec_to_time')) {
             $pad($time['minutes']),
             $pad($time['seconds'])
         );
+    }
+}
+
+if (!function_exists('human_readable_bytes_size')) {
+    function human_readable_bytes_size($bytes, $decimals = 0)
+    {
+        $units = [
+            trans('common::unit.B'),
+            trans('common::unit.kB'),
+            trans('common::unit.MB'),
+            trans('common::unit.GB'),
+            trans('common::unit.TB'),
+        ];
+
+        $bytes = max($bytes, 0);
+        $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
+        $pow = min($pow, count($units) - 1);
+
+        $bytes /= (1 << (10 * $pow));
+
+        return number_formated($bytes, $decimals) . ' ' . $units[$pow];
     }
 }

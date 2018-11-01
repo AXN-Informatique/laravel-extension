@@ -1,6 +1,11 @@
 Changelog for Laravel Extension
 ===============================
 
+6.7.0 (2018-11-01)
+------------------
+
+- Add `number_formated()` helper
+- Add `human_readable_bytes_size()` helper
 
 6.6.0 (2018-10-29)
 ------------------
