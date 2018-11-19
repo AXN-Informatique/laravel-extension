@@ -10,11 +10,27 @@ use Collective\Html\HtmlFacade as Html;
 $html->macro('requiredMarker', function() {
     return
         '<span class="required">'.
-            '<i class="fa fa-asterisk"></i>'.
+            str_html(Html::requiredCharacter()).
             '<span class="sr-only">'.
                 trans('common::misc.required').
             '</span>'.
         '</span>';
+});
+
+/**
+ * Typographic character of the marker to indicate that a form field is required.
+ *
+ * Examples:
+ *  - '*'               // UTF-8 character
+ *  - '&#42;'           // decimal numeric character reference
+ *  - '&#x2a;'          // hexadecimal numeric character reference
+ *  - '* required'      // custom string...
+ *  - '<i class="fa fa-asterisk"></i>' // HTML custom string
+ *
+ * @return string
+ */
+$html->macro('requiredCharacter', function() {
+    return '&#x2a;';
 });
 
 /**

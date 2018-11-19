@@ -1,6 +1,12 @@
 Changelog for Laravel Extension
 ===============================
 
+6.8.0 (2018-11-19)
+------------------
+
+- Add `Html::requiredCharacter()` html macro
+- Remove the dependency on FontAwesome for requiredMarker
+
 6.7.0 (2018-11-01)
 ------------------
 
