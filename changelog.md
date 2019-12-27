@@ -1,6 +1,12 @@
 Changelog
 =========
 
+7.0.0 (2019-12-27)
+------------------
+
+- Add support for Laravel 6
+- Drop support for Laravel 5.7 and older
+
 6.9.0 (2019-03-07)
 ------------------
 
