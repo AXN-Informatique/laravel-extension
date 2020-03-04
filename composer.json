@@ -14,8 +14,8 @@
     "license": "MIT",
     "require": {
         "axn/laravel-common-languages-terms": "dev-master",
-        "laravel/framework": "~5.8 || ^6.0",
-        "laravelcollective/html": "5.8.* || ^6.0"
+        "laravel/framework": "~5.8 || ^6.0 || ^7.0",
+        "laravelcollective/html": "5.8.* || ^6.0 || ^7.0"
     },
     "autoload": {
         "psr-4": {
