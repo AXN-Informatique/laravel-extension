@@ -46,6 +46,7 @@ In addition to Laravel helpers:
 - `compute_dec_to_time()`: Decimal to time calculation (returns an array with hours, minutes and seconds).
 - `convert_dec_to_time()`: Decimal to time conversion (format: HH:MM:SS).
 - `human_readable_bytes_size()`: Convert a bytes size into a human readable size.
+- `mime_type_to_fa5_class()`: Return a font awesome file icon class for specific MIME Type
 
 Blade directives
 ----------------
