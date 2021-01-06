@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\HtmlString;
+use Illuminate\Support\Str;
 
 if (!function_exists('carbon')) {
     /**
@@ -268,5 +269,26 @@ if (!function_exists('mime_type_to_fa5_class')) {
         }
 
         return $default;
+    }
+}
+
+if (!function_exists('trans_ucfirst')) {
+    /**
+     * Translate the given message with first character uppercase.
+     *
+     * @param string $key
+     * @param array $replace
+     * @param string|null  $locale
+     * @return string|array|null
+     */
+    function trans_ucfirst($key, $replace = [], $locale = null)
+    {
+        $translation = app('translator')->get($key, $replace, $locale);
+
+        if (is_string($translation)) {
+            return Str::ucfirst($translation);
+        }
+
+        return $translation;
     }
 }
