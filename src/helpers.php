@@ -121,7 +121,7 @@ if (!function_exists('nl_to_br')) {
      */
     function nl_to_br($str, $use_xhtml = true)
     {
-        $str = \nl2br($str, $use_xhtml);
+        return \nl2br($str, $use_xhtml);
     }
 }
 
