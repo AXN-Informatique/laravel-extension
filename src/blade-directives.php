@@ -41,11 +41,11 @@ $blade->directive('nltop', function($expression) {
 });
 
 /**
- * Alias of nl2br() function.
+ * Alias of nl_to_br() helper.
  *
  * @param  string $expression
  * @return string
  */
 $blade->directive('nltobr', function($expression) {
-    return "<?php echo nl2br(e($expression)); ?>";
+    return "<?php echo nl_to_br(e($expression)); ?>";
 });

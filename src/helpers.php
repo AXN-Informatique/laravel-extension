@@ -106,9 +106,22 @@ if (!function_exists('nl_to_p')) {
         $str = preg_replace('/\n(\s*\n)+/', '</p><p>', $str);
 
         // Replace the single linebreaks by <br> elements
-        $str = nl2br($str);
+        $str = nl_to_br($str);
 
         return '<p>'.$str.'</p>';
+    }
+}
+
+if (!function_exists('nl_to_br')) {
+    /**
+     * Alias of native PHP function nl2br()
+     *
+     * @param  string $str
+     * @return string
+     */
+    function nl_to_br($str, $use_xhtml = true)
+    {
+        $str = \nl2br($str, $use_xhtml);
     }
 }
 

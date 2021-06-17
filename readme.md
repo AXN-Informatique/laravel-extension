@@ -41,6 +41,7 @@ In addition to Laravel helpers:
 - `str_html()`: Create an Illuminate\Support\HtmlString instance.
 - `linebreaks()`: Convert all line-endings to UNIX format.
 - `nl_to_p()`: Convert new lines into paragraphs.
+- `nl_to_br()`: Alias of native PHP function nl2br().
 - `number_formated()`: Returns a number in current language format.
 - `number_fr()`: Returns a number in french format.
 - `compute_dec_to_time()`: Decimal to time calculation (returns an array with hours, minutes and seconds).
