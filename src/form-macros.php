@@ -1,5 +1,6 @@
 <?php
 
+use Collective\Html\FormFacade as Form;
 use Collective\Html\HtmlFacade as Html;
 
 /**
@@ -11,9 +12,9 @@ use Collective\Html\HtmlFacade as Html;
  * @param  bool $espaceHtml
  * @return string
  */
-$form->macro(
+Form::macro(
     'labelRequired',
-    function($name, $value = null, $options = [], $escapeHtml = true) use ($form) {
+    function($name, $value = null, $options = [], $escapeHtml = true) {
 
         if ($escapeHtml) {
             $value = e($value);
@@ -21,6 +22,6 @@ $form->macro(
 
         $value = $value.'&nbsp;'.Html::requiredMarker();
 
-        return $form->label($name, $value, $options, false);
+        return Form::label($name, $value, $options, false);
     }
 );

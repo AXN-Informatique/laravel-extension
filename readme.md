@@ -17,20 +17,6 @@ With Composer :
 composer require axn/laravel-extension
 ```
 
-In Laravel 5.5 the service provider is automaticaly included.
-In older versions of the framework, simply add this service provider to the array
-of providers in `config/app.php` :
-
-```php
-// config/app.php
-
-'provider' => [
-    //...
-    Axn\Illuminate\ServiceProvider::class,
-    //...
-];
-```
-
 Helpers
 -------
 
@@ -56,8 +42,8 @@ Blade directives
 
 In addition to Laravel Blade directives:
 
-- `@hassection('section-name')`: Indicates if a section exists
-- `@doesnthavesection('section-name')`: Indicates if a section does not exist
+- `@hassection('section-name')`: Indicates if a section exists ; **deprecated 7.5.2** will be removed in 8.0.0 Use native `@hasSection` instead
+- `@doesnthavesection('section-name')`: Indicates if a section does not exist ; **deprecated 7.5.2** will be removed in 8.0.0 Use native `@sectionMissing` instead
 - `@nltop()`: Transform new lines into paragraphs
 - `@nltobr()`: Transform new lines into <br>
 

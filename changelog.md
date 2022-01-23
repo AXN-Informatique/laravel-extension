@@ -1,6 +1,13 @@
 Changelog
 =========
 
+7.5.2 (2022-01-23)
+------------------
+
+- Deprecating `@hassection` will be removed in 8.0.0 ; use native `@hasSection` instead
+- Deprecating `@doesnthavesection` will be removed in 8.0.0 ; use native `@sectionMissing` instead
+- As the methods are called in the `boot()` method of the service provider, there is no need to check if the required services are loaded
+
 7.5.1 (2021-06-17)
 ------------------
 

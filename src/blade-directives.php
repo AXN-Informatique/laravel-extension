@@ -1,32 +1,46 @@
 <?php
 
+use Illuminate\Support\Facades\Blade;
+
 /**
  * Indicates if a view section has been defined.
  *
+ * @deprecated 7.5.2 will be removed in 8.0.0 Use native @hasSection instead
  * @param  string $expression
  * @return string
  */
-$blade->directive('hassection', function($expression) {
+Blade::directive('hassection', function($expression) {
     return "<?php if (array_key_exists($expression, \$__env->getSections())): ?>";
 });
 
-// End of @hassection directive
-$blade->directive('endhassection', function($expression) {
+/**
+ * End of @hassection directive
+ *
+ * @deprecated 7.5.2 will be removed in 8.0.0 Use native @endif instead
+ * @return string
+ */
+Blade::directive('endhassection', function($expression) {
     return "<?php endif; ?>";
 });
 
 /**
  * Indicates if a view section does not have been defined.
  *
+ * @deprecated 7.5.2 will be removed in 8.0.0 Use native @sectionMissing instead
  * @param  string $expression
  * @return string
  */
-$blade->directive('doesnthavesection', function($expression) {
+Blade::directive('doesnthavesection', function($expression) {
     return "<?php if (!array_key_exists($expression, \$__env->getSections())): ?>";
 });
 
-// End of @enddoesnthavesection directive
-$blade->directive('enddoesnthavesection', function($expression) {
+/**
+ * End of @enddoesnthavesection directive
+ *
+ * @deprecated 7.5.2 will be removed in 8.0.0 Use native @endif instead
+ * @return string
+ */
+Blade::directive('enddoesnthavesection', function($expression) {
     return "<?php endif; ?>";
 });
 
@@ -36,7 +50,7 @@ $blade->directive('enddoesnthavesection', function($expression) {
  * @param  string $expression
  * @return string
  */
-$blade->directive('nltop', function($expression) {
+Blade::directive('nltop', function($expression) {
     return "<?php echo nl_to_p(e($expression)); ?>";
 });
 
@@ -46,6 +60,6 @@ $blade->directive('nltop', function($expression) {
  * @param  string $expression
  * @return string
  */
-$blade->directive('nltobr', function($expression) {
+Blade::directive('nltobr', function($expression) {
     return "<?php echo nl_to_br(e($expression)); ?>";
 });
