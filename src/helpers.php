@@ -3,8 +3,6 @@
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
-use ReflectionClass;
-use ReflectionException;
 
 if (! function_exists('carbon')) {
     /**
@@ -319,10 +317,10 @@ if (! function_exists('is_valid_model')) {
     function is_valid_model($modelClass): bool
     {
         try {
-            $rc = new ReflectionClass($modelClass);
+            $rc = new \ReflectionClass($modelClass);
 
             return $rc->isInstantiable() && $rc->isSubclassOf('Illuminate\Database\Eloquent\Model');
-        } catch (ReflectionException $e) {
+        } catch (\ReflectionException $e) {
             return false;
         }
     }

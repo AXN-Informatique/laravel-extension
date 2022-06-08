@@ -1,6 +1,11 @@
 Changelog
 =========
 
+7.7.1 (2022-06-08)
+------------------
+
+- Fix import of `ReflectionClass` in helpers file
+
 7.7.0 (2022-06-08)
 ------------------
 
