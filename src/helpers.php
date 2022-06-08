@@ -3,8 +3,10 @@
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
+use ReflectionClass;
+use ReflectionException;
 
-if (!function_exists('carbon')) {
+if (! function_exists('carbon')) {
     /**
      * Create a Carbon instance from a date string, a DateTime instance or a timestamp.
      *
@@ -17,7 +19,7 @@ if (!function_exists('carbon')) {
     {
         $carbonClass = '\\Illuminate\\Support\\Carbon';
 
-        if (!class_exists($carbonClass)) {
+        if (! class_exists($carbonClass)) {
             $carbonClass = '\\Carbon\\Carbon';
         }
 
@@ -28,7 +30,7 @@ if (!function_exists('carbon')) {
         if ($date instanceof \DateTime) {
             $carbon = $carbonClass::instance($date);
 
-            if (!is_null($tz)) {
+            if (! is_null($tz)) {
                 $carbon->setTimezone($tz);
             }
 
@@ -39,7 +41,7 @@ if (!function_exists('carbon')) {
             return $carbonClass::createFromTimestamp($date, $tz);
         }
 
-        if (!empty($format)) {
+        if (! empty($format)) {
             return $carbonClass::createFromFormat($format, $date, $tz);
         }
 
@@ -47,7 +49,7 @@ if (!function_exists('carbon')) {
     }
 }
 
-if (!function_exists('collect_models')) {
+if (! function_exists('collect_models')) {
     /**
      * Create a collection of Eloquent models.
      *
@@ -60,7 +62,7 @@ if (!function_exists('collect_models')) {
     }
 }
 
-if (!function_exists('str_html')) {
+if (! function_exists('str_html')) {
     /**
      * Instantiate HtmlString
      *
@@ -73,7 +75,7 @@ if (!function_exists('str_html')) {
     }
 }
 
-if (!function_exists('linebreaks')) {
+if (! function_exists('linebreaks')) {
     /**
      * Convert all line-endings to UNIX format ;
      * ie. replace "\r\n" and "\r" by "\n".
@@ -83,11 +85,11 @@ if (!function_exists('linebreaks')) {
      */
     function linebreaks($str)
     {
-        return str_replace(["\r\n", "\r" ], ["\n", "\n"], $str);
+        return str_replace(["\r\n", "\r"], ["\n", "\n"], $str);
     }
 }
 
-if (!function_exists('nl_to_p')) {
+if (! function_exists('nl_to_p')) {
     /**
      * Convert new lines into paragraphs.
      *
@@ -112,7 +114,7 @@ if (!function_exists('nl_to_p')) {
     }
 }
 
-if (!function_exists('nl_to_br')) {
+if (! function_exists('nl_to_br')) {
     /**
      * Alias of native PHP function nl2br()
      *
@@ -125,7 +127,7 @@ if (!function_exists('nl_to_br')) {
     }
 }
 
-if (!function_exists('number_formated')) {
+if (! function_exists('number_formated')) {
     /**
      * Returns a number in current language format.
      *
@@ -142,7 +144,7 @@ if (!function_exists('number_formated')) {
     }
 }
 
-if (!function_exists('number_fr')) {
+if (! function_exists('number_fr')) {
     /**
      * Returns a number in french format.
      *
@@ -156,7 +158,7 @@ if (!function_exists('number_fr')) {
     }
 }
 
-if (!function_exists('compute_dec_to_time')) {
+if (! function_exists('compute_dec_to_time')) {
     /**
      * Decimal to time calculation
      *
@@ -189,7 +191,7 @@ if (!function_exists('compute_dec_to_time')) {
     }
 }
 
-if (!function_exists('convert_dec_to_time')) {
+if (! function_exists('convert_dec_to_time')) {
     /**
      * Decimal to time conversion
      *
@@ -221,7 +223,7 @@ if (!function_exists('convert_dec_to_time')) {
     }
 }
 
-if (!function_exists('human_readable_bytes_size')) {
+if (! function_exists('human_readable_bytes_size')) {
     function human_readable_bytes_size($bytes, $decimals = 0)
     {
         $units = [
@@ -238,11 +240,11 @@ if (!function_exists('human_readable_bytes_size')) {
 
         $bytes /= (1 << (10 * $pow));
 
-        return number_formated($bytes, $decimals) . ' ' . $units[$pow];
+        return number_formated($bytes, $decimals).' '.$units[$pow];
     }
 }
 
-if (!function_exists('mime_type_to_fa5_class')) {
+if (! function_exists('mime_type_to_fa5_class')) {
     function mime_type_to_fa5_class($inputMimeType, $default = 'fa-file')
     {
         static $mimeTypesFa5Classes = [
@@ -285,7 +287,7 @@ if (!function_exists('mime_type_to_fa5_class')) {
     }
 }
 
-if (!function_exists('trans_ucfirst')) {
+if (! function_exists('trans_ucfirst')) {
     /**
      * Translate the given message with first character uppercase.
      *
@@ -303,5 +305,25 @@ if (!function_exists('trans_ucfirst')) {
         }
 
         return $translation;
+    }
+}
+
+if (! function_exists('is_valid_model')) {
+    /**
+     * Indicates whether the model class is instantiable
+     * and is an instance of Illuminate\Database\Eloquent\Model.
+     *
+     * @param string $modelClass
+     * @return bool
+     */
+    function is_valid_model($modelClass): bool
+    {
+        try {
+            $rc = new ReflectionClass($modelClass);
+
+            return $rc->isInstantiable() && $rc->isSubclassOf('Illuminate\Database\Eloquent\Model');
+        } catch (ReflectionException $e) {
+            return false;
+        }
     }
 }

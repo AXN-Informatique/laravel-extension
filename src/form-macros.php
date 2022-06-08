@@ -14,8 +14,7 @@ use Collective\Html\HtmlFacade as Html;
  */
 Form::macro(
     'labelRequired',
-    function($name, $value = null, $options = [], $escapeHtml = true) {
-
+    function ($name, $value = null, $options = [], $escapeHtml = true) {
         if ($escapeHtml) {
             $value = e($value);
         }

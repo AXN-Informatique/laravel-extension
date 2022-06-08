@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Blade;
  * @param  string $expression
  * @return string
  */
-Blade::directive('hassection', function($expression) {
+Blade::directive('hassection', function ($expression) {
     return "<?php if (array_key_exists($expression, \$__env->getSections())): ?>";
 });
 
@@ -19,8 +19,8 @@ Blade::directive('hassection', function($expression) {
  * @deprecated 7.5.2 will be removed in 8.0.0 Use native @endif instead
  * @return string
  */
-Blade::directive('endhassection', function($expression) {
-    return "<?php endif; ?>";
+Blade::directive('endhassection', function ($expression) {
+    return '<?php endif; ?>';
 });
 
 /**
@@ -30,7 +30,7 @@ Blade::directive('endhassection', function($expression) {
  * @param  string $expression
  * @return string
  */
-Blade::directive('doesnthavesection', function($expression) {
+Blade::directive('doesnthavesection', function ($expression) {
     return "<?php if (!array_key_exists($expression, \$__env->getSections())): ?>";
 });
 
@@ -40,8 +40,8 @@ Blade::directive('doesnthavesection', function($expression) {
  * @deprecated 7.5.2 will be removed in 8.0.0 Use native @endif instead
  * @return string
  */
-Blade::directive('enddoesnthavesection', function($expression) {
-    return "<?php endif; ?>";
+Blade::directive('enddoesnthavesection', function ($expression) {
+    return '<?php endif; ?>';
 });
 
 /**
@@ -50,7 +50,7 @@ Blade::directive('enddoesnthavesection', function($expression) {
  * @param  string $expression
  * @return string
  */
-Blade::directive('nltop', function($expression) {
+Blade::directive('nltop', function ($expression) {
     return "<?php echo nl_to_p(e($expression)); ?>";
 });
 
@@ -60,6 +60,6 @@ Blade::directive('nltop', function($expression) {
  * @param  string $expression
  * @return string
  */
-Blade::directive('nltobr', function($expression) {
+Blade::directive('nltobr', function ($expression) {
     return "<?php echo nl_to_br(e($expression)); ?>";
 });

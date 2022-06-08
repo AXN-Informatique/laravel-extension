@@ -7,7 +7,7 @@ use Collective\Html\HtmlFacade as Html;
  *
  * @return string
  */
-Html::macro('requiredMarker', function() {
+Html::macro('requiredMarker', function () {
     return
         '<span class="required">'.
             str_html(Html::requiredCharacter()).
@@ -29,7 +29,7 @@ Html::macro('requiredMarker', function() {
  *
  * @return string
  */
-Html::macro('requiredCharacter', function() {
+Html::macro('requiredCharacter', function () {
     return '&#x2a;';
 });
 
@@ -38,7 +38,7 @@ Html::macro('requiredCharacter', function() {
  *
  * @return string
  */
-Html::macro('infoRequiredFields', function() {
+Html::macro('infoRequiredFields', function () {
     return trans(
         'common::misc.info_required_fields',
         ['mark' => str_html(Html::requiredMarker())]
