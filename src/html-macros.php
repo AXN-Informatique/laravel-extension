@@ -11,7 +11,7 @@ Html::macro('requiredMarker', function () {
     return
         '<span class="required">'.
             str_html(Html::requiredCharacter()).
-            '<span class="sr-only">'.
+            '<span class="sr-only visually-hidden">'.
                 trans('common::misc.required').
             '</span>'.
         '</span>';

@@ -1,26 +1,31 @@
 Changelog
 =========
 
+7.7.2 (2022-08-12)
+------------------
+
+- Added `visually-hidden` class to `requiredMarker` html macro for Bootstrap 5
+
 7.7.1 (2022-06-08)
 ------------------
 
-- Fix import of `ReflectionClass` in helpers file
+- Fixed import of `ReflectionClass` in helpers file
 
 7.7.0 (2022-06-08)
 ------------------
 
-- Add `is_valid_model()` helper
+- Added `is_valid_model()` helper
 
 7.6.0 (2022-02-11)
 ------------------
 
-- Add support for Laravel 9
+- Added support for Laravel 9
 
 7.5.2 (2022-01-23)
 ------------------
 
-- Deprecating `@hassection` will be removed in 8.0.0 ; use native `@hasSection` instead
-- Deprecating `@doesnthavesection` will be removed in 8.0.0 ; use native `@sectionMissing` instead
+- Deprecated `@hassection` will be removed in 8.0.0 ; use native `@hasSection` instead
+- Deprecated `@doesnthavesection` will be removed in 8.0.0 ; use native `@sectionMissing` instead
 - As the methods are called in the `boot()` method of the service provider, there is no need to check if the required services are loaded
 
 7.5.1 (2021-06-17)
@@ -31,93 +36,93 @@ Changelog
 7.5.0 (2021-06-17)
 ------------------
 
-- Add nl_to_br() helper
+- Added nl_to_br() helper
 
 7.4.0 (2021-01-06)
 ------------------
 
-- Add trans_ucfirst() helper
+- Added trans_ucfirst() helper
 
 7.3.0 (2020-11-09)
 ------------------
 
-- Add mime_type_to_fa5_class() helper
+- Added mime_type_to_fa5_class() helper
 
 7.2.0 (2020-09-24)
 ------------------
 
-- Add support for Laravel 8
+- Added support for Laravel 8
 
 7.1.1 (2020-03-05)
 ------------------
 
-- Fix dependencies constraints
+- Fixed dependencies constraints
 
 7.1.0 (2020-03-04)
 ------------------
 
-- Add support for Laravel 7
+- Added support for Laravel 7
 
 7.0.0 (2019-12-27)
 ------------------
 
-- Add support for Laravel 6
-- Drop support for Laravel 5.7 and older
+- Added support for Laravel 6
+- Droped support for Laravel 5.7 and older
 
 6.9.0 (2019-03-07)
 ------------------
 
-- Add support for Laravel 5.8
+- Added support for Laravel 5.8
 
 6.8.0 (2018-11-19)
 ------------------
 
-- Add `Html::requiredCharacter()` html macro
-- Remove the dependency on FontAwesome for requiredMarker
+- Added `Html::requiredCharacter()` html macro
+- Removed the dependency on FontAwesome for requiredMarker
 
 6.7.0 (2018-11-01)
 ------------------
 
-- Add `number_formated()` helper
-- Add `human_readable_bytes_size()` helper
+- Added `number_formated()` helper
+- Added `human_readable_bytes_size()` helper
 
 6.6.0 (2018-10-29)
 ------------------
 
-- Add `linebreaks()` helper
-- Fix declaration of `str_html()` helper
+- Added `linebreaks()` helper
+- Fixed declaration of `str_html()` helper
 
 6.5.0 (2018-10-04)
 ------------------
 
-- Add `str_html()` helper
-- Remove unused `dump_get()` helper
+- Added `str_html()` helper
+- Removed unused `dump_get()` helper
 
 6.4.0 (2018-09-25)
 ------------------
 
-- Add pattern parameter to `convert_dec_to_time()` helper
+- Added pattern parameter to `convert_dec_to_time()` helper
 - Fix `compute_dec_to_time()` with list() called
 
 6.3.0 (2018-09-25)
 ------------------
 
-- Add `compute_dec_to_time()` helper
+- Added `compute_dec_to_time()` helper
 
 6.2.0 (2018-09-20)
 ------------------
 
-- Add `convert_dec_to_time()` helper
+- Added `convert_dec_to_time()` helper
 
 6.1.0 (2018-09-11)
 ------------------
 
-- add support for Laravel 5.7
+- Added support for Laravel 5.7
 
 6.0.1 (2018-09-03)
 ------------------
 
-- Fix carbon() helper
+- Fixed carbon() helper
 
 6.0.0 (2018-07-20)
 ------------------
@@ -129,12 +134,12 @@ Changelog
 5.4.1 (2018-07-20)
 ------------------
 
-- Fix `carbon()` helper compatibility with Laravel < 5.5
+- Fixed `carbon()` helper compatibility with Laravel < 5.5
 
 5.4.0 (2018-07-13)
 ------------------
 
-- Add number_fr() helper
+- Added number_fr() helper
 - Rewrite carbon() helper
 - Database :
     * joinRel : support des conditions additionnelles définies sur les relations
@@ -143,21 +148,21 @@ Changelog
 5.3.0 (2018-07-04)
 ------------------
 
-- Add Laravel 5.6.* support
+- Added Laravel 5.6.* support
 - Database :
     * joinRel : possibilité d'ajouter des conditions additionnelles
 
 5.2.0 (2017-10-01)
 ------------------
 
-- add support for Laravel 5.5
+- Added support for Laravel 5.5
 
 5.1.1 (2017-06-02)
 ------------------
 
 - Database
-    * fix DB connection resolver
-    * fix Eloquent builder joinRel
+    * fixed DB connection resolver
+    * fixed Eloquent builder joinRel
 
 5.1.0 (2017-02-06)
 ------------------
@@ -167,18 +172,18 @@ Changelog
 5.0.0 (2017-01-31)
 ------------------
 
-- Add Laravel 5.4.* support
+- Added Laravel 5.4.* support
 
 4.1.0 (2016-12-21)
 ------------------
 
-- Add `Html::requiredMarker()` html macro
-- fix translations (really)
+- Added `Html::requiredMarker()` html macro
+- Fixed translations (really)
 
 4.0.2 (2016-12-21)
 ------------------
 
-- fix translations
+- Fixed translations
 
 4.0.1 (2016-12-20)
 ------------------
@@ -188,41 +193,41 @@ Changelog
 4.0.0 (2016-12-20)
 ------------------
 
-- Rename `hasYield` into `hasyield` - **bbc**
-- Rename `hasNotYield` into `doesnthaveyield` - **bbc**
-- Add `@endhasyield` directive
-- Add `@enddoesnthaveyield` directive
-- Add `@nltop()` directive
-- Add `@nltobr()` directive
-- Add `nl_to_p()` helper
-- Add `Form::labelRequired()` form macro
-- Add `Html::infoRequiredFields()` html macro
+- Renamed `hasYield` into `hasyield` - **bbc**
+- Renamed `hasNotYield` into `doesnthaveyield` - **bbc**
+- Added `@endhasyield` directive
+- Added `@enddoesnthaveyield` directive
+- Added `@nltop()` directive
+- Added `@nltobr()` directive
+- Added `nl_to_p()` helper
+- Added `Form::labelRequired()` form macro
+- Added `Html::infoRequiredFields()` html macro
 
 3.2.0 (2016-12-01)
 ------------------
 
-- Add Laravel 5.3.* support
+- Added Laravel 5.3.* support
 
 3.1.0 (2016-11-30)
 ------------------
 
-- Add Laravel 5.2.* support
+- Added Laravel 5.2.* support
 
 3.0.1 (2016-10-31)
 ------------------
 
-- move to Github
+- Moved to Github
 
 3.0.0 (2016-10-08)
 ------------------
 
-- Removing Laravel <= 5.1 compatibilities - **bbc**
+- Removed Laravel <= 5.1 compatibilities - **bbc**
 - Added logs configurator
 
 2.2.1 (2016-04-14)
 ------------------
 
-- Fix Laravel v5.0 compatibility
+- Fixed Laravel v5.0 compatibility
 
 2.2.0 (2016-04-14)
 ------------------
