@@ -1,6 +1,17 @@
 Changelog
 =========
 
+8.0.0 (2022-08-14)
+------------------
+
+- Removed support of Laravel 7 and earlier
+- Removed support of PHP 7 and earlier
+- Removed deprecated hassection blade directive, use native @hasSection instead
+- Removed deprecated endhassection blade directive, use native @endif instead
+- Removed deprecated doesnthavesection blade directive, use native @sectionMissing instead
+- Removed deprecated enddoesnthavesection blade directive, use native @endif instead
+
+
 7.7.2 (2022-08-12)
 ------------------
 

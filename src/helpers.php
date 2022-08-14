@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Database\Eloquent\Model as EloquentModel;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 
@@ -9,24 +11,18 @@ if (! function_exists('carbon')) {
      * Create a Carbon instance from a date string, a DateTime instance or a timestamp.
      *
      * @param  \DateTime|int|string|null $date
-     * @param  string|null $format
+     * @param  string|null $fromFormat
      * @param  \DateTimeZone|string|null $tz
-     * @return \Illuminate\Support\Carbon|Carbon\Carbon
+     * @return \Illuminate\Support\Carbon
      * */
-    function carbon($date = null, $format = null, $tz = null)
+    function carbon($date = null, $fromFormat = null, $tz = null)
     {
-        $carbonClass = '\\Illuminate\\Support\\Carbon';
-
-        if (! class_exists($carbonClass)) {
-            $carbonClass = '\\Carbon\\Carbon';
-        }
-
         if (empty($date)) {
-            return $carbonClass::now($tz);
+            return Carbon::now($tz);
         }
 
         if ($date instanceof \DateTime) {
-            $carbon = $carbonClass::instance($date);
+            $carbon = Carbon::instance($date);
 
             if (! is_null($tz)) {
                 $carbon->setTimezone($tz);
@@ -36,26 +32,32 @@ if (! function_exists('carbon')) {
         }
 
         if (is_int($date) || ctype_digit($date)) {
-            return $carbonClass::createFromTimestamp($date, $tz);
+            return Carbon::createFromTimestamp($date, $tz);
         }
 
-        if (! empty($format)) {
-            return $carbonClass::createFromFormat($format, $date, $tz);
+        if (! empty($fromFormat)) {
+            return Carbon::createFromFormat($fromFormat, $date, $tz);
         }
 
-        return $carbonClass::parse($date, $tz);
+        return Carbon::parse($date, $tz);
     }
 }
 
 if (! function_exists('collect_models')) {
     /**
-     * Create a collection of Eloquent models.
+     * Create an Eloquent collection of Eloquent models.
      *
-     * @param  array[\Illuminate\Database\Eloquent\Model] $models
+     * @param  array $models
      * @return EloquentCollection
      */
-    function collect_models($models = null)
+    function collect_models(array $models)
     {
+        foreach ($models as $model) {
+            if (! $model instanceof EloquentModel) {
+                throw new \InvalidArgumentException('The collect_models helper expects an array of Eloquent Model');
+            }
+        }
+
         return new EloquentCollection($models);
     }
 }
@@ -89,7 +91,7 @@ if (! function_exists('linebreaks')) {
 
 if (! function_exists('nl_to_p')) {
     /**
-     * Convert new lines into paragraphs.
+     * Convert new lines into HTML paragraphs.
      *
      * @param  string $str
      * @return string
@@ -106,7 +108,7 @@ if (! function_exists('nl_to_p')) {
         $str = preg_replace('/\n(\s*\n)+/', '</p><p>', $str);
 
         // Replace the single linebreaks by <br> elements
-        $str = nl_to_br($str);
+        $str = \nl2br($str, false);
 
         return '<p>'.$str.'</p>';
     }
@@ -117,11 +119,12 @@ if (! function_exists('nl_to_br')) {
      * Alias of native PHP function nl2br()
      *
      * @param  string $str
+     * @param bool $useXhtml
      * @return string
      */
-    function nl_to_br($str, $use_xhtml = true)
+    function nl_to_br($str, $useXhtml = false)
     {
-        return \nl2br($str, $use_xhtml);
+        return \nl2br($str, $useXhtml);
     }
 }
 
@@ -207,7 +210,6 @@ if (! function_exists('convert_dec_to_time')) {
     {
         $time = compute_dec_to_time($dec);
 
-        // return the time formatted HH:MM:SS
         $pad = function ($value) {
             return str_pad($value, 2, 0, STR_PAD_LEFT);
         };
@@ -222,6 +224,13 @@ if (! function_exists('convert_dec_to_time')) {
 }
 
 if (! function_exists('human_readable_bytes_size')) {
+    /**
+     * Convertit une taille en octets en une taille traduite lisible par l'homme.
+     *
+     * @param int $bytes
+     * @param int $decimals
+     * @return void
+     */
     function human_readable_bytes_size($bytes, $decimals = 0)
     {
         $units = [
