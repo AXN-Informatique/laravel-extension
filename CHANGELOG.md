@@ -1,6 +1,19 @@
 Changelog
 =========
 
+9.0.0 (2023-05-01)
+------------------
+
+- Renammed package from `axn/laravel-extension` to `axn/tool-kit-for-laravel`
+- Replaced `axn/laravel-common-languages-terms` by `forxer/generic-term-translations-for-laravel`
+- Removed use of deprecated `laravelcollective/html` package, so:
+    - Removed Form::macro `labelRequired`
+    - Removed Html::macro `requiredMarker`
+    - Removed Html::macro `infoRequiredFields`
+    - Removed Html::macro `requiredCharacter`
+- Added `<x-required-field-marker />` component
+
+
 8.1.0 (2023-02-20)
 ------------------
 

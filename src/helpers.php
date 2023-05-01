@@ -139,8 +139,8 @@ if (! function_exists('number_formated')) {
     function number_formated($value, $decimals = 0)
     {
         return number_format(e($value), $decimals,
-            trans('common::number.decimals_separator'),
-            trans('common::number.thousands_separator')
+            trans('number.decimals_separator'),
+            trans('number.thousands_separator')
         );
     }
 }
@@ -234,11 +234,11 @@ if (! function_exists('human_readable_bytes_size')) {
     function human_readable_bytes_size($bytes, $decimals = 0)
     {
         $units = [
-            trans('common::unit.B'),
-            trans('common::unit.kB'),
-            trans('common::unit.MB'),
-            trans('common::unit.GB'),
-            trans('common::unit.TB'),
+            trans('unit.B'),
+            trans('unit.kB'),
+            trans('unit.MB'),
+            trans('unit.GB'),
+            trans('unit.TB'),
         ];
 
         $bytes = max($bytes, 0);
