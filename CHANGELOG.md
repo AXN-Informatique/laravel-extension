@@ -1,6 +1,12 @@
 Changelog
 =========
 
+9.0.1 (2023-05-04)
+------------------
+
+- Views should be declared (and with the good hint path)
+
+
 9.0.0 (2023-05-01)
 ------------------
 
