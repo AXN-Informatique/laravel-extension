@@ -10,6 +10,8 @@ class ServiceProvider extends BaseServiceProvider
 {
     public function boot()
     {
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'tool-kit');
+
         Blade::component('required-field-marker', RequiredFieldMarker::class);
 
         $this->bootBladeDirectives();
