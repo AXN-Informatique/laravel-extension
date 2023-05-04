@@ -1,25 +1,28 @@
 <?php
 
-namespace Axn\Illuminate;
+namespace Axn\ToolKit;
 
+use Axn\ToolKit\Components\RequiredFieldMarker;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class ServiceProvider extends BaseServiceProvider
 {
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
     public function boot()
     {
-        // Blade Directives
-        require __DIR__.'/blade-directives.php';
+        Blade::component('required-field-marker', RequiredFieldMarker::class);
 
-        // HTML Macros (LaravelCollective)
-        require __DIR__.'/html-macros.php';
+        $this->bootBladeDirectives();
+    }
 
-        // Form Macros (LaravelCollective)
-        require __DIR__.'/form-macros.php';
+    private function bootBladeDirectives()
+    {
+        Blade::directive('nltop', function ($expression) {
+            return "<?php echo nl_to_p(e($expression)); ?>";
+        });
+
+        Blade::directive('nltobr', function ($expression) {
+            return "<?php echo nl_to_br(e($expression)); ?>";
+        });
     }
 }
