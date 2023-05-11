@@ -8,6 +8,11 @@ use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class ServiceProvider extends BaseServiceProvider
 {
+    public function register()
+    {
+        //
+    }
+
     public function boot()
     {
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'tool-kit');

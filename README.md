@@ -285,3 +285,8 @@ You can style it for example like this:
 }
 ```
 
+In your forms you can indicate the required fields for example in this way:
+
+```blade
+{!! trans('misc.info_required_fields'); !!} <x-required-field-marker />
+```

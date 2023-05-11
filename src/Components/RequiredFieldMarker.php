@@ -14,6 +14,6 @@ class RequiredFieldMarker extends Component
 
     public function render()
     {
-        return view('tool-kit::components.required-field-marker.blade');
+        return view('tool-kit::components.required-field-marker');
     }
 }
