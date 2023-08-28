@@ -1,6 +1,12 @@
 Changelog
 =========
 
+9.0.3 (2023-08-28)
+------------------
+
+- Improved explanations for updating to version 9.x
+
+
 9.0.2 (2023-05-11)
 ------------------
 
