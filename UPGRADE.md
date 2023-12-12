@@ -30,7 +30,7 @@ You can replace the `Html::requiredMarker()` Html macro by the component:
 You can also replace the `Html::infoRequiredFields()` Html macro simply with:
 
 ```blade
-{{ trans('misc.info_required_fields') }} <x-required-field-marker />
+{!! trans('misc.info_required_fields') !!} <x-required-field-marker />
 ```
 
 Regarding the `labelRequired` Form macro we decided not to replace it because it does not belong here. There are plenty of ways to implement forms (in this case label tags). But the two previous components are there to help you.
