@@ -1,11 +1,18 @@
 Changelog
 =========
 
+9.1.0 (2024-01-17)
+------------------
+
+- Ajout de la classe `VersionNumber` et du helper `semverToId()`
+- Ajout des execution des outils de qualité du code (Pint et Rector)
+
+
 9.0.4 (2023-12-12)
 ------------------
 
 - Typo in UPGRADE.md
-  
+
 
 9.0.3 (2023-08-28)
 ------------------
