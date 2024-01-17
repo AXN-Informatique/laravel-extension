@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Services;
+namespace Axn\ToolKit;
 
 use Composer\Semver\VersionParser;
 use UnexpectedValueException;
@@ -14,13 +14,11 @@ class VersionNumber
      *
      * Note importante : ne prend pas en charge les versions non finalisée (RC, beta, etc.)
      *
-     * @param string $version
-     * @return int
      * @throws UnexpectedValueException
      */
     public static function toId(string $version): int
     {
-        $versionParser =  new VersionParser();
+        $versionParser = new VersionParser();
 
         $versionNormalized = $versionParser->normalize($version);
 

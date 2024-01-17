@@ -9,6 +9,7 @@ use Rector\Php70\Rector\StaticCall\StaticCallOnNonStaticToInstanceCallRector;
 use Rector\Php74\Rector\Closure\ClosureToArrowFunctionRector;
 use Rector\Php81\Rector\Array_\FirstClassCallableRector;
 use Rector\Php81\Rector\FuncCall\NullToStrictStringFuncCallArgRector;
+use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
 use Rector\ValueObject\PhpVersion;
 use RectorLaravel\Set\LaravelSetList;
@@ -48,7 +49,8 @@ return static function (RectorConfig $rectorConfig): void {
         StaticArrowFunctionRector::class,
     ]);
 
-    // Ce package est pour le moment compatible avec PHP 8.0
+    // /!\ ATTENTION
+    // Ce package est pour le moment compatible avec PHP 8.0 et plus
     $rectorConfig->phpVersion(PhpVersion::PHP_80);
 
     // define what sets of rules will be applied
@@ -56,6 +58,8 @@ return static function (RectorConfig $rectorConfig): void {
     //----------------------------------------------------------
     $rectorConfig->sets([
         LaravelSetList::LARAVEL_FACADE_ALIASES_TO_FULL_NAMES,
+
+        LevelSetList::UP_TO_PHP_80,
 
         // SetList::PHP_80,
         // SetList::DEAD_CODE,

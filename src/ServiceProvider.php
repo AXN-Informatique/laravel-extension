@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Axn\ToolKit;
 
 use Axn\ToolKit\Components\RequiredFieldMarker;
@@ -24,12 +26,8 @@ class ServiceProvider extends BaseServiceProvider
 
     private function bootBladeDirectives()
     {
-        Blade::directive('nltop', function ($expression) {
-            return "<?php echo nl_to_p(e($expression)); ?>";
-        });
+        Blade::directive('nltop', fn ($expression) => "<?php echo nl_to_p(e($expression)); ?>");
 
-        Blade::directive('nltobr', function ($expression) {
-            return "<?php echo nl_to_br(e($expression)); ?>";
-        });
+        Blade::directive('nltobr', fn ($expression) => "<?php echo nl_to_br(e($expression)); ?>");
     }
 }

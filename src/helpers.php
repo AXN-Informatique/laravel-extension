@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+use Axn\ToolKit\VersionNumber;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Support\Carbon;
@@ -10,10 +13,10 @@ if (! function_exists('carbon')) {
     /**
      * Create a Carbon instance from a date string, a DateTime instance or a timestamp.
      *
-     * @param  \DateTime|int|string|null $date
-     * @param  string|null $fromFormat
-     * @param  \DateTimeZone|string|null $tz
-     * @return \Illuminate\Support\Carbon
+     * @param  DateTime|int|string|null  $date
+     * @param  string|null  $fromFormat
+     * @param  DateTimeZone|string|null  $tz
+     * @return Carbon
      * */
     function carbon($date = null, $fromFormat = null, $tz = null)
     {
@@ -21,7 +24,7 @@ if (! function_exists('carbon')) {
             return Carbon::now($tz);
         }
 
-        if ($date instanceof \DateTime) {
+        if ($date instanceof DateTime) {
             $carbon = Carbon::instance($date);
 
             if (! is_null($tz)) {
@@ -47,14 +50,13 @@ if (! function_exists('collect_models')) {
     /**
      * Create an Eloquent collection of Eloquent models.
      *
-     * @param  array $models
      * @return EloquentCollection
      */
     function collect_models(array $models)
     {
         foreach ($models as $model) {
             if (! $model instanceof EloquentModel) {
-                throw new \InvalidArgumentException('The collect_models helper expects an array of Eloquent Model');
+                throw new InvalidArgumentException('The collect_models helper expects an array of Eloquent Model');
             }
         }
 
@@ -66,8 +68,8 @@ if (! function_exists('str_html')) {
     /**
      * Instantiate HtmlString
      *
-     * @param string $str
-     * @return \Illuminate\Support\HtmlString
+     * @param  string  $str
+     * @return HtmlString
      */
     function str_html($str)
     {
@@ -80,7 +82,7 @@ if (! function_exists('linebreaks')) {
      * Convert all line-endings to UNIX format ;
      * ie. replace "\r\n" and "\r" by "\n".
      *
-     * @param string $str String to transform
+     * @param  string  $str  String to transform
      * @return string
      */
     function linebreaks($str)
@@ -93,7 +95,7 @@ if (! function_exists('nl_to_p')) {
     /**
      * Convert new lines into HTML paragraphs.
      *
-     * @param  string $str
+     * @param  string  $str
      * @return string
      */
     function nl_to_p($str)
@@ -108,7 +110,7 @@ if (! function_exists('nl_to_p')) {
         $str = preg_replace('/\n(\s*\n)+/', '</p><p>', $str);
 
         // Replace the single linebreaks by <br> elements
-        $str = \nl2br($str, false);
+        $str = nl2br($str, false);
 
         return '<p>'.$str.'</p>';
     }
@@ -118,13 +120,13 @@ if (! function_exists('nl_to_br')) {
     /**
      * Alias of native PHP function nl2br()
      *
-     * @param  string $str
-     * @param bool $useXhtml
+     * @param  string  $str
+     * @param  bool  $useXhtml
      * @return string
      */
     function nl_to_br($str, $useXhtml = false)
     {
-        return \nl2br($str, $useXhtml);
+        return nl2br($str, $useXhtml);
     }
 }
 
@@ -132,13 +134,13 @@ if (! function_exists('number_formated')) {
     /**
      * Returns a number in current language format.
      *
-     * @param  float $value
-     * @param  int $decimals
+     * @param  float  $value
+     * @param  int  $decimals
      * @return string
      */
     function number_formated($value, $decimals = 0)
     {
-        return number_format(e($value), $decimals,
+        return number_format(floatval($value), $decimals,
             trans('number.decimals_separator'),
             trans('number.thousands_separator')
         );
@@ -149,8 +151,8 @@ if (! function_exists('number_fr')) {
     /**
      * Returns a number in french format.
      *
-     * @param  float $value
-     * @param  int $decimals
+     * @param  float  $value
+     * @param  int  $decimals
      * @return string
      */
     function number_fr($value, $decimals = 0)
@@ -165,7 +167,7 @@ if (! function_exists('compute_dec_to_time')) {
      *
      * 1.75 => ['hours' => 1, 'minutes' => 45, 'seconds' => 0]
      *
-     * @param  string|float $dec
+     * @param  string|float  $dec
      * @return array
      */
     function compute_dec_to_time($dec)
@@ -202,17 +204,15 @@ if (! function_exists('convert_dec_to_time')) {
      * convert_dec_to_time(1.75, '%2$s:%3$s')
      * => 45:00
      *
-     * @param  string|float $dec
-     * @param  string $pattern ('%s:%s:%s')
+     * @param  string|float  $dec
+     * @param  string  $pattern  ('%s:%s:%s')
      * @return string
      */
     function convert_dec_to_time($dec, $pattern = '%s:%s:%s')
     {
         $time = compute_dec_to_time($dec);
 
-        $pad = function ($value) {
-            return str_pad($value, 2, 0, STR_PAD_LEFT);
-        };
+        $pad = fn ($value) => str_pad($value, 2, '', STR_PAD_LEFT);
 
         return sprintf(
             $pattern,
@@ -227,8 +227,8 @@ if (! function_exists('human_readable_bytes_size')) {
     /**
      * Convertit une taille en octets en une taille traduite lisible par l'homme.
      *
-     * @param int $bytes
-     * @param int $decimals
+     * @param  int  $bytes
+     * @param  int  $decimals
      * @return void
      */
     function human_readable_bytes_size($bytes, $decimals = 0)
@@ -285,7 +285,7 @@ if (! function_exists('mime_type_to_fa5_class')) {
         ];
 
         foreach ($mimeTypesFa5Classes as $mimeType => $fa5Class) {
-            if (strpos($inputMimeType, $mimeType) === 0) {
+            if (str_starts_with($inputMimeType, $mimeType)) {
                 return $fa5Class;
             }
         }
@@ -298,9 +298,9 @@ if (! function_exists('trans_ucfirst')) {
     /**
      * Translate the given message with first character uppercase.
      *
-     * @param string $key
-     * @param array $replace
-     * @param string|null  $locale
+     * @param  string  $key
+     * @param  array  $replace
+     * @param  string|null  $locale
      * @return string|array|null
      */
     function trans_ucfirst($key, $replace = [], $locale = null)
@@ -320,17 +320,30 @@ if (! function_exists('is_valid_model')) {
      * Indicates whether the model class is instantiable
      * and is an instance of Illuminate\Database\Eloquent\Model.
      *
-     * @param string $modelClass
-     * @return bool
+     * @param  string  $modelClass
      */
     function is_valid_model($modelClass): bool
     {
         try {
-            $rc = new \ReflectionClass($modelClass);
+            $rc = new ReflectionClass($modelClass);
 
-            return $rc->isInstantiable() && $rc->isSubclassOf('Illuminate\Database\Eloquent\Model');
-        } catch (\ReflectionException $e) {
+            return $rc->isInstantiable() && $rc->isSubclassOf(EloquentModel::class);
+        } catch (ReflectionException) {
             return false;
         }
+    }
+}
+
+if (! function_exists('semverToId')) {
+    /**
+     * Transforme un numéro de version semver en un identifiant numérique.
+     *
+     * Note importante : ne prend pas en charge les versions non finalisée (RC, beta, etc.)
+     *
+     * @throws UnexpectedValueException
+     */
+    function semverToId(string $version): int
+    {
+        return VersionNumber::toId($version);
     }
 }
