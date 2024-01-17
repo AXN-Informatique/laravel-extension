@@ -6,7 +6,7 @@ Includes a set of useful tools for the Laravel framework.
 * [Installation](#installation)
 * [Helpers](#helpers)
 * [Blade directives](#blade-directives)
-* [Comonents](#components)
+* [Components](#components)
 
 Installation
 ------------
@@ -207,6 +207,22 @@ Translate the given message with first character uppercase.
 ### is_valid_model()
 
 Indicates whether the model class is instantiable and is an instance of `Illuminate\Database\Eloquent\Model`.
+
+### semverToId()
+
+Transforms a semver version number into a numeric identifier. Please note: does not take into account "pre-releases" (RC, beta, etc.)
+
+```php
+$phpVersion = "8.2.14";
+$phpVersionId = semverToId($phpVersion);
+// 80214
+
+$laravelVersion = " 10.38.2";
+$laravelVersionId = semverToId($laravelVersion);
+// 103802
+```
+
+This is useful for optimizing comparisons, searches and sorting in a database on numeric rather than text columns.
 
 
 Blade directives
