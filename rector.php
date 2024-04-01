@@ -3,10 +3,15 @@
 use Rector\Caching\ValueObject\Storage\FileCacheStorage;
 use Rector\CodingStyle\Rector\ArrowFunction\StaticArrowFunctionRector;
 use Rector\CodingStyle\Rector\Closure\StaticClosureRector;
+use Rector\CodingStyle\Rector\FuncCall\ArraySpreadInsteadOfArrayMergeRector;
+use Rector\CodingStyle\Rector\PostInc\PostIncDecToPreIncDecRector;
 use Rector\Config\RectorConfig;
 use Rector\Php81\Rector\FuncCall\NullToStrictStringFuncCallArgRector;
 use Rector\Set\ValueObject\SetList;
-use Rector\ValueObject\PhpVersion;
+use RectorLaravel\Rector\FuncCall\RemoveDumpDataDeadCodeRector;
+use RectorLaravel\Rector\MethodCall\EloquentWhereRelationTypeHintingParameterRector;
+use RectorLaravel\Rector\MethodCall\EloquentWhereTypeHintClosureParameterRector;
+use RectorLaravel\Rector\PropertyFetch\OptionalToNullsafeOperatorRector;
 use RectorLaravel\Set\LaravelSetList;
 
 return static function (RectorConfig $rectorConfig): void {
@@ -36,31 +41,38 @@ return static function (RectorConfig $rectorConfig): void {
     // skip paths and/or rules
     //----------------------------------------------------------
     $rectorConfig->skip([
+        // Rector transforme $foo++ en ++$foo et derrière Pint transforme ++$foo en $foo++
+        // du coup je désactive, laissant pour le moment la priorité à Pint
+        // @todo : voir qu'est-ce qui est le mieux
+        PostIncDecToPreIncDecRector::class,
+
         // Transforme des faux-positifs, je préfère désactiver ça (PHP 8.1)
         NullToStrictStringFuncCallArgRector::class,
+
+        // Je trouve la lecture plus difficile avec cette syntaxe, donc je désactive
+        ArraySpreadInsteadOfArrayMergeRector::class,
 
         // Ne pas changer les closure et Arrow Function en Static
         StaticClosureRector::class,
         StaticArrowFunctionRector::class,
     ]);
 
-    // /!\ ATTENTION
-    // Ce package est pour le moment compatible avec PHP 8.0 et plus
-    $rectorConfig->phpVersion(PhpVersion::PHP_80);
+    $rectorConfig->rules([
+        EloquentWhereRelationTypeHintingParameterRector::class,
+        EloquentWhereTypeHintClosureParameterRector::class,
+        OptionalToNullsafeOperatorRector::class,
+        RemoveDumpDataDeadCodeRector::class,
+    ]);
 
-    // define what sets of rules will be applied
-    // tip: use "SetList" class to autocomplete sets with your IDE
-    //----------------------------------------------------------
     $rectorConfig->sets([
         LaravelSetList::LARAVEL_FACADE_ALIASES_TO_FULL_NAMES,
-
-        SetList::PHP_80,
+        SetList::PHP_82,
         SetList::DEAD_CODE,
         SetList::CODE_QUALITY,
-        // //SetList::CODING_STYLE,
-        // //SetList::NAMING,
+        //SetList::CODING_STYLE,
+        //SetList::NAMING,
         SetList::TYPE_DECLARATION,
-        // //SetList::PRIVATIZATION,
+        //SetList::PRIVATIZATION,
         SetList::EARLY_RETURN,
         SetList::INSTANCEOF,
     ]);
