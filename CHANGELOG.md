@@ -1,6 +1,13 @@
 Changelog
 =========
 
+10.0.0 (2024-04-01)
+-------------------
+
+- Now requires Laravel 10 or greater
+- Now requires PHP 8.2 or greater
+
+
 9.1.0 (2024-01-17)
 ------------------
 
