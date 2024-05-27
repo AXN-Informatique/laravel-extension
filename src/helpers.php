@@ -188,7 +188,7 @@ if (! function_exists('convert_dec_to_time')) {
     {
         $time = compute_dec_to_time($dec);
 
-        $pad = fn ($value): string => str_pad($value, 2, '', STR_PAD_LEFT);
+        $pad = fn ($value): string => str_pad((string) $value, 2, '0', STR_PAD_LEFT);
 
         return sprintf(
             $pattern,
