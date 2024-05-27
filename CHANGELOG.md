@@ -1,6 +1,12 @@
 Changelog
 =========
 
+10.0.1 (2024-05-27)
+-------------------
+
+- Force float type after `str_replace` in `compute_dec_to_time()` helper
+
+
 10.0.0 (2024-04-01)
 -------------------
 
@@ -11,8 +17,8 @@ Changelog
 9.1.0 (2024-01-17)
 ------------------
 
-- Ajout de la classe `VersionNumber` et du helper `semverToId()`
-- Ajout des execution des outils de qualité du code (Pint et Rector)
+- Added `VersionNumber` class and `semverToId()` helper
+- Added execution of code quality tools (Pint and Rector)
 
 
 9.0.4 (2023-12-12)

@@ -151,7 +151,7 @@ if (! function_exists('compute_dec_to_time')) {
     function compute_dec_to_time(float|string $dec): array
     {
         // prevent french notation
-        $dec = str_replace(',', '.', $dec);
+        $dec = (float) str_replace(',', '.', $dec);
 
         // start by converting to seconds
         $seconds = ($dec * 3600);
