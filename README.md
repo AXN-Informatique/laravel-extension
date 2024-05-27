@@ -172,7 +172,7 @@ $time = convert_dec_to_time($number);
 // 01:45:00
 
 $time = convert_dec_to_time($number, '%sh%s');
-// 1h45
+// 01h45
 
 $time = convert_dec_to_time($number, '%2$s:%3$s');
 // 45:00

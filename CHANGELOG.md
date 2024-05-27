@@ -1,6 +1,12 @@
 Changelog
 =========
 
+10.0.2 (2024-05-27)
+-------------------
+
+- Fix regression in `convert_dec_to_time()` helper with `str_pad`
+
+
 10.0.1 (2024-05-27)
 -------------------
 
