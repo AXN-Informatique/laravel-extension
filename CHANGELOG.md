@@ -1,6 +1,12 @@
 Changelog
 =========
 
+10.0.3 (2024-05-29)
+-------------------
+
+- Fix regression 2 in `convert_dec_to_time()` that would not accept NON-STRING values anymore.
+
+
 10.0.2 (2024-05-27)
 -------------------
 
