@@ -7,6 +7,7 @@ Includes a set of useful tools for the Laravel framework.
 * [Helpers](#helpers)
 * [Blade directives](#blade-directives)
 * [Components](#components)
+* [Enums](#enums)
 
 Installation
 ------------
@@ -306,3 +307,17 @@ In your forms you can indicate the required fields for example in this way:
 ```blade
 {!! trans('misc.info_required_fields'); !!} <x-required-field-marker />
 ```
+
+Enums
+-----
+
+### Civilities
+
+An enumeration to handle civilities is available with `Axn\ToolKit\Enums\Civilities`
+
+
+```php
+use Axn\ToolKit\Enums\Civilities;
+```
+
+@todo: need to document this
