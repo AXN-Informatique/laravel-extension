@@ -152,7 +152,7 @@ if (! function_exists('compute_dec_to_time')) {
     {
         // prevent french notation
         if (is_string($dec)) {
-            $dec = (float)str_replace(',', '.', $dec);
+            $dec = (float) str_replace(',', '.', $dec);
         }
 
         // start by converting to seconds
