@@ -311,6 +311,72 @@ In your forms you can indicate the required fields for example in this way:
 Enums
 -----
 
+### Environment application
+
+This package provides a utility enum `AppEnv`. This allows to standardize environment names.
+
+Indeed, for example, some projects uniformly have the environment "prod" and "production"; or even "preprod" and "pre-production", worse: "pre-prod".
+
+
+```php
+use Axn\ToolKit\Enums\AppEnv;
+
+AppEnv::production;
+AppEnv::preproduction;
+AppEnv::test;
+AppEnv::local;
+AppEnv::unknown;
+```
+
+Creating an instance of the enumeration from a character string:
+
+```php
+use Axn\ToolKit\Enums\AppEnv;
+
+$appEnv = AppEnv::from('pre-prod'); // AppEnv::preprod
+
+$appEnv = AppEnv::from(app()->environment()); // enum AppEnv
+
+```
+
+Testing the environment type:
+
+```php
+use Axn\ToolKit\Enums\AppEnv;
+
+AppEnv::isProd('pre-prod'); // false
+AppEnv::isPreprod('pre-prod'); // true
+AppEnv::isTest('pre-prod'); // false
+AppEnv::isLocal('pre-prod'); // false
+
+if (AppEnv::isProd(app()->environment())) {
+    // do something in "prod"
+}
+```
+
+Reverse methods are available:
+
+```php
+use Axn\ToolKit\Enums\AppEnv;
+
+AppEnv::isNotProd('pre-prod'); // true
+AppEnv::isNotPreprod('pre-prod'); // false
+AppEnv::isNotTest('pre-prod'); // true
+AppEnv::isNotLocal('pre-prod'); // true
+```
+
+Retrieving environment values ​​defined in the enum:
+
+```php
+use Axn\ToolKit\Enums\AppEnv;
+
+AppEnv::prodNames(); // ['prod', 'production']
+AppEnv::preprodNames(); // ['preprod', 'pre-prod', 'preproduction', 'pre-production']
+AppEnv::testNames(); // ['test', 'tests', 'testing', 'stage', 'staging']
+AppEnv::localNames(); // ['local', 'develop', 'dev']
+
+```
+
 ### Civilities
 
 An enumeration to handle civilities is available with `Axn\ToolKit\Enums\Civilities`
