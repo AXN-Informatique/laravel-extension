@@ -26,8 +26,8 @@ class ServiceProvider extends BaseServiceProvider
 
     private function bootBladeDirectives(): void
     {
-        Blade::directive('nltop', fn ($expression): string => "<?php echo nl_to_p(e($expression)); ?>");
+        Blade::directive('nltop', fn ($expression): string => \sprintf('<?php echo nl_to_p(e(%s)); ?>', $expression));
 
-        Blade::directive('nltobr', fn ($expression): string => "<?php echo nl_to_br(e($expression)); ?>");
+        Blade::directive('nltobr', fn ($expression): string => \sprintf('<?php echo nl_to_br(e(%s)); ?>', $expression));
     }
 }

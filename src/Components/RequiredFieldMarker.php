@@ -10,8 +10,7 @@ class RequiredFieldMarker extends Component
 {
     public function __construct(
         public string $symbol = '&#x2a;'
-    ) {
-    }
+    ) {}
 
     public function render()
     {

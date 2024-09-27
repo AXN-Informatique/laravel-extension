@@ -63,7 +63,7 @@ if (! function_exists('carbon')) {
      * @param  DateTimeZone|string|null  $tz
      * @return Carbon
      * */
-    function carbon($date = null, $fromFormat = null, $tz = null)
+    function carbon($date = null, $fromFormat = null, $tz = null): Carbon|\Carbon\Carbon|null
     {
         if (empty($date)) {
             return Carbon::now($tz);
@@ -148,7 +148,7 @@ if (! function_exists('nl_to_p')) {
         $str = preg_replace('/\n(\s*\n)+/', '</p><p>', $str);
 
         // Replace the single linebreaks by <br> elements
-        $str = nl2br($str, false);
+        $str = nl2br((string) $str, false);
 
         return '<p>'.$str.'</p>';
     }
@@ -304,7 +304,7 @@ if (! function_exists('mime_type_to_fa5_class')) {
         ];
 
         foreach ($mimeTypesFa5Classes as $mimeType => $fa5Class) {
-            if (str_starts_with($inputMimeType, $mimeType)) {
+            if (str_starts_with((string) $inputMimeType, (string) $mimeType)) {
                 return $fa5Class;
             }
         }
