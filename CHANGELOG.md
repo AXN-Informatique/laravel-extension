@@ -1,6 +1,16 @@
 Changelog
 =========
 
+10.3.0 (2024-09-27)
+-------------------
+
+- Added ability to pass self `AppEnv` enum instance to `AppEnv::from()` method
+- Added `AppEnv::name(self|string $name): string` method
+- Added `app_env_enum()` helper
+- Added `app_env_name()` helper
+- Deprecated `semverToId()` helper in favor of `semver_to_id()` helper
+
+
 10.2.0 (2024-09-05)
 -------------------
 

@@ -29,6 +29,32 @@ Use the locales publisher of [Laravel Lang](https://laravel-lang.com/) to add/up
 Helpers
 -------
 
+### app_env_enum()
+
+Returns a standardized enumeration of the application environment based on the "app.env" configuration variable. This helper uses the `AppEnv` enumeration.
+
+```php
+return app_env_enum();
+// enum AppEnv
+```
+
+Note that the return value is static, it always returns the first value in the same request. If the environment is modified at runtime, this will not be taken into account (but who does that?).
+
+For more details please see the chapter on [AppEnv enumeration](#environment-application).
+
+### app_env_name()
+
+Returns a standardized name of the application environment based on the "app.env" configuration variable. This helper uses the `AppEnv` enumeration.
+
+```php
+echo app_env_name();
+// 'prod', 'preprod', 'test', 'local' or 'unknown'
+```
+
+Note that the return value is static, it always returns the first value in the same request. If the environment is modified at runtime, this will not be taken into account (but who does that?).
+
+For more details please see the chapter on [AppEnv enumeration](#environment-application).
+
 ### carbon()
 
 Create a Carbon instance from a date string, a DateTime instance or a timestamp.
@@ -50,7 +76,7 @@ Here are some examples.
 Using Carbon:
 
 ```php
-use Carbon\Carbon;
+use Axn\ToolKit\Enums\AppEnv;
 
 $date = Carbon::now();
 $date = Carbon::now('Europe/Paris');
@@ -209,17 +235,17 @@ Translate the given message with first character uppercase.
 
 Indicates whether the model class is instantiable and is an instance of `Illuminate\Database\Eloquent\Model`.
 
-### semverToId()
+### semver_to_id()
 
 Transforms a semver version number into a numeric identifier. Please note: does not take into account "pre-releases" (RC, beta, etc.)
 
 ```php
 $phpVersion = "8.2.14";
-$phpVersionId = semverToId($phpVersion);
+$phpVersionId = semver_to_id($phpVersion);
 // 80214
 
 $laravelVersion = " 10.38.2";
-$laravelVersionId = semverToId($laravelVersion);
+$laravelVersionId = semver_to_id($laravelVersion);
 // 103802
 ```
 
@@ -321,8 +347,8 @@ Indeed, for example, some projects uniformly have the environment "prod" and "pr
 ```php
 use Axn\ToolKit\Enums\AppEnv;
 
-AppEnv::production;
-AppEnv::preproduction;
+AppEnv::prod;
+AppEnv::preprod;
 AppEnv::test;
 AppEnv::local;
 AppEnv::unknown;
@@ -336,7 +362,16 @@ use Axn\ToolKit\Enums\AppEnv;
 $appEnv = AppEnv::from('pre-prod'); // AppEnv::preprod
 
 $appEnv = AppEnv::from(app()->environment()); // enum AppEnv
+```
 
+Find the standardized name from a string:
+
+```php
+use Axn\ToolKit\Enums\AppEnv;
+
+$appEnv = AppEnv::name('pre-prod'); // 'preprod'
+
+$appEnv = AppEnv::name(app()->environment()); // one of enum cases ('prod', 'preprod', 'test', 'local' or 'unknown')
 ```
 
 Testing the environment type:
@@ -368,7 +403,7 @@ AppEnv::isNotLocal('pre-prod'); // true
 Retrieving environment values ​​defined in the enum:
 
 ```php
-use Axn\ToolKit\Enums\AppEnv;
+use Axn\ToolKit\Enums\Civilities;
 
 AppEnv::prodNames(); // ['prod', 'production']
 AppEnv::preprodNames(); // ['preprod', 'pre-prod', 'preproduction', 'pre-production']
@@ -383,7 +418,7 @@ An enumeration to handle civilities is available with `Axn\ToolKit\Enums\Civilit
 
 
 ```php
-use Axn\ToolKit\Enums\Civilities;
+// @todo: need to document this
 ```
 
 @todo: need to document this

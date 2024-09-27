@@ -32,7 +32,7 @@ enum AppEnv
         'local', 'develop', 'dev',
     ];
 
-    public static function from(string $name): self
+    public static function from(self|string $name): self
     {
         if (self::isProd($name)) {
             return self::prod;
@@ -51,6 +51,11 @@ enum AppEnv
         }
 
         return self::unknown;
+    }
+
+    public static function name(self|string $name): string
+    {
+        return self::from($name)->name;
     }
 
     public static function isProd(self|string $env): bool

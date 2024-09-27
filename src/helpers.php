@@ -2,12 +2,57 @@
 
 declare(strict_types=1);
 
+use Axn\ToolKit\Enums\AppEnv;
 use Axn\ToolKit\VersionNumber;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
+
+if (! function_exists('app_env_enum')) {
+    /**
+     * Returns a standardized enumeration of the application environment
+     * based on the "app.env" configuration variable.
+     *
+     * Note that the return value is static, it always returns the first value in the same request.
+     * If the environment is modified at runtime, this will not be taken into account (but who does that?).
+     *
+     * @see Axn\ToolKit\Enums\AppEnv
+     */
+    function app_env_enum(): AppEnv
+    {
+        static $appEnvEnum = null;
+
+        if ($appEnvEnum === null) {
+            $appEnvEnum = AppEnv::from(app()->environment());
+        }
+
+        return $appEnvEnum;
+    }
+}
+
+if (! function_exists('app_env_name')) {
+    /**
+     * Returns a standardized name of the application environment
+     * based on the "app.env" configuration variable.
+     *
+     * Note that the return value is static, it always returns the first value in the same request.
+     * If the environment is modified at runtime, this will not be taken into account (but who does that?).
+     *
+     * @see Axn\ToolKit\Enums\AppEnv
+     */
+    function app_env_name(): string
+    {
+        static $appEnvName = null;
+
+        if ($appEnvName === null) {
+            $appEnvName = AppEnv::name(app_env_enum());
+        }
+
+        return $appEnvName;
+    }
+}
 
 if (! function_exists('carbon')) {
     /**
@@ -308,13 +353,26 @@ if (! function_exists('is_valid_model')) {
 
 if (! function_exists('semverToId')) {
     /**
-     * Transforme un numéro de version semver en un identifiant numérique.
+     * @deprecated in 10.3.0 use semver_to_id() instead
+     * @see semver_to_id()
+     */
+    function semverToId(string $version): int
+    {
+        trigger_error('The semverToId() helper should no longer be used, semver_to_id() should be used instead.', E_USER_WARNING);
+
+        return semver_to_id($version);
+    }
+}
+
+if (! function_exists('semver_to_id')) {
+    /**
+     * Transforms a semver version number into a numeric identifier.
      *
-     * Note importante : ne prend pas en charge les versions non finalisée (RC, beta, etc.)
+     * Please note: does not take into account "pre-releases" (RC, beta, etc.)
      *
      * @throws UnexpectedValueException
      */
-    function semverToId(string $version): int
+    function semver_to_id(string $version): int
     {
         return VersionNumber::toId($version);
     }

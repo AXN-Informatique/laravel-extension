@@ -7,6 +7,7 @@ From 9.x to 10.x
 This package now requires at least **PHP 8.2** and **Laravel 10**.
 To install this new version you must update your application accordingly.
 
+
 From 8.x to 9.x
 ---------------
 
