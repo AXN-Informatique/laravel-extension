@@ -3,11 +3,33 @@ Tool Kit for Laravel  (formerly "Laravel extension")
 
 Includes a set of useful tools for the Laravel framework.
 
-* [Installation](#installation)
-* [Helpers](#helpers)
-* [Blade directives](#blade-directives)
-* [Components](#components)
-* [Enums](#enums)
+- [Installation](#installation)
+- [Helpers](#helpers)
+    - [app_env_enum()](#app_env_enum)
+    - [app_env_name()](#app_env_name)
+    - [carbon()](#carbon)
+    - [collect_models()](#collect_models)
+    - [str_html()](#str_html)
+    - [linebreaks()](#linebreaks)
+    - [nl_to_p()](#nl_to_p)
+    - [nl_to_br()](#nl_to_br)
+    - [number_formated()](#number_formated)
+    - [number_fr()](#number_fr)
+    - [compute_dec_to_time()](#compute_dec_to_time)
+    - [convert_dec_to_time()](#convert_dec_to_time)
+    - [human_readable_bytes_size()](#human_readable_bytes_size)
+    - [trans_ucfirst()](#trans_ucfirst)
+    - [is_valid_model()](#is_valid_model)
+    - [semver_to_id()](#semver_to_id)
+- [Blade directives](#blade-directives)
+    - [@nltop()](#nltop)
+    - [@nltobr()](#nltobr)
+- [Components](#components)
+    - [Add an indicator for a required field](#add-an-indicator-for-a-required-field)
+- [Enums](#enums)
+    - [Environment application](#environment-application)
+    - [Civilities](#civilities)
+
 
 Installation
 ------------
@@ -286,7 +308,7 @@ a text with <br> new lines <br><br> again <br><br><br> and again
 Components
 ----------
 
-### Add an indicator for required field
+### Add an indicator for a required field
 
 To display a required field marker (e.g. in a label tag):
 
