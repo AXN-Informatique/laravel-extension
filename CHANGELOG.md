@@ -1,6 +1,13 @@
 Changelog
 =========
 
+10.3.2 (2025-02-09)
+-------------------
+
+- Deprecated `number_formated()` helper in favor of `number_formatted()`
+- Deprecated `number_fr()` helper in favor of `number_formatted()`
+
+
 10.3.1 (2024-10-17)
 -------------------
 

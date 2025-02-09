@@ -13,8 +13,9 @@ Includes a set of useful tools for the Laravel framework.
     - [linebreaks()](#linebreaks)
     - [nl_to_p()](#nl_to_p)
     - [nl_to_br()](#nl_to_br)
-    - [number_formated()](#number_formated)
-    - [number_fr()](#number_fr)
+    - [number_formatted()](#number_formatted)
+    - [~~number_formated()~~](#number_formated)
+    - [~~number_fr()~~](#number_fr)
     - [compute_dec_to_time()](#compute_dec_to_time)
     - [convert_dec_to_time()](#convert_dec_to_time)
     - [human_readable_bytes_size()](#human_readable_bytes_size)
@@ -177,9 +178,9 @@ nl_to_br($str)
 // a text with <br> new lines <br><br> again <br><br><br> and again
 ```
 
-### number_formated()
+### number_formatted()
 
-Returns a number in current language format.
+Returns a number in current application language format.
 
 ```php
 $number = '123456789.101112';
@@ -190,9 +191,15 @@ $numberFormated = number_formated($number, 2);
 // en: 123,456,789.10
 ```
 
-### number_fr()
+### ~~number_formated()~~
 
-Returns a number in french format.
+Deprecated : the `number_formated()` helper should no longer be used, `number_formatted()` should be used instead.
+
+
+### ~~number_fr()~~
+
+Deprecated : the `number_fr()` helper should no longer be used, `number_formatted()` should be used instead.
+
 
 ### compute_dec_to_time()
 

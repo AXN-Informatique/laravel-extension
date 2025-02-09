@@ -145,7 +145,7 @@ if (! function_exists('nl_to_p')) {
         $str = preg_replace("/\n{2,}/", "\n\n", $str);
 
         // Replace multiple linebreaks by paragraphs
-        $str = preg_replace('/\n(\s*\n)+/', '</p><p>', $str);
+        $str = preg_replace('/\n(\s*\n)+/', '</p><p>', (string) $str);
 
         // Replace the single linebreaks by <br> elements
         $str = nl2br((string) $str, false);
@@ -164,11 +164,11 @@ if (! function_exists('nl_to_br')) {
     }
 }
 
-if (! function_exists('number_formated')) {
+if (! function_exists('number_formatted')) {
     /**
      * Returns a number in current language format.
      */
-    function number_formated(float|string $value, int $decimals = 0): string
+    function number_formatted(float|string $value, int $decimals = 0): string
     {
         return number_format((float) $value, $decimals,
             trans('number.decimals_separator'),
@@ -177,12 +177,32 @@ if (! function_exists('number_formated')) {
     }
 }
 
+if (! function_exists('number_formated')) {
+    /**
+     * Returns a number in current language format.
+     *
+     * @deprecated in 10.3.2 use number_formatted() instead
+     * @see number_formatted()
+     */
+    function number_formated(float|string $value, int $decimals = 0): string
+    {
+        trigger_error('The number_formated() helper should no longer be used, number_formatted() should be used instead.', E_USER_DEPRECATED);
+
+        return number_formatted($value, $decimals);
+    }
+}
+
 if (! function_exists('number_fr')) {
     /**
      * Returns a number in french format.
+     *
+     * @deprecated in 10.3.2 use number_formatted() instead
+     * @see number_formatted()
      */
     function number_fr(float|string $value, int $decimals = 0): string
     {
+        trigger_error('The number_fr() helper should no longer be used, number_formatted() should be used instead.', E_USER_DEPRECATED);
+
         return number_format($value, $decimals, ',', ' ');
     }
 }
@@ -358,7 +378,7 @@ if (! function_exists('semverToId')) {
      */
     function semverToId(string $version): int
     {
-        trigger_error('The semverToId() helper should no longer be used, semver_to_id() should be used instead.', E_USER_WARNING);
+        trigger_error('The semverToId() helper should no longer be used, semver_to_id() should be used instead.', E_USER_DEPRECATED);
 
         return semver_to_id($version);
     }
