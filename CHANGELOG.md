@@ -1,6 +1,17 @@
 Changelog
 =========
 
+11.0.0 (2025-03-13)
+-------------------
+
+- Minimum PHP version increased to 8.4
+- Minimum Laravel version increased to 12
+- Removed deprecated functions in 10.x
+    - `number_formated()` replaced by `number_formatted()`
+    - `number_fr()` replaced by `number_formatted()`
+    - `semverToId()` replaced by `semver_to_id()`
+
+
 10.3.2 (2025-02-09)
 -------------------
 

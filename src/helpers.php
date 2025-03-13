@@ -177,36 +177,6 @@ if (! function_exists('number_formatted')) {
     }
 }
 
-if (! function_exists('number_formated')) {
-    /**
-     * Returns a number in current language format.
-     *
-     * @deprecated in 10.3.2 use number_formatted() instead
-     * @see number_formatted()
-     */
-    function number_formated(float|string $value, int $decimals = 0): string
-    {
-        trigger_error('The number_formated() helper should no longer be used, number_formatted() should be used instead.', E_USER_DEPRECATED);
-
-        return number_formatted($value, $decimals);
-    }
-}
-
-if (! function_exists('number_fr')) {
-    /**
-     * Returns a number in french format.
-     *
-     * @deprecated in 10.3.2 use number_formatted() instead
-     * @see number_formatted()
-     */
-    function number_fr(float|string $value, int $decimals = 0): string
-    {
-        trigger_error('The number_fr() helper should no longer be used, number_formatted() should be used instead.', E_USER_DEPRECATED);
-
-        return number_format($value, $decimals, ',', ' ');
-    }
-}
-
 if (! function_exists('compute_dec_to_time')) {
     /**
      * Decimal to time calculation
@@ -286,7 +256,7 @@ if (! function_exists('human_readable_bytes_size')) {
 
         $bytes /= (1 << (10 * $pow));
 
-        return number_formated($bytes, $decimals).' '.$units[$pow];
+        return number_formatted($bytes, $decimals).' '.$units[$pow];
     }
 }
 
@@ -368,19 +338,6 @@ if (! function_exists('is_valid_model')) {
         } catch (ReflectionException) {
             return false;
         }
-    }
-}
-
-if (! function_exists('semverToId')) {
-    /**
-     * @deprecated in 10.3.0 use semver_to_id() instead
-     * @see semver_to_id()
-     */
-    function semverToId(string $version): int
-    {
-        trigger_error('The semverToId() helper should no longer be used, semver_to_id() should be used instead.', E_USER_DEPRECATED);
-
-        return semver_to_id($version);
     }
 }
 

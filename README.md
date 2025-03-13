@@ -14,8 +14,6 @@ Includes a set of useful tools for the Laravel framework.
     - [nl_to_p()](#nl_to_p)
     - [nl_to_br()](#nl_to_br)
     - [number_formatted()](#number_formatted)
-    - [~~number_formated()~~](#number_formated)
-    - [~~number_fr()~~](#number_fr)
     - [compute_dec_to_time()](#compute_dec_to_time)
     - [convert_dec_to_time()](#convert_dec_to_time)
     - [human_readable_bytes_size()](#human_readable_bytes_size)
@@ -190,16 +188,6 @@ $numberFormated = number_formated($number, 2);
 // fr: 123 456 789,10
 // en: 123,456,789.10
 ```
-
-### ~~number_formated()~~
-
-Deprecated : the `number_formated()` helper should no longer be used, `number_formatted()` should be used instead.
-
-
-### ~~number_fr()~~
-
-Deprecated : the `number_fr()` helper should no longer be used, `number_formatted()` should be used instead.
-
 
 ### compute_dec_to_time()
 
