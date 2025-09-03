@@ -6,6 +6,7 @@ Changelog
 
 - Added `mime_type_to_fa6_class()` helper
 - Added `mime_type_to_fa7_class()` helper
+- Added common MimeTypeToFontAwesomeIcon class
 
 
 11.0.0 (2025-03-13)

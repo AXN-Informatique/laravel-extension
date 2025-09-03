@@ -242,7 +242,15 @@ $size = human_readable_bytes_size(2048*1024*10000, 2);
 
 ### mime_type_to_fa5_class()
 
-Return a font awesome file icon class for specific MIME Type.
+Return a fontawesome 5 file icon class for specific MIME Type.
+
+### mime_type_to_fa6_class()
+
+Return a fontawesome 6 file icon class for specific MIME Type.
+
+### mime_type_to_fa7_class()
+
+Return a fontawesome 7 file icon class for specific MIME Type.
 
 ### trans_ucfirst()
 

@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Axn\ToolKit\Enums\AppEnv;
+use Axn\ToolKit\MimeTypeToFontAwesomeIcon;
 use Axn\ToolKit\VersionNumber;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
@@ -263,129 +264,21 @@ if (! function_exists('human_readable_bytes_size')) {
 if (! function_exists('mime_type_to_fa5_class')) {
     function mime_type_to_fa5_class($inputMimeType, $default = 'fa-file')
     {
-        static $mimeTypesFa5Classes = [
-            'image' => 'fa-file-image',
-            'audio' => 'fa-file-audio',
-            'video' => 'fa-file-video',
-
-            'application/pdf' => 'fa-file-pdf',
-
-            'application/msword' => 'fa-file-word',
-            'application/vnd.ms-word' => 'fa-file-word',
-            'application/vnd.oasis.opendocument.text' => 'fa-file-word',
-            'application/vnd.openxmlformats-officedocument.wordprocessingml' => 'fa-file-word',
-
-            'application/vnd.ms-excel' => 'fa-file-excel',
-            'application/vnd.openxmlformats-officedocument.spreadsheetml' => 'fa-file-excel',
-            'application/vnd.oasis.opendocument.spreadsheet' => 'fa-file-excel',
-
-            'application/vnd.ms-powerpoint' => 'fa-file-powerpoint',
-            'application/vnd.openxmlformats-officedocument.presentationml' => 'fa-file-powerpoint',
-            'application/vnd.oasis.opendocument.presentation' => 'fa-file-powerpoint',
-
-            'text/plain' => 'fa-file-alt',
-
-            'text/html' => 'fa-file-code',
-            'application/json' => 'fa-file-code',
-
-            'application/gzip' => 'fa-file-archive',
-            'application/zip' => 'fa-file-archive',
-            'application/x-7z-compressed' => 'fa-file-archive',
-        ];
-
-        foreach ($mimeTypesFa5Classes as $mimeType => $fa5Class) {
-            if (str_starts_with((string) $inputMimeType, (string) $mimeType)) {
-                return $fa5Class;
-            }
-        }
-
-        return $default;
+        return MimeTypeToFontAwesomeIcon::toFa5Class((string) $inputMimeType, $default);
     }
 }
 
 if (! function_exists('mime_type_to_fa6_class')) {
     function mime_type_to_fa6_class($inputMimeType, $default = 'fa-file')
     {
-        static $mimeTypesFa6Classes = [
-            'image' => 'fa-file-image',
-            'audio' => 'fa-file-audio',
-            'video' => 'fa-file-video',
-
-            'application/pdf' => 'fa-file-pdf',
-
-            'application/msword' => 'fa-file-word',
-            'application/vnd.ms-word' => 'fa-file-word',
-            'application/vnd.oasis.opendocument.text' => 'fa-file-word',
-            'application/vnd.openxmlformats-officedocument.wordprocessingml' => 'fa-file-word',
-
-            'application/vnd.ms-excel' => 'fa-file-excel',
-            'application/vnd.openxmlformats-officedocument.spreadsheetml' => 'fa-file-excel',
-            'application/vnd.oasis.opendocument.spreadsheet' => 'fa-file-excel',
-
-            'application/vnd.ms-powerpoint' => 'fa-file-powerpoint',
-            'application/vnd.openxmlformats-officedocument.presentationml' => 'fa-file-powerpoint',
-            'application/vnd.oasis.opendocument.presentation' => 'fa-file-powerpoint',
-
-            'text/plain' => 'fa-lines',
-
-            'text/html' => 'fa-file-code',
-            'application/json' => 'fa-file-code',
-
-            'application/gzip' => 'fa-file-zipper',
-            'application/zip' => 'fa-file-zipper',
-            'application/x-7z-compressed' => 'fa-file-zipper',
-        ];
-
-        foreach ($mimeTypesFa6Classes as $mimeType => $fa6Class) {
-            if (str_starts_with((string) $inputMimeType, (string) $mimeType)) {
-                return $fa6Class;
-            }
-        }
-
-        return $default;
+        return MimeTypeToFontAwesomeIcon::toFa6Class((string) $inputMimeType, $default);
     }
 }
 
 if (! function_exists('mime_type_to_fa7_class')) {
     function mime_type_to_fa7_class($inputMimeType, $default = 'fa-file')
     {
-        static $mimeTypesFa7Classes = [
-            'image' => 'fa-file-image',
-            'audio' => 'fa-file-audio',
-            'video' => 'fa-file-video',
-
-            'application/pdf' => 'fa-file-pdf',
-
-            'application/msword' => 'fa-file-word',
-            'application/vnd.ms-word' => 'fa-file-word',
-            'application/vnd.oasis.opendocument.text' => 'fa-file-word',
-            'application/vnd.openxmlformats-officedocument.wordprocessingml' => 'fa-file-word',
-
-            'application/vnd.ms-excel' => 'fa-file-excel',
-            'application/vnd.openxmlformats-officedocument.spreadsheetml' => 'fa-file-excel',
-            'application/vnd.oasis.opendocument.spreadsheet' => 'fa-file-excel',
-
-            'application/vnd.ms-powerpoint' => 'fa-file-powerpoint',
-            'application/vnd.openxmlformats-officedocument.presentationml' => 'fa-file-powerpoint',
-            'application/vnd.oasis.opendocument.presentation' => 'fa-file-powerpoint',
-
-            'text/plain' => 'fa-lines',
-
-            'text/html' => 'fa-file-code',
-            'application/json' => 'fa-file-code',
-
-            'application/gzip' => 'fa-file-zipper',
-            'application/zip' => 'fa-file-zipper',
-            'application/x-7z-compressed' => 'fa-file-zipper',
-        ];
-
-        foreach ($mimeTypesFa7Classes as $mimeType => $fa7Class) {
-            if (str_starts_with((string) $inputMimeType, (string) $mimeType)) {
-                return $fa7Class;
-            }
-        }
-
-        return $default;
+        return MimeTypeToFontAwesomeIcon::toFa7Class((string) $inputMimeType, $default);
     }
 }
 
