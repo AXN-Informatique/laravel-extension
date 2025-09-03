@@ -68,12 +68,13 @@ class MimeTypeToFontAwesomeIcon
 
     private const array FA7_MAPPINGS = [
         // Images
-        'image/jpeg' => 'fa-file-image',
-        'image/jpg' => 'fa-file-image',
-        'image/png' => 'fa-file-image',
-        'image/gif' => 'fa-file-image',
+        'image/jpeg' => 'fa-file-jpg',
+        'image/jpg' => 'fa-file-jpg',
+        'image/png' => 'fa-file-png',
+        'image/gif' => 'fa-file-gif',
+        'image/svg+xml' => 'fa-file-svg',
+        'image/x-eps' => 'fa-file-eps',
         'image/webp' => 'fa-file-image',
-        'image/svg+xml' => 'fa-file-image',
         'image/avif' => 'fa-file-image',
         'image/bmp' => 'fa-file-image',
         'image/tiff' => 'fa-file-image',
@@ -81,24 +82,26 @@ class MimeTypeToFontAwesomeIcon
         'image' => 'fa-file-image',
 
         // Audio
-        'audio/mpeg' => 'fa-file-audio',
-        'audio/mp3' => 'fa-file-audio',
-        'audio/wav' => 'fa-file-audio',
-        'audio/x-wav' => 'fa-file-audio',
+        'audio/mpeg' => 'fa-file-mp3',
+        'audio/mp3' => 'fa-file-mp3',
+        'audio/mp4' => 'fa-file-mp4',
+        'audio/x-m4a' => 'fa-file-m4a',
+        'audio/wav' => 'fa-file-wav',
+        'audio/x-wav' => 'fa-file-wav',
         'audio/ogg' => 'fa-file-audio',
         'audio/webm' => 'fa-file-audio',
         'audio/flac' => 'fa-file-audio',
-        'audio/aac' => 'fa-file-audio',
+        'audio/aac' => 'fa-file-aac',
         'audio/midi' => 'fa-file-audio',
         'audio/x-midi' => 'fa-file-audio',
-        'audio/x-m4a' => 'fa-file-audio',
         'audio' => 'fa-file-audio',
 
         // Video
-        'video/mp4' => 'fa-file-video',
+        'video/mp4' => 'fa-file-mp4',
+        'video/avi' => 'fa-file-avi',
+        'video/x-msvideo' => 'fa-file-avi',
+        'video/quicktime' => 'fa-file-mov',
         'video/mpeg' => 'fa-file-video',
-        'video/quicktime' => 'fa-file-video',
-        'video/x-msvideo' => 'fa-file-video',
         'video/x-ms-wmv' => 'fa-file-video',
         'video/webm' => 'fa-file-video',
         'video/ogg' => 'fa-file-video',
@@ -111,71 +114,71 @@ class MimeTypeToFontAwesomeIcon
         'application/x-pdf' => 'fa-file-pdf',
 
         // Word documents
-        'application/msword' => 'fa-file-word',
-        'application/vnd.ms-word' => 'fa-file-word',
-        'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'fa-file-word',
-        'application/vnd.openxmlformats-officedocument.wordprocessingml.template' => 'fa-file-word',
-        'application/vnd.oasis.opendocument.text' => 'fa-file-word',
-        'application/vnd.openxmlformats-officedocument.wordprocessingml' => 'fa-file-word',
-        'application/rtf' => 'fa-file-word',
+        'application/msword' => 'fa-file-doc',
+        'application/vnd.ms-word' => 'fa-file-doc',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'fa-file-doc',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.template' => 'fa-file-doc',
+        'application/vnd.oasis.opendocument.text' => 'fa-file-doc',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml' => 'fa-file-doc',
+        'application/rtf' => 'fa-file-richtext',
 
         // Excel/Spreadsheets
-        'application/vnd.ms-excel' => 'fa-file-excel',
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => 'fa-file-excel',
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.template' => 'fa-file-excel',
-        'application/vnd.openxmlformats-officedocument.spreadsheetml' => 'fa-file-excel',
-        'application/vnd.oasis.opendocument.spreadsheet' => 'fa-file-excel',
+        'application/vnd.ms-excel' => 'fa-file-xls',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => 'fa-file-xls',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.template' => 'fa-file-xls',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml' => 'fa-file-xls',
+        'application/vnd.oasis.opendocument.spreadsheet' => 'fa-file-spreadsheet',
         'text/csv' => 'fa-file-csv',
         'application/csv' => 'fa-file-csv',
         'text/tab-separated-values' => 'fa-file-csv',
 
         // PowerPoint/Presentations
-        'application/vnd.ms-powerpoint' => 'fa-file-powerpoint',
-        'application/vnd.openxmlformats-officedocument.presentationml.presentation' => 'fa-file-powerpoint',
-        'application/vnd.openxmlformats-officedocument.presentationml.template' => 'fa-file-powerpoint',
-        'application/vnd.openxmlformats-officedocument.presentationml.slideshow' => 'fa-file-powerpoint',
-        'application/vnd.openxmlformats-officedocument.presentationml' => 'fa-file-powerpoint',
-        'application/vnd.oasis.opendocument.presentation' => 'fa-file-powerpoint',
+        'application/vnd.ms-powerpoint' => 'fa-file-ppt',
+        'application/vnd.openxmlformats-officedocument.presentationml.presentation' => 'fa-file-ppt',
+        'application/vnd.openxmlformats-officedocument.presentationml.template' => 'fa-file-ppt',
+        'application/vnd.openxmlformats-officedocument.presentationml.slideshow' => 'fa-file-ppt',
+        'application/vnd.openxmlformats-officedocument.presentationml' => 'fa-file-ppt',
+        'application/vnd.oasis.opendocument.presentation' => 'fa-file-presentation',
 
         // Text files
-        'text/plain' => 'fa-file-lines',
-        'text/markdown' => 'fa-file-lines',
-        'text/x-markdown' => 'fa-file-lines',
+        'text/plain' => 'fa-file-txt',
+        'text/markdown' => 'fa-file-markdown',
+        'text/x-markdown' => 'fa-file-markdown',
 
         // Code files
-        'text/html' => 'fa-file-code',
-        'text/xml' => 'fa-file-code',
-        'application/xml' => 'fa-file-code',
-        'application/xhtml+xml' => 'fa-file-code',
-        'application/json' => 'fa-file-code',
-        'application/ld+json' => 'fa-file-code',
-        'text/javascript' => 'fa-file-code',
-        'application/javascript' => 'fa-file-code',
-        'application/x-javascript' => 'fa-file-code',
-        'text/css' => 'fa-file-code',
-        'application/x-httpd-php' => 'fa-file-code',
-        'application/x-sh' => 'fa-file-code',
-        'text/x-python' => 'fa-file-code',
-        'text/x-java-source' => 'fa-file-code',
-        'text/x-c' => 'fa-file-code',
-        'text/x-c++' => 'fa-file-code',
-        'application/sql' => 'fa-file-code',
-        'text/yaml' => 'fa-file-code',
-        'application/x-yaml' => 'fa-file-code',
+        'text/html' => 'fa-file-html',
+        'text/xml' => 'fa-file-xml',
+        'application/xml' => 'fa-file-xml',
+        'application/xhtml+xml' => 'fa-file-xhtml',
+        'application/json' => 'fa-file-json',
+        'application/ld+json' => 'fa-file-json',
+        'text/javascript' => 'fa-file-js',
+        'application/javascript' => 'fa-file-js',
+        'application/x-javascript' => 'fa-file-js',
+        'text/css' => 'fa-file-css',
+        'application/x-httpd-php' => 'fa-file-php',
+        'application/x-sh' => 'fa-file-bash',
+        'text/x-python' => 'fa-file-python',
+        'text/x-java-source' => 'fa-file-java',
+        'text/x-c' => 'fa-file-c',
+        'text/x-c++' => 'fa-file-cpp',
+        'application/sql' => 'fa-file-sql',
+        'text/yaml' => 'fa-file-yaml',
+        'application/x-yaml' => 'fa-file-yaml',
 
         // Archives
-        'application/gzip' => 'fa-file-zipper',
-        'application/x-gzip' => 'fa-file-zipper',
-        'application/zip' => 'fa-file-zipper',
-        'application/x-zip' => 'fa-file-zipper',
-        'application/x-zip-compressed' => 'fa-file-zipper',
-        'application/x-7z-compressed' => 'fa-file-zipper',
-        'application/x-rar' => 'fa-file-zipper',
-        'application/x-rar-compressed' => 'fa-file-zipper',
-        'application/x-tar' => 'fa-file-zipper',
-        'application/x-bzip' => 'fa-file-zipper',
-        'application/x-bzip2' => 'fa-file-zipper',
-        'application/vnd.rar' => 'fa-file-zipper',
+        'application/gzip' => 'fa-file-zip',
+        'application/x-gzip' => 'fa-file-zip',
+        'application/zip' => 'fa-file-zip',
+        'application/x-zip' => 'fa-file-zip',
+        'application/x-zip-compressed' => 'fa-file-zip',
+        'application/x-7z-compressed' => 'fa-file-7z',
+        'application/x-rar' => 'fa-file-rar',
+        'application/x-rar-compressed' => 'fa-file-rar',
+        'application/x-tar' => 'fa-file-tar',
+        'application/x-bzip' => 'fa-file-bz',
+        'application/x-bzip2' => 'fa-file-bz2',
+        'application/vnd.rar' => 'fa-file-rar',
 
         // Fonts
         'font/ttf' => 'fa-file-font',
@@ -198,7 +201,7 @@ class MimeTypeToFontAwesomeIcon
         // Medical
         'application/dicom' => 'fa-file-medical',
 
-        // Contracts/Signatures  
+        // Contracts/Signatures
         'application/vnd.adobe.xfdf' => 'fa-file-signature',
         'application/vnd.adobe.xdp+xml' => 'fa-file-signature',
 
@@ -214,18 +217,48 @@ class MimeTypeToFontAwesomeIcon
 
         // Vector graphics
         'application/postscript' => 'fa-file-vector',
-        'application/illustrator' => 'fa-file-vector',
-        'image/x-eps' => 'fa-file-vector',
+        'application/illustrator' => 'fa-file-ai',
+        'image/x-eps' => 'fa-file-eps',
+        'application/x-photoshop' => 'fa-file-psd',
+        'image/vnd.adobe.photoshop' => 'fa-file-psd',
+        'application/x-indesign' => 'fa-file-indd',
+        'application/x-sketch' => 'fa-file-sketch',
+        'application/x-figma' => 'fa-file-figma',
 
         // Binaries/Executables
         'application/octet-stream' => 'fa-file-binary',
-        'application/x-executable' => 'fa-file-binary',
-        'application/x-msdownload' => 'fa-file-binary',
-        'application/x-msdos-program' => 'fa-file-binary',
+        'application/x-executable' => 'fa-file-exe',
+        'application/x-msdownload' => 'fa-file-exe',
+        'application/x-msdos-program' => 'fa-file-exe',
+        'application/x-debian-package' => 'fa-file-deb',
+        'application/vnd.android.package-archive' => 'fa-file-apk',
+        'application/x-apple-diskimage' => 'fa-file-dmg',
+        'application/x-msi' => 'fa-file-msi',
 
         // Calendar
         'text/calendar' => 'fa-file-calendar',
-        'application/ics' => 'fa-file-calendar',
+        'application/ics' => 'fa-file-ics',
+
+        // Database
+        'application/x-sqlite3' => 'fa-database',
+        'application/vnd.sqlite3' => 'fa-database',
+
+        // Config files
+        'application/x-yaml' => 'fa-file-gear',
+        'text/x-ini' => 'fa-file-gear',
+        'application/toml' => 'fa-file-gear',
+        'text/x-properties' => 'fa-file-gear',
+
+        // Certificates
+        'application/x-pkcs7-certificates' => 'fa-file-shield',
+        'application/x-pkcs7-certreqresp' => 'fa-file-shield',
+
+        // Lock files
+        'application/x-lockfile' => 'fa-file-lock',
+
+        // User/Access files
+        'text/x-vcf' => 'fa-file-user',
+        'text/vcard' => 'fa-file-user',
     ];
 
     public static function toFa5Class(string $mimeType, string $default = 'fa-file'): string
