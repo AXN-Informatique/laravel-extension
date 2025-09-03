@@ -1,6 +1,13 @@
 Changelog
 =========
 
+11.1.0 (2025-09-03)
+-------------------
+
+- Added `mime_type_to_fa6_class()` helper
+- Added `mime_type_to_fa7_class()` helper
+
+
 11.0.0 (2025-03-13)
 -------------------
 
