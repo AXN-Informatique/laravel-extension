@@ -262,21 +262,21 @@ if (! function_exists('human_readable_bytes_size')) {
 }
 
 if (! function_exists('mime_type_to_fa5_class')) {
-    function mime_type_to_fa5_class($inputMimeType, $default = 'fa-file')
+    function mime_type_to_fa5_class($inputMimeType, $default = 'fa-file'): string
     {
         return MimeTypeToFontAwesomeIcon::toFa5Class((string) $inputMimeType, $default);
     }
 }
 
 if (! function_exists('mime_type_to_fa6_class')) {
-    function mime_type_to_fa6_class($inputMimeType, $default = 'fa-file')
+    function mime_type_to_fa6_class($inputMimeType, $default = 'fa-file'): string
     {
         return MimeTypeToFontAwesomeIcon::toFa6Class((string) $inputMimeType, $default);
     }
 }
 
 if (! function_exists('mime_type_to_fa7_class')) {
-    function mime_type_to_fa7_class($inputMimeType, $default = 'fa-file')
+    function mime_type_to_fa7_class($inputMimeType, $default = 'fa-file'): string
     {
         return MimeTypeToFontAwesomeIcon::toFa7Class((string) $inputMimeType, $default);
     }
