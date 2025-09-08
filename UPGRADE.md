@@ -15,9 +15,9 @@ This package now requires at least **PHP 8.4** and **Laravel 12**.
 Since deprecated helper functions have been removed, you need to find and replace them.
 
 Search and replace :
-    - `number_formated(` by `number_formatted(`
-    - `number_fr(` by `number_formatted(`
-    - `semverToId(` by `semver_to_id(`
+- `number_formated(` by `number_formatted(`
+- `number_fr(` by `number_formatted(`
+- `semverToId(` by `semver_to_id(`
 
 Also you should look at and consider the [helpers](https://laravel.com/docs/12.x/helpers) available natively in Laravel.
 
