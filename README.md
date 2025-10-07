@@ -184,6 +184,12 @@ nl_to_br($str)
 Returns a number in current application language format.
 
 ```php
+function number_formatted(float|string $value, int $decimals = 0, bool $trimZeroDecimals = false): string
+```
+
+**Examples:**
+
+```php
 $number = '123456789.101112';
 
 $numberFormatted = number_formatted($number, 2);
@@ -197,7 +203,13 @@ $formatted = number_formatted($number, 2);
 // fr: 42,00
 // en: 42.00
 
+// Positional arguments
 $formatted = number_formatted($number, 2, true);
+// fr: 42
+// en: 42
+
+// Named arguments (PHP 8+)
+$formatted = number_formatted($number, decimals: 2, trimZeroDecimals: true);
 // fr: 42
 // en: 42
 
