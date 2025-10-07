@@ -1,6 +1,14 @@
 Changelog
 =========
 
+11.2.0 (2025-10-07)
+-------------------
+
+- Added `$trimZeroDecimals` parameter to `number_formatted()` helper to optionally hide trailing zeros
+- Added `$trimZeroDecimals` parameter to `human_readable_bytes_size()` helper (delegates to `number_formatted()`)
+- Documentation improvements
+
+
 11.1.0 (2025-09-03)
 -------------------
 
