@@ -169,9 +169,14 @@ if (! function_exists('number_formatted')) {
     /**
      * Returns a number in current language format.
      */
-    function number_formatted(float|string $value, int $decimals = 0): string
+    function number_formatted(float|string $value, int $decimals = 0, bool $trimZeroDecimals = false): string
     {
-        return number_format((float) $value, $decimals,
+        $floatValue = (float) $value;
+
+        // Si demandé et pas de décimales réelles, on n'affiche pas de décimales
+        $decimalsToUse = ($trimZeroDecimals && floor($floatValue) == $floatValue) ? 0 : $decimals;
+
+        return number_format($floatValue, $decimalsToUse,
             trans('number.decimals_separator'),
             trans('number.thousands_separator')
         );
@@ -257,10 +262,7 @@ if (! function_exists('human_readable_bytes_size')) {
 
         $bytes /= (1 << (10 * $pow));
 
-        // Si demandé et pas de décimales réelles, on n'affiche pas de décimales
-        $decimalsToUse = ($trimZeroDecimals && floor($bytes) == $bytes) ? 0 : $decimals;
-
-        return number_formatted($bytes, $decimalsToUse).' '.$units[$pow];
+        return number_formatted($bytes, $decimals, $trimZeroDecimals).' '.$units[$pow];
     }
 }
 
