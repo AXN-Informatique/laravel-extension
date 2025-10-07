@@ -241,7 +241,7 @@ if (! function_exists('human_readable_bytes_size')) {
     /**
      * Convertit une taille en octets en une taille traduite lisible par l'homme.
      */
-    function human_readable_bytes_size(int $bytes, int $decimals = 0): string
+    function human_readable_bytes_size(int $bytes, int $decimals = 0, bool $trimZeroDecimals = false): string
     {
         $units = [
             trans('unit.B'),
@@ -257,7 +257,10 @@ if (! function_exists('human_readable_bytes_size')) {
 
         $bytes /= (1 << (10 * $pow));
 
-        return number_formatted($bytes, $decimals).' '.$units[$pow];
+        // Si demandé et pas de décimales réelles, on n'affiche pas de décimales
+        $decimalsToUse = ($trimZeroDecimals && floor($bytes) == $bytes) ? 0 : $decimals;
+
+        return number_formatted($bytes, $decimalsToUse).' '.$units[$pow];
     }
 }
 

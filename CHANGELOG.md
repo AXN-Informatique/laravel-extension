@@ -4,6 +4,12 @@ Changelog
 11.1.0 (2025-09-03)
 -------------------
 
+- Added `$trimZeroDecimals` parameter to `human_readable_bytes_size()` helper to optionally hide trailing zeros
+
+
+11.1.0 (2025-09-03)
+-------------------
+
 - Added `mime_type_to_fa6_class()` helper
 - Added `mime_type_to_fa7_class()` helper
 - Enrichment of mime types and FA7 icons

@@ -238,6 +238,19 @@ $size = human_readable_bytes_size(2048*1024);
 $size = human_readable_bytes_size(2048*1024*10000, 2);
 // fr: 19,53 Go
 // en: 19.53 GB
+
+// With trimZeroDecimals parameter
+$size = human_readable_bytes_size(1024, 2);
+// fr: 1,00 ko
+// en: 1.00 kB
+
+$size = human_readable_bytes_size(1024, 2, true);
+// fr: 1 ko
+// en: 1 kB
+
+$size = human_readable_bytes_size(1536, 2, true);
+// fr: 1,50 ko
+// en: 1.50 kB
 ```
 
 ### mime_type_to_fa5_class()
