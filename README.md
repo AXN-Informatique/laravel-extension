@@ -17,6 +17,9 @@ Includes a set of useful tools for the Laravel framework.
     - [compute_dec_to_time()](#compute_dec_to_time)
     - [convert_dec_to_time()](#convert_dec_to_time)
     - [human_readable_bytes_size()](#human_readable_bytes_size)
+    - [mime_type_to_fa5_class()](#mime_type_to_fa5_class)
+    - [mime_type_to_fa6_class()](#mime_type_to_fa6_class)
+    - [mime_type_to_fa7_class()](#mime_type_to_fa7_class)
     - [trans_ucfirst()](#trans_ucfirst)
     - [is_valid_model()](#is_valid_model)
     - [semver_to_id()](#semver_to_id)
@@ -97,7 +100,7 @@ Here are some examples.
 Using Carbon:
 
 ```php
-use Axn\ToolKit\Enums\AppEnv;
+use Illuminate\Support\Carbon;
 
 $date = Carbon::now();
 $date = Carbon::now('Europe/Paris');
@@ -105,7 +108,7 @@ $date = Carbon::createFromFormat('Y-m-d H:i', '2018-06-18 09:30');
 $date = Carbon::createFromFormat('Y-m-d H:i', '2018-06-18 09:30', 'Europe/Paris');
 $date = new Carbon('Thursday, June 18 2015 9:30:00');
 $date = new Carbon('Thursday, June 18 2015 9:30:00', 'Europe/Paris');
-$date = Carbon::createFromTimestamp(1434619800)
+$date = Carbon::createFromTimestamp(1434619800);
 ```
 
 Equivalents using helper:
@@ -117,8 +120,8 @@ $date = carbon('2018-06-18 09:30', 'Y-m-d H:i');
 $date = carbon('2018-06-18 09:30', 'Y-m-d H:i', 'Europe/Paris');
 $date = carbon('Thursday, June 18 2015 9:30:00');
 $date = carbon('Thursday, June 18 2015 9:30:00', tz: 'Europe/Paris');
-$date = carbon(1434619800)
-$date = carbon(1434619800, tz: 'Europe/Paris')
+$date = carbon(1434619800);
+$date = carbon(1434619800, tz: 'Europe/Paris');
 ```
 
 ### collect_models()
@@ -146,7 +149,7 @@ $htmlString = str_html($str);
 
 // Alias of
 
-$htmlString = new Illuminate\Support\HtmlStringHtmlString($str);
+$htmlString = new Illuminate\Support\HtmlString($str);
 ```
 
 ### linebreaks()
@@ -183,10 +186,25 @@ Returns a number in current application language format.
 ```php
 $number = '123456789.101112';
 
-$numberFormated = number_formated($number, 2);
+$numberFormatted = number_formatted($number, 2);
 
 // fr: 123 456 789,10
 // en: 123,456,789.10
+
+// With trimZeroDecimals parameter to hide trailing zeros
+$number = 42.00;
+$formatted = number_formatted($number, 2);
+// fr: 42,00
+// en: 42.00
+
+$formatted = number_formatted($number, 2, true);
+// fr: 42
+// en: 42
+
+$number = 42.50;
+$formatted = number_formatted($number, 2, true);
+// fr: 42,50
+// en: 42.50
 ```
 
 ### compute_dec_to_time()
@@ -255,15 +273,74 @@ $size = human_readable_bytes_size(1536, 2, true);
 
 ### mime_type_to_fa5_class()
 
-Return a fontawesome 5 file icon class for specific MIME Type.
+Returns the appropriate FontAwesome 5 icon class for a given MIME type.
+
+```php
+function mime_type_to_fa5_class($inputMimeType, $default = 'fa-file'): string
+```
+
+**Examples:**
+
+```php
+$icon = mime_type_to_fa5_class('application/pdf');
+// fa-file-pdf
+
+$icon = mime_type_to_fa5_class('image/jpeg');
+// fa-file-image
+
+$icon = mime_type_to_fa5_class('application/zip');
+// fa-file-archive
+
+$icon = mime_type_to_fa5_class('unknown/type', 'fa-file-circle-question');
+// fa-file-circle-question (default)
+```
+
+Supports common MIME types: images, audio, video, PDF, Microsoft Office documents, archives, code files, etc.
 
 ### mime_type_to_fa6_class()
 
-Return a fontawesome 6 file icon class for specific MIME Type.
+Returns the appropriate FontAwesome 6 icon class for a given MIME type.
+
+```php
+function mime_type_to_fa6_class($inputMimeType, $default = 'fa-file'): string
+```
+
+**Examples:**
+
+```php
+$icon = mime_type_to_fa6_class('application/pdf');
+// fa-file-pdf
+
+$icon = mime_type_to_fa6_class('text/plain');
+// fa-lines
+
+$icon = mime_type_to_fa6_class('application/zip');
+// fa-file-zipper
+```
 
 ### mime_type_to_fa7_class()
 
-Return a fontawesome 7 file icon class for specific MIME Type.
+Returns the appropriate FontAwesome 7 icon class for a given MIME type. This version provides more specific icons for file formats (e.g., `fa-file-jpg`, `fa-file-png`, `fa-file-mp3`).
+
+```php
+function mime_type_to_fa7_class($inputMimeType, $default = 'fa-file'): string
+```
+
+**Examples:**
+
+```php
+$icon = mime_type_to_fa7_class('image/png');
+// fa-file-png
+
+$icon = mime_type_to_fa7_class('audio/mp3');
+// fa-file-mp3
+
+$icon = mime_type_to_fa7_class('video/mp4');
+// fa-file-mp4
+
+$icon = mime_type_to_fa7_class('application/vnd.ms-excel');
+// fa-file-xls
+```
 
 ### trans_ucfirst()
 
@@ -293,7 +370,7 @@ This is useful for optimizing comparisons, searches and sorting in a database on
 Blade directives
 ----------------
 
- ### @nltop()
+### @nltop()
 
 Convert new lines into HTML paragraphs `<p>`.
 
@@ -441,7 +518,7 @@ AppEnv::isNotLocal('pre-prod'); // true
 Retrieving environment values ​​defined in the enum:
 
 ```php
-use Axn\ToolKit\Enums\Civilities;
+use Axn\ToolKit\Enums\AppEnv;
 
 AppEnv::prodNames(); // ['prod', 'production']
 AppEnv::preprodNames(); // ['preprod', 'pre-prod', 'preproduction', 'pre-production']
