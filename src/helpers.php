@@ -190,7 +190,7 @@ if (! function_exists('number_formatted')) {
     {
         $floatValue = (float) $value;
 
-        // Si demandé et pas de décimales réelles, on n'affiche pas de décimales
+        // If requested and no actual decimals, don't display any
         $decimalsToUse = ($trimZeroDecimals && floor($floatValue) === $floatValue) ? 0 : $decimals;
 
         return number_format($floatValue, $decimalsToUse,
@@ -261,7 +261,7 @@ if (! function_exists('convert_dec_to_time')) {
 
 if (! function_exists('human_readable_bytes_size')) {
     /**
-     * Convertit une taille en octets en une taille traduite lisible par l'homme.
+     * Convert a byte size into a human-readable localized size.
      */
     function human_readable_bytes_size(int $bytes, int $decimals = 0, bool $trimZeroDecimals = false): string
     {

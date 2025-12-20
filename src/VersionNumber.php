@@ -10,9 +10,9 @@ use UnexpectedValueException;
 class VersionNumber
 {
     /**
-     * Transforme un numéro de version semver en un identifiant numérique.
+     * Transform a semver version number into a numeric identifier.
      *
-     * Note importante : ne prend pas en charge les versions non finalisée (RC, beta, etc.)
+     * Important: does not support pre-release versions (RC, beta, etc.)
      *
      * @throws UnexpectedValueException
      */

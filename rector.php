@@ -37,10 +37,10 @@ return RectorConfig::configure()
     // ->withPhpSets(php84: true)
 
     ->withSkip([
-        // Cet attribut natif PHP n'est pas très utile ;
-        // mieux vaux se baser sur de l'analyse statique
-        // En plus, lors de la rédaction de ce message,
-        // la règle fonctionne mal, elle est buguée...
+        // This native PHP attribute is not very useful;
+        // better to rely on static analysis.
+        // Also, at the time of writing,
+        // the rule doesn't work properly, it's buggy...
         AddOverrideAttributeToOverriddenMethodsRector::class,
     ])
     ->withRules([
