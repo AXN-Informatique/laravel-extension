@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\HtmlString;
-use Illuminate\Support\Str;
 
 if (! function_exists('app_env_enum')) {
     /**
@@ -98,7 +97,7 @@ if (! function_exists('collect_models')) {
      */
     function collect_models(array $models): EloquentCollection
     {
-        if (array_any($models, fn ($model): bool => ! $model instanceof EloquentModel)) {
+        if (! array_all($models, fn ($model): bool => $model instanceof EloquentModel)) {
             throw new InvalidArgumentException('The collect_models helper expects an array of Eloquent Model');
         }
 
@@ -316,7 +315,7 @@ if (! function_exists('trans_ucfirst')) {
         $translation = app('translator')->get($key, $replace, $locale);
 
         if (is_string($translation)) {
-            return Str::ucfirst($translation);
+            return mb_ucfirst($translation);
         }
 
         return $translation;
