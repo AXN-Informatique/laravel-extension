@@ -5,6 +5,7 @@ Changelog
 -------------------
 
 - Added `nl_to_p_flat()` helper and `@nltopflat` Blade directive
+- Added `nl_to_br_compact()` helper and `@nltobrcompact` Blade directive
 - PHP 8.4 modernization: use `array_all()`, `array_find()` and `mb_ucfirst()`
 - Documentation improvements
 

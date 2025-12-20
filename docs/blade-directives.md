@@ -23,6 +23,17 @@ Convert text to a single paragraph, all consecutive newlines become a single `<b
 <p>Line 1<br>Line 2<br>Line 3</p>
 ```
 
+## @nltobrcompact()
+
+Replace all consecutive newlines with a single `<br>`.
+
+```blade
+@nltobrcompact("Line 1\n\nLine 2\n\n\nLine 3")
+```
+```html
+Line 1<br>Line 2<br>Line 3
+```
+
 ## @nltobr()
 
 Convert newlines to `<br>` (like PHP's `nl2br()`).

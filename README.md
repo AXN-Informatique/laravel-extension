@@ -6,7 +6,7 @@ Includes a set of useful tools for the Laravel framework.
 ## Documentation
 
 - [Helpers](docs/helpers.md) - Global helper functions
-- [Blade Directives](docs/blade-directives.md) - @nltop, @nltopflat, @nltobr
+- [Blade Directives](docs/blade-directives.md) - @nltop, @nltopflat, @nltobrcompact, @nltobr
 - [Components](docs/components.md) - Required field marker
 - [Enums](docs/enums.md) - AppEnv, Civilities
 
@@ -41,6 +41,7 @@ Use the locales publisher of [Laravel Lang](https://laravel-lang.com/) to add/up
 | `linebreaks()` | Normalize line endings to UNIX format |
 | `nl_to_p()` | Convert newlines to paragraphs |
 | `nl_to_p_flat()` | Convert text to single paragraph with `<br>` |
+| `nl_to_br_compact()` | Convert consecutive newlines to single `<br>` |
 | `nl_to_br()` | Alias of `nl2br()` |
 | `number_formatted()` | Format number with locale |
 | `compute_dec_to_time()` | Decimal to time array |
@@ -59,6 +60,7 @@ Use the locales publisher of [Laravel Lang](https://laravel-lang.com/) to add/up
 |-----------|-------------|
 | `@nltop()` | Convert newlines to paragraphs |
 | `@nltopflat()` | Convert to single paragraph with `<br>` |
+| `@nltobrcompact()` | Convert consecutive newlines to single `<br>` |
 | `@nltobr()` | Convert newlines to `<br>` |
 
 ### Components

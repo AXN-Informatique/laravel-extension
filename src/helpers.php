@@ -157,13 +157,7 @@ if (! function_exists('nl_to_p_flat')) {
      */
     function nl_to_p_flat(string $str): string
     {
-        // Convert all line-endings to UNIX format
-        $str = linebreaks($str);
-
-        // Replace all consecutive newlines (with optional whitespace) with a single <br>
-        $str = preg_replace('/\n(\s*\n)*/', '<br>', $str);
-
-        return '<p>'.$str.'</p>';
+        return '<p>'.nl_to_br_compact($str).'</p>';
     }
 }
 
@@ -174,6 +168,20 @@ if (! function_exists('nl_to_br')) {
     function nl_to_br(string $str, bool $useXhtml = false): string
     {
         return nl2br($str, $useXhtml);
+    }
+}
+
+if (! function_exists('nl_to_br_compact')) {
+    /**
+     * Replace all consecutive newlines with a single <br>.
+     */
+    function nl_to_br_compact(string $str): string
+    {
+        // Convert all line-endings to UNIX format
+        $str = linebreaks($str);
+
+        // Replace all consecutive newlines (with optional whitespace) with a single <br>
+        return preg_replace('/\n(\s*\n)*/', '<br>', $str);
     }
 }
 
