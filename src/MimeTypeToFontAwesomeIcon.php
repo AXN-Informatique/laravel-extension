@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Axn\ToolKit;
 
+/**
+ * Maps MIME types to FontAwesome icon classes.
+ */
 class MimeTypeToFontAwesomeIcon
 {
     private const array FA5_MAPPINGS = [
@@ -259,21 +262,35 @@ class MimeTypeToFontAwesomeIcon
         'text/vcard' => 'fa-file-user',
     ];
 
+    /**
+     * Get the FontAwesome 5 icon class for a given MIME type.
+     */
     public static function toFa5Class(string $mimeType, string $default = 'fa-file'): string
     {
         return self::findIconClass($mimeType, self::FA5_MAPPINGS, $default);
     }
 
+    /**
+     * Get the FontAwesome 6 icon class for a given MIME type.
+     */
     public static function toFa6Class(string $mimeType, string $default = 'fa-file'): string
     {
         return self::findIconClass($mimeType, self::FA6_MAPPINGS, $default);
     }
 
+    /**
+     * Get the FontAwesome 7 icon class for a given MIME type.
+     */
     public static function toFa7Class(string $mimeType, string $default = 'fa-file'): string
     {
         return self::findIconClass($mimeType, self::FA7_MAPPINGS, $default);
     }
 
+    /**
+     * Find the icon class for a MIME type in the given mappings.
+     *
+     * @param  array<string, string>  $mappings
+     */
     private static function findIconClass(string $inputMimeType, array $mappings, string $default): string
     {
         return array_find(

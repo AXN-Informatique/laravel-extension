@@ -6,6 +6,7 @@ Changelog
 
 - Added `nl_to_p_flat()` helper and `@nltopflat` Blade directive
 - PHP 8.4 modernization: use `array_all()`, `array_find()` and `mb_ucfirst()`
+- Documentation improvements
 
 
 11.2.1 (2025-10-07)

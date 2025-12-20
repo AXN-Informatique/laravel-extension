@@ -7,6 +7,9 @@ namespace Axn\ToolKit;
 use Composer\Semver\VersionParser;
 use UnexpectedValueException;
 
+/**
+ * Utility class for version number manipulation.
+ */
 class VersionNumber
 {
     /**

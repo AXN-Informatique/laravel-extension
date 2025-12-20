@@ -86,15 +86,11 @@ For more details please see the chapter on [AppEnv enumeration](#environment-app
 Create a Carbon instance from a date string, a DateTime instance or a timestamp.
 
 ```php
-    /**
-     * Create a Carbon instance from a date string, a DateTime instance or a timestamp.
-     *
-     * @param  \DateTime|int|string|null $date
-     * @param  string|null $fromFormat
-     * @param  \DateTimeZone|string|null $tz
-     * @return \Illuminate\Support\Carbon
-     * */
-    function carbon($date = null, $fromFormat = null, $tz = null)
+function carbon(
+    DateTime|int|string|null $date = null,
+    ?string $fromFormat = null,
+    DateTimeZone|string|null $tz = null
+): Carbon
 ```
 
 Here are some examples.
@@ -128,17 +124,13 @@ $date = carbon(1434619800, tz: 'Europe/Paris');
 
 ### collect_models()
 
-Create a collection of Eloquent models.
+Create an Eloquent collection of Eloquent models.
 
 ```php
-    /**
-     * Create an Eloquent collection of Eloquent models.
-     *
-     * @param  array $models
-     * @return EloquentCollection
-     */
-    function collect_models(array $models)
+function collect_models(array $models): EloquentCollection
 ```
+
+Throws `InvalidArgumentException` if any element is not an Eloquent Model.
 
 ### str_html()
 
@@ -302,7 +294,7 @@ $size = human_readable_bytes_size(1536, 2, true);
 Returns the appropriate FontAwesome 5 icon class for a given MIME type.
 
 ```php
-function mime_type_to_fa5_class($inputMimeType, $default = 'fa-file'): string
+function mime_type_to_fa5_class(string $mimeType, string $default = 'fa-file'): string
 ```
 
 **Examples:**
@@ -328,7 +320,7 @@ Supports common MIME types: images, audio, video, PDF, Microsoft Office document
 Returns the appropriate FontAwesome 6 icon class for a given MIME type.
 
 ```php
-function mime_type_to_fa6_class($inputMimeType, $default = 'fa-file'): string
+function mime_type_to_fa6_class(string $mimeType, string $default = 'fa-file'): string
 ```
 
 **Examples:**
@@ -349,7 +341,7 @@ $icon = mime_type_to_fa6_class('application/zip');
 Returns the appropriate FontAwesome 7 icon class for a given MIME type. This version provides more specific icons for file formats (e.g., `fa-file-jpg`, `fa-file-png`, `fa-file-mp3`).
 
 ```php
-function mime_type_to_fa7_class($inputMimeType, $default = 'fa-file'): string
+function mime_type_to_fa7_class(string $mimeType, string $default = 'fa-file'): string
 ```
 
 **Examples:**
@@ -569,11 +561,31 @@ AppEnv::localNames(); // ['local', 'develop', 'dev']
 
 ### Civilities
 
-An enumeration to handle civilities is available with `Axn\ToolKit\Enums\Civilities`
-
+An enumeration to handle civilities/titles in forms.
 
 ```php
-// @todo: need to document this
+use Axn\ToolKit\Enums\Civilities;
+
+Civilities::None;  // 0
+Civilities::Mrs;   // 1
+Civilities::Mr;    // 2
 ```
 
-@todo: need to document this
+Get the translated title or abbreviation:
+
+```php
+$civility = Civilities::Mrs;
+
+$civility->title();  // trans('civilities.mrs')
+$civility->abbr();   // trans('civilities.mrs_abbr')
+```
+
+Get all titles or abbreviations indexed by value:
+
+```php
+Civilities::titles();
+// [0 => '', 1 => 'Madame', 2 => 'Monsieur']
+
+Civilities::abbreviations();
+// [0 => '', 1 => 'Mme', 2 => 'M.']
+```

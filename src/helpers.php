@@ -57,14 +57,12 @@ if (! function_exists('app_env_name')) {
 if (! function_exists('carbon')) {
     /**
      * Create a Carbon instance from a date string, a DateTime instance or a timestamp.
-     *
-     * @param  DateTime|int|string|null  $date
-     * @param  string|null  $fromFormat
-     * @param  DateTimeZone|string|null  $tz
-     * @return Carbon
-     * */
-    function carbon($date = null, $fromFormat = null, $tz = null): Carbon|\Carbon\Carbon|null
-    {
+     */
+    function carbon(
+        DateTime|int|string|null $date = null,
+        ?string $fromFormat = null,
+        DateTimeZone|string|null $tz = null
+    ): Carbon {
         if (empty($date)) {
             return Carbon::now($tz);
         }
@@ -83,7 +81,7 @@ if (! function_exists('carbon')) {
             return Carbon::createFromTimestamp($date, $tz);
         }
 
-        if (! empty($fromFormat)) {
+        if (! in_array($fromFormat, [null, '', '0'], true)) {
             return Carbon::createFromFormat($fromFormat, $date, $tz);
         }
 
@@ -94,6 +92,10 @@ if (! function_exists('carbon')) {
 if (! function_exists('collect_models')) {
     /**
      * Create an Eloquent collection of Eloquent models.
+     *
+     * @param  array<EloquentModel>  $models
+     *
+     * @throws InvalidArgumentException
      */
     function collect_models(array $models): EloquentCollection
     {
@@ -107,11 +109,9 @@ if (! function_exists('collect_models')) {
 
 if (! function_exists('str_html')) {
     /**
-     * Instantiate HtmlString
-     *
-     * @param  string  $str
+     * Create an HtmlString instance.
      */
-    function str_html($str): HtmlString
+    function str_html(string $str): HtmlString
     {
         return new HtmlString($str);
     }
@@ -119,10 +119,8 @@ if (! function_exists('str_html')) {
 
 if (! function_exists('linebreaks')) {
     /**
-     * Convert all line-endings to UNIX format ;
+     * Convert all line-endings to UNIX format,
      * ie. replace "\r\n" and "\r" by "\n".
-     *
-     * @param  string  $str  String to transform
      */
     function linebreaks(string $str): string
     {
@@ -152,16 +150,6 @@ if (! function_exists('nl_to_p')) {
     }
 }
 
-if (! function_exists('nl_to_br')) {
-    /**
-     * Alias of native PHP function nl2br()
-     */
-    function nl_to_br(string $str, bool $useXhtml = false): string
-    {
-        return nl2br($str, $useXhtml);
-    }
-}
-
 if (! function_exists('nl_to_p_flat')) {
     /**
      * Convert text to a single HTML paragraph,
@@ -172,10 +160,20 @@ if (! function_exists('nl_to_p_flat')) {
         // Convert all line-endings to UNIX format
         $str = linebreaks($str);
 
-        // Replace all consecutive newlines with a single <br>
-        $str = preg_replace("/\n+/", '<br>', $str);
+        // Replace all consecutive newlines (with optional whitespace) with a single <br>
+        $str = preg_replace('/\n(\s*\n)*/', '<br>', $str);
 
         return '<p>'.$str.'</p>';
+    }
+}
+
+if (! function_exists('nl_to_br')) {
+    /**
+     * Alias of native PHP function nl2br()
+     */
+    function nl_to_br(string $str, bool $useXhtml = false): string
+    {
+        return nl2br($str, $useXhtml);
     }
 }
 
@@ -199,9 +197,11 @@ if (! function_exists('number_formatted')) {
 
 if (! function_exists('compute_dec_to_time')) {
     /**
-     * Decimal to time calculation
+     * Decimal to time calculation.
      *
      * 1.75 => ['hours' => 1, 'minutes' => 45, 'seconds' => 0]
+     *
+     * @return array{hours: float, minutes: float, seconds: int}
      */
     function compute_dec_to_time(float|string $dec): array
     {
@@ -231,15 +231,10 @@ if (! function_exists('compute_dec_to_time')) {
 
 if (! function_exists('convert_dec_to_time')) {
     /**
-     * Decimal to time conversion
+     * Decimal to time conversion.
      *
-     * convert_dec_to_time(1.75)
-     * => 01:45:00
-     *
-     * convert_dec_to_time(1.75, '%2$s:%3$s')
-     * => 45:00
-     *
-     * @param  string  $pattern  ('%s:%s:%s')
+     * convert_dec_to_time(1.75) => '01:45:00'
+     * convert_dec_to_time(1.75, '%2$s:%3$s') => '45:00'
      */
     function convert_dec_to_time(float|string $dec, string $pattern = '%s:%s:%s'): string
     {
@@ -281,23 +276,32 @@ if (! function_exists('human_readable_bytes_size')) {
 }
 
 if (! function_exists('mime_type_to_fa5_class')) {
-    function mime_type_to_fa5_class($inputMimeType, string $default = 'fa-file'): string
+    /**
+     * Get the FontAwesome 5 icon class for a given MIME type.
+     */
+    function mime_type_to_fa5_class(string $inputMimeType, string $default = 'fa-file'): string
     {
-        return MimeTypeToFontAwesomeIcon::toFa5Class((string) $inputMimeType, $default);
+        return MimeTypeToFontAwesomeIcon::toFa5Class($inputMimeType, $default);
     }
 }
 
 if (! function_exists('mime_type_to_fa6_class')) {
-    function mime_type_to_fa6_class($inputMimeType, string $default = 'fa-file'): string
+    /**
+     * Get the FontAwesome 6 icon class for a given MIME type.
+     */
+    function mime_type_to_fa6_class(string $inputMimeType, string $default = 'fa-file'): string
     {
-        return MimeTypeToFontAwesomeIcon::toFa6Class((string) $inputMimeType, $default);
+        return MimeTypeToFontAwesomeIcon::toFa6Class($inputMimeType, $default);
     }
 }
 
 if (! function_exists('mime_type_to_fa7_class')) {
-    function mime_type_to_fa7_class($inputMimeType, string $default = 'fa-file'): string
+    /**
+     * Get the FontAwesome 7 icon class for a given MIME type.
+     */
+    function mime_type_to_fa7_class(string $inputMimeType, string $default = 'fa-file'): string
     {
-        return MimeTypeToFontAwesomeIcon::toFa7Class((string) $inputMimeType, $default);
+        return MimeTypeToFontAwesomeIcon::toFa7Class($inputMimeType, $default);
     }
 }
 
@@ -305,12 +309,9 @@ if (! function_exists('trans_ucfirst')) {
     /**
      * Translate the given message with first character uppercase.
      *
-     * @param  string  $key
-     * @param  array  $replace
-     * @param  string|null  $locale
-     * @return string|array|null
+     * @param  array<string, string>  $replace
      */
-    function trans_ucfirst($key, $replace = [], $locale = null)
+    function trans_ucfirst(string $key, array $replace = [], ?string $locale = null): string|array|null
     {
         $translation = app('translator')->get($key, $replace, $locale);
 
