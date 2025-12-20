@@ -1,6 +1,12 @@
 Changelog
 =========
 
+11.3.0 (2025-12-20)
+-------------------
+
+- Added `nl_to_p_flat()` helper and `@nltopflat` Blade directive
+
+
 11.2.1 (2025-10-07)
 -------------------
 

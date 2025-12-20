@@ -28,6 +28,8 @@ class ServiceProvider extends BaseServiceProvider
     {
         Blade::directive('nltop', fn ($expression): string => \sprintf('<?php echo nl_to_p(e(%s)); ?>', $expression));
 
+        Blade::directive('nltopflat', fn ($expression): string => \sprintf('<?php echo nl_to_p_flat(e(%s)); ?>', $expression));
+
         Blade::directive('nltobr', fn ($expression): string => \sprintf('<?php echo nl_to_br(e(%s)); ?>', $expression));
     }
 }

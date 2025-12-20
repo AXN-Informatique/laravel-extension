@@ -12,6 +12,7 @@ Includes a set of useful tools for the Laravel framework.
     - [str_html()](#str_html)
     - [linebreaks()](#linebreaks)
     - [nl_to_p()](#nl_to_p)
+    - [nl_to_p_flat()](#nl_to_p_flat)
     - [nl_to_br()](#nl_to_br)
     - [number_formatted()](#number_formatted)
     - [compute_dec_to_time()](#compute_dec_to_time)
@@ -25,6 +26,7 @@ Includes a set of useful tools for the Laravel framework.
     - [semver_to_id()](#semver_to_id)
 - [Blade directives](#blade-directives)
     - [@nltop()](#nltop)
+    - [@nltopflat()](#nltopflat)
     - [@nltobr()](#nltobr)
 - [Components](#components)
     - [Add an indicator for a required field](#add-an-indicator-for-a-required-field)
@@ -168,6 +170,18 @@ $str = "a text with \n new lines \n\n again \n\n\n and again";
 nl_to_p($str);
 // <p>a text with <br> new lines </p><p> again </p><p> and again</p>
 ```
+
+### nl_to_p_flat()
+
+Convert text to a single HTML paragraph, replacing all consecutive newlines with a single `<br>`.
+
+```php
+$str = "a text with \n new lines \n\n again \n\n\n and again";
+
+nl_to_p_flat($str);
+// <p>a text with <br> new lines <br> again <br> and again</p>
+```
+
 ### nl_to_br()
 
 Alias of native PHP function `nl2br()`.
@@ -394,6 +408,20 @@ Displays:
 
 ```html
 <p>a text with <br> new lines </p><p> again </p><p> and again</p>
+```
+
+### @nltopflat()
+
+Convert text to a single HTML paragraph, replacing all consecutive newlines with a single `<br>`.
+
+```blade
+@nltopflat ("a text with \n new lines \n\n again \n\n\n and again")
+```
+
+Displays:
+
+```html
+<p>a text with <br> new lines <br> again <br> and again</p>
 ```
 
 ### @nltobr()

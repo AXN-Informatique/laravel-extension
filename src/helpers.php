@@ -165,6 +165,23 @@ if (! function_exists('nl_to_br')) {
     }
 }
 
+if (! function_exists('nl_to_p_flat')) {
+    /**
+     * Convert text to a single HTML paragraph,
+     * replacing all consecutive newlines with a single <br>.
+     */
+    function nl_to_p_flat(string $str): string
+    {
+        // Convert all line-endings to UNIX format
+        $str = linebreaks($str);
+
+        // Replace all consecutive newlines with a single <br>
+        $str = preg_replace("/\n+/", '<br>', $str);
+
+        return '<p>'.$str.'</p>';
+    }
+}
+
 if (! function_exists('number_formatted')) {
     /**
      * Returns a number in current language format.
