@@ -1,49 +1,35 @@
 Blade Directives
 ================
 
-- [@nltop()](#nltop)
-- [@nltopflat()](#nltopflat)
-- [@nltobr()](#nltobr)
-
-
 ## @nltop()
 
-Convert new lines into HTML paragraphs `<p>`.
+Convert newlines to HTML paragraphs. Multiple consecutive newlines create new paragraphs, single newlines become `<br>`.
 
 ```blade
-@nltop("a text with \n new lines \n\n again \n\n\n and again")
+@nltop("First line\nSecond line\n\nNew paragraph")
 ```
-
-Displays:
-
 ```html
-<p>a text with <br> new lines </p><p> again </p><p> and again</p>
+<p>First line<br>Second line</p><p>New paragraph</p>
 ```
 
 ## @nltopflat()
 
-Convert text to a single HTML paragraph, replacing all consecutive newlines with a single `<br>`.
+Convert text to a single paragraph, all consecutive newlines become a single `<br>`.
 
 ```blade
-@nltopflat("a text with \n new lines \n\n again \n\n\n and again")
+@nltopflat("Line 1\n\nLine 2\n\n\nLine 3")
 ```
-
-Displays:
-
 ```html
-<p>a text with <br> new lines <br> again <br> and again</p>
+<p>Line 1<br>Line 2<br>Line 3</p>
 ```
 
 ## @nltobr()
 
-Convert new lines into HTML `<br>`
+Convert newlines to `<br>` (like PHP's `nl2br()`).
 
 ```blade
-@nltobr("a text with \n new lines \n\n again \n\n\n and again")
+@nltobr("Line 1\nLine 2\n\nLine 3")
 ```
-
-Displays:
-
 ```html
-a text with <br> new lines <br><br> again <br><br><br> and again
+Line 1<br>Line 2<br><br>Line 3
 ```
