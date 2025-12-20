@@ -1,42 +1,19 @@
-Tool Kit for Laravel  (formerly "Laravel extension")
-====================================================
+Tool Kit for Laravel
+====================
 
 Includes a set of useful tools for the Laravel framework.
 
-- [Installation](#installation)
-- [Helpers](#helpers)
-    - [app_env_enum()](#app_env_enum)
-    - [app_env_name()](#app_env_name)
-    - [carbon()](#carbon)
-    - [collect_models()](#collect_models)
-    - [str_html()](#str_html)
-    - [linebreaks()](#linebreaks)
-    - [nl_to_p()](#nl_to_p)
-    - [nl_to_br()](#nl_to_br)
-    - [number_formatted()](#number_formatted)
-    - [compute_dec_to_time()](#compute_dec_to_time)
-    - [convert_dec_to_time()](#convert_dec_to_time)
-    - [human_readable_bytes_size()](#human_readable_bytes_size)
-    - [mime_type_to_fa5_class()](#mime_type_to_fa5_class)
-    - [mime_type_to_fa6_class()](#mime_type_to_fa6_class)
-    - [mime_type_to_fa7_class()](#mime_type_to_fa7_class)
-    - [trans_ucfirst()](#trans_ucfirst)
-    - [is_valid_model()](#is_valid_model)
-    - [semver_to_id()](#semver_to_id)
-- [Blade directives](#blade-directives)
-    - [@nltop()](#nltop)
-    - [@nltobr()](#nltobr)
-- [Components](#components)
-    - [Add an indicator for a required field](#add-an-indicator-for-a-required-field)
-- [Enums](#enums)
-    - [Environment application](#environment-application)
-    - [Civilities](#civilities)
+## Documentation
+
+- [Helpers](docs/helpers.md) - Global helper functions
+- [Blade Directives](docs/blade-directives.md) - @nltop, @nltopflat, @nltobr
+- [Components](docs/components.md) - Required field marker
+- [Enums](docs/enums.md) - AppEnv, Civilities
 
 
-Installation
-------------
+## Installation
 
-With Composer :
+With Composer:
 
 ```sh
 composer require axn/tool-kit-for-laravel
@@ -50,502 +27,60 @@ Use the locales publisher of [Laravel Lang](https://laravel-lang.com/) to add/up
 - If you are already using [Laravel Lang](https://laravel-lang.com/): just [update the locales](https://laravel-lang.com/usage/update-locales.html)
 
 
-Helpers
--------
-
-### app_env_enum()
-
-Returns a standardized enumeration of the application environment based on the "app.env" configuration variable. This helper uses the `AppEnv` enumeration.
-
-```php
-return app_env_enum();
-// enum AppEnv
-```
-
-Note that the return value is static, it always returns the first value in the same request. If the environment is modified at runtime, this will not be taken into account (but who does that?).
-
-For more details please see the chapter on [AppEnv enumeration](#environment-application).
-
-### app_env_name()
-
-Returns a standardized name of the application environment based on the "app.env" configuration variable. This helper uses the `AppEnv` enumeration.
-
-```php
-echo app_env_name();
-// 'prod', 'preprod', 'test', 'local' or 'unknown'
-```
-
-Note that the return value is static, it always returns the first value in the same request. If the environment is modified at runtime, this will not be taken into account (but who does that?).
-
-For more details please see the chapter on [AppEnv enumeration](#environment-application).
-
-### carbon()
-
-Create a Carbon instance from a date string, a DateTime instance or a timestamp.
-
-```php
-    /**
-     * Create a Carbon instance from a date string, a DateTime instance or a timestamp.
-     *
-     * @param  \DateTime|int|string|null $date
-     * @param  string|null $fromFormat
-     * @param  \DateTimeZone|string|null $tz
-     * @return \Illuminate\Support\Carbon
-     * */
-    function carbon($date = null, $fromFormat = null, $tz = null)
-```
-
-Here are some examples.
-
-Using Carbon:
-
-```php
-use Illuminate\Support\Carbon;
-
-$date = Carbon::now();
-$date = Carbon::now('Europe/Paris');
-$date = Carbon::createFromFormat('Y-m-d H:i', '2018-06-18 09:30');
-$date = Carbon::createFromFormat('Y-m-d H:i', '2018-06-18 09:30', 'Europe/Paris');
-$date = new Carbon('Thursday, June 18 2015 9:30:00');
-$date = new Carbon('Thursday, June 18 2015 9:30:00', 'Europe/Paris');
-$date = Carbon::createFromTimestamp(1434619800);
-```
-
-Equivalents using helper:
-
-```php
-$date = carbon();
-$date = carbon(tz: 'Europe/Paris');
-$date = carbon('2018-06-18 09:30', 'Y-m-d H:i');
-$date = carbon('2018-06-18 09:30', 'Y-m-d H:i', 'Europe/Paris');
-$date = carbon('Thursday, June 18 2015 9:30:00');
-$date = carbon('Thursday, June 18 2015 9:30:00', tz: 'Europe/Paris');
-$date = carbon(1434619800);
-$date = carbon(1434619800, tz: 'Europe/Paris');
-```
-
-### collect_models()
-
-Create a collection of Eloquent models.
-
-```php
-    /**
-     * Create an Eloquent collection of Eloquent models.
-     *
-     * @param  array $models
-     * @return EloquentCollection
-     */
-    function collect_models(array $models)
-```
-
-### str_html()
-
-Create an `Illuminate\Support\HtmlString` instance.
-
-```php
-$str = '<a>An HTML string</p>';
-
-$htmlString = str_html($str);
-
-// Alias of
-
-$htmlString = new Illuminate\Support\HtmlString($str);
-```
-
-### linebreaks()
-
-Convert all line-endings to UNIX format.
-
-Replace `"\r\n"` and `"\r"` by `"\n"`
-
-### nl_to_p()
-
-Convert new lines into HTML paragraphs `<p>`.
-
-```php
-$str = "a text with \n new lines \n\n again \n\n\n and again";
-
-nl_to_p($str);
-// <p>a text with <br> new lines </p><p> again </p><p> and again</p>
-```
-### nl_to_br()
-
-Alias of native PHP function `nl2br()`.
-
-```php
-$str = "a text with \n new lines \n\n again \n\n\n and again";
-
-nl_to_br($str)
-// a text with <br> new lines <br><br> again <br><br><br> and again
-```
-
-### number_formatted()
-
-Returns a number in current application language format.
-
-```php
-function number_formatted(float|string $value, int $decimals = 0, bool $trimZeroDecimals = false): string
-```
-
-**Examples:**
-
-```php
-$number = '123456789.101112';
-
-$numberFormatted = number_formatted($number, 2);
-
-// fr: 123 456 789,10
-// en: 123,456,789.10
-
-// With trimZeroDecimals parameter to hide trailing zeros
-$number = 42.00;
-$formatted = number_formatted($number, 2);
-// fr: 42,00
-// en: 42.00
-
-// Positional arguments
-$formatted = number_formatted($number, 2, true);
-// fr: 42
-// en: 42
-
-// Named arguments (PHP 8+)
-$formatted = number_formatted($number, decimals: 2, trimZeroDecimals: true);
-// fr: 42
-// en: 42
-
-$number = 42.50;
-$formatted = number_formatted($number, 2, true);
-// fr: 42,50
-// en: 42.50
-```
-
-### compute_dec_to_time()
-
-Decimal to time calculation, return an array with hours, minutes and seconds.
-
-```php
-$number = '1.75';
-
-$time = compute_dec_to_time($number);
-
-// [
-//    'hours' => 1.0,
-//    'minutes' => 45.0,
-//    'seconds' => 0,
-// ]
-```
-
-### convert_dec_to_time()
-
-Decimal to time conversion. Output can be changed with `sprintf` format.
-
-```php
-$number = '1.75';
-
-$time = convert_dec_to_time($number);
-// 01:45:00
-
-$time = convert_dec_to_time($number, '%sh%s');
-// 01h45
-
-$time = convert_dec_to_time($number, '%2$s:%3$s');
-// 45:00
-```
-
-### human_readable_bytes_size()
-
-Convert a bytes size into a human readable localized size.
-
-```php
-$size = human_readable_bytes_size(2048);
-// fr: 2 ko
-// en: 2 kB
-
-$size = human_readable_bytes_size(2048*1024);
-// fr: 2 Mo
-// en: 2 MB
-
-$size = human_readable_bytes_size(2048*1024*10000, 2);
-// fr: 19,53 Go
-// en: 19.53 GB
-
-// With trimZeroDecimals parameter
-$size = human_readable_bytes_size(1024, 2);
-// fr: 1,00 ko
-// en: 1.00 kB
-
-$size = human_readable_bytes_size(1024, 2, true);
-// fr: 1 ko
-// en: 1 kB
-
-$size = human_readable_bytes_size(1536, 2, true);
-// fr: 1,50 ko
-// en: 1.50 kB
-```
-
-### mime_type_to_fa5_class()
-
-Returns the appropriate FontAwesome 5 icon class for a given MIME type.
-
-```php
-function mime_type_to_fa5_class($inputMimeType, $default = 'fa-file'): string
-```
-
-**Examples:**
-
-```php
-$icon = mime_type_to_fa5_class('application/pdf');
-// fa-file-pdf
-
-$icon = mime_type_to_fa5_class('image/jpeg');
-// fa-file-image
-
-$icon = mime_type_to_fa5_class('application/zip');
-// fa-file-archive
-
-$icon = mime_type_to_fa5_class('unknown/type', 'fa-file-circle-question');
-// fa-file-circle-question (default)
-```
-
-Supports common MIME types: images, audio, video, PDF, Microsoft Office documents, archives, code files, etc.
-
-### mime_type_to_fa6_class()
-
-Returns the appropriate FontAwesome 6 icon class for a given MIME type.
-
-```php
-function mime_type_to_fa6_class($inputMimeType, $default = 'fa-file'): string
-```
-
-**Examples:**
-
-```php
-$icon = mime_type_to_fa6_class('application/pdf');
-// fa-file-pdf
-
-$icon = mime_type_to_fa6_class('text/plain');
-// fa-lines
-
-$icon = mime_type_to_fa6_class('application/zip');
-// fa-file-zipper
-```
-
-### mime_type_to_fa7_class()
-
-Returns the appropriate FontAwesome 7 icon class for a given MIME type. This version provides more specific icons for file formats (e.g., `fa-file-jpg`, `fa-file-png`, `fa-file-mp3`).
-
-```php
-function mime_type_to_fa7_class($inputMimeType, $default = 'fa-file'): string
-```
-
-**Examples:**
-
-```php
-$icon = mime_type_to_fa7_class('image/png');
-// fa-file-png
-
-$icon = mime_type_to_fa7_class('audio/mp3');
-// fa-file-mp3
-
-$icon = mime_type_to_fa7_class('video/mp4');
-// fa-file-mp4
-
-$icon = mime_type_to_fa7_class('application/vnd.ms-excel');
-// fa-file-xls
-```
-
-### trans_ucfirst()
-
-Translate the given message with first character uppercase.
-
-### is_valid_model()
-
-Indicates whether the model class is instantiable and is an instance of `Illuminate\Database\Eloquent\Model`.
-
-### semver_to_id()
-
-Transforms a semver version number into a numeric identifier. Please note: does not take into account "pre-releases" (RC, beta, etc.)
-
-```php
-$phpVersion = "8.2.14";
-$phpVersionId = semver_to_id($phpVersion);
-// 80214
-
-$laravelVersion = " 10.38.2";
-$laravelVersionId = semver_to_id($laravelVersion);
-// 103802
-```
-
-This is useful for optimizing comparisons, searches and sorting in a database on numeric rather than text columns.
-
-
-Blade directives
-----------------
-
-### @nltop()
-
-Convert new lines into HTML paragraphs `<p>`.
-
-```blade
-@nltop ("a text with \n new lines \n\n again \n\n\n and again")
-```
-
-Displays:
-
-```html
-<p>a text with <br> new lines </p><p> again </p><p> and again</p>
-```
-
-### @nltobr()
-
-Convert new lines into HTML `<br>`
-
-```blade
-@nltobr ("a text with \n new lines \n\n again \n\n\n and again")
-```
-
-Displays:
-
-```html
-a text with <br> new lines <br><br> again <br><br><br> and again
-```
-
-Components
-----------
-
-### Add an indicator for a required field
-
-To display a required field marker (e.g. in a label tag):
-
-```blade
-<x-required-field-marker />
-```
-
-Displays:
-
-```html
-<span class="required-field-marker">
-   &#x2a;<span>required</span>
-</span>
-```
-
-You can change the default symbol "&#x2a;" (an asterisk) by the marker symbol of your choice:
-
-```blade
-<x-required-field-marker :symbol="⚠" />
-```
-
-You can style it for example like this:
-
-```css
-.required-field-marker {
-    color: #da1313;
-}
-.required-field-marker > span {
-   /* Bootstrap styles of .visually-hidden class */
-   position: absolute !important;
-   width: 1px !important;
-   height: 1px !important;
-   padding: 0 !important;
-   margin: -1px !important;
-   overflow: hidden !important;
-   clip: rect(0, 0, 0, 0) !important;
-   white-space: nowrap !important;
-   border: 0 !important;
-}
-```
-
-In your forms you can indicate the required fields for example in this way:
-
-```blade
-{!! trans('misc.info_required_fields'); !!} <x-required-field-marker />
-```
-
-Enums
------
-
-### Environment application
-
-This package provides a utility enum `AppEnv`. This allows to standardize environment names.
-
-Indeed, for example, some projects uniformly have the environment "prod" and "production"; or even "preprod" and "pre-production", worse: "pre-prod".
-
-
-```php
-use Axn\ToolKit\Enums\AppEnv;
-
-AppEnv::prod;
-AppEnv::preprod;
-AppEnv::test;
-AppEnv::local;
-AppEnv::unknown;
-```
-
-Creating an instance of the enumeration from a character string:
-
-```php
-use Axn\ToolKit\Enums\AppEnv;
-
-$appEnv = AppEnv::from('pre-prod'); // AppEnv::preprod
-
-$appEnv = AppEnv::from(app()->environment()); // enum AppEnv
-```
-
-Find the standardized name from a string:
-
-```php
-use Axn\ToolKit\Enums\AppEnv;
-
-$appEnv = AppEnv::name('pre-prod'); // 'preprod'
-
-$appEnv = AppEnv::name(app()->environment()); // one of enum cases ('prod', 'preprod', 'test', 'local' or 'unknown')
-```
-
-Testing the environment type:
-
-```php
-use Axn\ToolKit\Enums\AppEnv;
-
-AppEnv::isProd('pre-prod'); // false
-AppEnv::isPreprod('pre-prod'); // true
-AppEnv::isTest('pre-prod'); // false
-AppEnv::isLocal('pre-prod'); // false
-
-if (AppEnv::isProd(app()->environment())) {
-    // do something in "prod"
-}
-```
-
-Reverse methods are available:
-
-```php
-use Axn\ToolKit\Enums\AppEnv;
-
-AppEnv::isNotProd('pre-prod'); // true
-AppEnv::isNotPreprod('pre-prod'); // false
-AppEnv::isNotTest('pre-prod'); // true
-AppEnv::isNotLocal('pre-prod'); // true
-```
-
-Retrieving environment values ​​defined in the enum:
-
-```php
-use Axn\ToolKit\Enums\AppEnv;
-
-AppEnv::prodNames(); // ['prod', 'production']
-AppEnv::preprodNames(); // ['preprod', 'pre-prod', 'preproduction', 'pre-production']
-AppEnv::testNames(); // ['test', 'tests', 'testing', 'stage', 'staging']
-AppEnv::localNames(); // ['local', 'develop', 'dev']
-
-```
-
-### Civilities
-
-An enumeration to handle civilities is available with `Axn\ToolKit\Enums\Civilities`
-
-
-```php
-// @todo: need to document this
-```
-
-@todo: need to document this
+## Quick Reference
+
+### Helpers
+
+| Helper | Description |
+|--------|-------------|
+| `app_env_enum()` | Get standardized environment enum |
+| `app_env_name()` | Get standardized environment name |
+| `carbon()` | Create Carbon instance from various formats |
+| `collect_models()` | Create Eloquent collection |
+| `str_html()` | Create HtmlString instance |
+| `linebreaks()` | Normalize line endings to UNIX format |
+| `nl_to_p()` | Convert newlines to paragraphs |
+| `nl_to_p_flat()` | Convert text to single paragraph with `<br>` |
+| `nl_to_br()` | Alias of `nl2br()` |
+| `number_formatted()` | Format number with locale |
+| `compute_dec_to_time()` | Decimal to time array |
+| `convert_dec_to_time()` | Decimal to time string |
+| `human_readable_bytes_size()` | Format bytes to human readable |
+| `mime_type_to_fa5_class()` | MIME type to FontAwesome 5 icon |
+| `mime_type_to_fa6_class()` | MIME type to FontAwesome 6 icon |
+| `mime_type_to_fa7_class()` | MIME type to FontAwesome 7 icon |
+| `trans_ucfirst()` | Translate with first char uppercase |
+| `is_valid_model()` | Check if class is valid Eloquent model |
+| `semver_to_id()` | Convert semver to numeric ID |
+
+### Blade Directives
+
+| Directive | Description |
+|-----------|-------------|
+| `@nltop()` | Convert newlines to paragraphs |
+| `@nltopflat()` | Convert to single paragraph with `<br>` |
+| `@nltobr()` | Convert newlines to `<br>` |
+
+### Components
+
+| Component | Description |
+|-----------|-------------|
+| `<x-required-field-marker />` | Display required field indicator |
+
+### Enums
+
+| Enum | Description |
+|------|-------------|
+| `AppEnv` | Standardized environment names |
+| `Civilities` | Form civilities (Mrs, Mr) |
+
+
+## Requirements
+
+- PHP 8.4+
+- Laravel 12.x
+
+
+## License
+
+MIT

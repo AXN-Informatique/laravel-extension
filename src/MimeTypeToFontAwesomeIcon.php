@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Axn\ToolKit;
 
+/**
+ * Maps MIME types to FontAwesome icon classes.
+ */
 class MimeTypeToFontAwesomeIcon
 {
     private const array FA5_MAPPINGS = [
@@ -73,7 +76,6 @@ class MimeTypeToFontAwesomeIcon
         'image/png' => 'fa-file-png',
         'image/gif' => 'fa-file-gif',
         'image/svg+xml' => 'fa-file-svg',
-        'image/x-eps' => 'fa-file-eps',
         'image/webp' => 'fa-file-image',
         'image/avif' => 'fa-file-image',
         'image/bmp' => 'fa-file-image',
@@ -164,7 +166,6 @@ class MimeTypeToFontAwesomeIcon
         'text/x-c++' => 'fa-file-cpp',
         'application/sql' => 'fa-file-sql',
         'text/yaml' => 'fa-file-yaml',
-        'application/x-yaml' => 'fa-file-yaml',
 
         // Archives
         'application/gzip' => 'fa-file-zip',
@@ -261,29 +262,40 @@ class MimeTypeToFontAwesomeIcon
         'text/vcard' => 'fa-file-user',
     ];
 
+    /**
+     * Get the FontAwesome 5 icon class for a given MIME type.
+     */
     public static function toFa5Class(string $mimeType, string $default = 'fa-file'): string
     {
         return self::findIconClass($mimeType, self::FA5_MAPPINGS, $default);
     }
 
+    /**
+     * Get the FontAwesome 6 icon class for a given MIME type.
+     */
     public static function toFa6Class(string $mimeType, string $default = 'fa-file'): string
     {
         return self::findIconClass($mimeType, self::FA6_MAPPINGS, $default);
     }
 
+    /**
+     * Get the FontAwesome 7 icon class for a given MIME type.
+     */
     public static function toFa7Class(string $mimeType, string $default = 'fa-file'): string
     {
         return self::findIconClass($mimeType, self::FA7_MAPPINGS, $default);
     }
 
+    /**
+     * Find the icon class for a MIME type in the given mappings.
+     *
+     * @param  array<string, string>  $mappings
+     */
     private static function findIconClass(string $inputMimeType, array $mappings, string $default): string
     {
-        foreach ($mappings as $mimeType => $iconClass) {
-            if (str_starts_with($inputMimeType, $mimeType)) {
-                return $iconClass;
-            }
-        }
-
-        return $default;
+        return array_find(
+            $mappings,
+            fn (string $_iconClass, string $mimeType): bool => str_starts_with($inputMimeType, $mimeType)
+        ) ?? $default;
     }
 }
