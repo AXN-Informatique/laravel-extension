@@ -276,12 +276,9 @@ class MimeTypeToFontAwesomeIcon
 
     private static function findIconClass(string $inputMimeType, array $mappings, string $default): string
     {
-        foreach ($mappings as $mimeType => $iconClass) {
-            if (str_starts_with($inputMimeType, (string) $mimeType)) {
-                return $iconClass;
-            }
-        }
-
-        return $default;
+        return array_find(
+            $mappings,
+            fn (string $_iconClass, string $mimeType): bool => str_starts_with($inputMimeType, $mimeType)
+        ) ?? $default;
     }
 }

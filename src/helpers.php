@@ -98,10 +98,8 @@ if (! function_exists('collect_models')) {
      */
     function collect_models(array $models): EloquentCollection
     {
-        foreach ($models as $model) {
-            if (! $model instanceof EloquentModel) {
-                throw new InvalidArgumentException('The collect_models helper expects an array of Eloquent Model');
-            }
+        if (array_any($models, fn ($model): bool => ! $model instanceof EloquentModel)) {
+            throw new InvalidArgumentException('The collect_models helper expects an array of Eloquent Model');
         }
 
         return new EloquentCollection($models);
