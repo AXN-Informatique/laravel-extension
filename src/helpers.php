@@ -191,7 +191,7 @@ if (! function_exists('number_formatted')) {
         $floatValue = (float) $value;
 
         // Si demandé et pas de décimales réelles, on n'affiche pas de décimales
-        $decimalsToUse = ($trimZeroDecimals && floor($floatValue) == $floatValue) ? 0 : $decimals;
+        $decimalsToUse = ($trimZeroDecimals && floor($floatValue) === $floatValue) ? 0 : $decimals;
 
         return number_format($floatValue, $decimalsToUse,
             trans('number.decimals_separator'),
@@ -284,21 +284,21 @@ if (! function_exists('human_readable_bytes_size')) {
 }
 
 if (! function_exists('mime_type_to_fa5_class')) {
-    function mime_type_to_fa5_class($inputMimeType, $default = 'fa-file'): string
+    function mime_type_to_fa5_class($inputMimeType, string $default = 'fa-file'): string
     {
         return MimeTypeToFontAwesomeIcon::toFa5Class((string) $inputMimeType, $default);
     }
 }
 
 if (! function_exists('mime_type_to_fa6_class')) {
-    function mime_type_to_fa6_class($inputMimeType, $default = 'fa-file'): string
+    function mime_type_to_fa6_class($inputMimeType, string $default = 'fa-file'): string
     {
         return MimeTypeToFontAwesomeIcon::toFa6Class((string) $inputMimeType, $default);
     }
 }
 
 if (! function_exists('mime_type_to_fa7_class')) {
-    function mime_type_to_fa7_class($inputMimeType, $default = 'fa-file'): string
+    function mime_type_to_fa7_class($inputMimeType, string $default = 'fa-file'): string
     {
         return MimeTypeToFontAwesomeIcon::toFa7Class((string) $inputMimeType, $default);
     }

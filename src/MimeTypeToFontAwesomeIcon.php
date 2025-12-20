@@ -73,7 +73,6 @@ class MimeTypeToFontAwesomeIcon
         'image/png' => 'fa-file-png',
         'image/gif' => 'fa-file-gif',
         'image/svg+xml' => 'fa-file-svg',
-        'image/x-eps' => 'fa-file-eps',
         'image/webp' => 'fa-file-image',
         'image/avif' => 'fa-file-image',
         'image/bmp' => 'fa-file-image',
@@ -164,7 +163,6 @@ class MimeTypeToFontAwesomeIcon
         'text/x-c++' => 'fa-file-cpp',
         'application/sql' => 'fa-file-sql',
         'text/yaml' => 'fa-file-yaml',
-        'application/x-yaml' => 'fa-file-yaml',
 
         // Archives
         'application/gzip' => 'fa-file-zip',
@@ -279,7 +277,7 @@ class MimeTypeToFontAwesomeIcon
     private static function findIconClass(string $inputMimeType, array $mappings, string $default): string
     {
         foreach ($mappings as $mimeType => $iconClass) {
-            if (str_starts_with($inputMimeType, $mimeType)) {
+            if (str_starts_with($inputMimeType, (string) $mimeType)) {
                 return $iconClass;
             }
         }
