@@ -128,6 +128,30 @@ if (! function_exists('linebreaks')) {
     }
 }
 
+if (! function_exists('nl_to_br')) {
+    /**
+     * Alias of native PHP function nl2br()
+     */
+    function nl_to_br(string $str, bool $useXhtml = false): string
+    {
+        return nl2br($str, $useXhtml);
+    }
+}
+
+if (! function_exists('nl_to_br_compact')) {
+    /**
+     * Replace all consecutive newlines with a single <br>.
+     */
+    function nl_to_br_compact(string $str): string
+    {
+        // Convert all line-endings to UNIX format
+        $str = linebreaks($str);
+
+        // Replace all consecutive newlines (with optional whitespace) with a single <br>
+        return preg_replace('/\n(\s*\n)*/', '<br>', $str);
+    }
+}
+
 if (! function_exists('nl_to_p')) {
     /**
      * Convert new lines into HTML paragraphs.
@@ -158,30 +182,6 @@ if (! function_exists('nl_to_p_flat')) {
     function nl_to_p_flat(string $str): string
     {
         return '<p>'.nl_to_br_compact($str).'</p>';
-    }
-}
-
-if (! function_exists('nl_to_br')) {
-    /**
-     * Alias of native PHP function nl2br()
-     */
-    function nl_to_br(string $str, bool $useXhtml = false): string
-    {
-        return nl2br($str, $useXhtml);
-    }
-}
-
-if (! function_exists('nl_to_br_compact')) {
-    /**
-     * Replace all consecutive newlines with a single <br>.
-     */
-    function nl_to_br_compact(string $str): string
-    {
-        // Convert all line-endings to UNIX format
-        $str = linebreaks($str);
-
-        // Replace all consecutive newlines (with optional whitespace) with a single <br>
-        return preg_replace('/\n(\s*\n)*/', '<br>', $str);
     }
 }
 

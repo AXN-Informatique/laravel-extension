@@ -7,10 +7,10 @@ Helpers
 - [collect_models()](#collect_models)
 - [str_html()](#str_html)
 - [linebreaks()](#linebreaks)
+- [nl_to_br()](#nl_to_br)
+- [nl_to_br_compact()](#nl_to_br_compact)
 - [nl_to_p()](#nl_to_p)
 - [nl_to_p_flat()](#nl_to_p_flat)
-- [nl_to_br_compact()](#nl_to_br_compact)
-- [nl_to_br()](#nl_to_br)
 - [number_formatted()](#number_formatted)
 - [compute_dec_to_time()](#compute_dec_to_time)
 - [convert_dec_to_time()](#convert_dec_to_time)
@@ -93,6 +93,30 @@ linebreaks("Line 1\r\nLine 2\rLine 3");
 ```
 
 
+## nl_to_br()
+
+Alias of PHP's `nl2br()`.
+
+```php
+$str = "a text with \n new lines \n\n again \n\n\n and again";
+
+nl_to_br($str);
+// a text with <br> new lines <br><br> again <br><br><br> and again
+```
+
+
+## nl_to_br_compact()
+
+Replace all consecutive newlines (with optional whitespace) with a single `<br>`, without paragraph wrapping.
+
+```php
+$str = "a text with \n new lines \n\n again \n\n\n and again";
+
+nl_to_br_compact($str);
+// a text with <br> new lines <br> again <br> and again
+```
+
+
 ## nl_to_p()
 
 Convert newlines to HTML paragraphs. Multiple consecutive newlines create new paragraphs, single newlines become `<br>`.
@@ -114,29 +138,6 @@ $str = "a text with \n new lines \n\n again \n\n\n and again";
 
 nl_to_p_flat($str);
 // <p>a text with <br> new lines <br> again <br> and again</p>
-```
-
-## nl_to_br_compact()
-
-Replace all consecutive newlines (with optional whitespace) with a single `<br>`, without paragraph wrapping.
-
-```php
-$str = "a text with \n new lines \n\n again \n\n\n and again";
-
-nl_to_br_compact($str);
-// a text with <br> new lines <br> again <br> and again
-```
-
-
-## nl_to_br()
-
-Alias of PHP's `nl2br()`.
-
-```php
-$str = "a text with \n new lines \n\n again \n\n\n and again";
-
-nl_to_br($str);
-// a text with <br> new lines <br><br> again <br><br><br> and again
 ```
 
 
