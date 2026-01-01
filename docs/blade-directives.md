@@ -1,3 +1,8 @@
+---
+title: Directives Blade
+order: 2
+---
+
 Blade Directives
 ================
 

@@ -1,3 +1,8 @@
+---
+title: Helpers
+order: 1
+---
+
 Helpers
 =======
 

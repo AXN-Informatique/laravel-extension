@@ -1,6 +1,12 @@
 Changelog
 =========
 
+11.3.1 (2026-01-01)
+-------------------
+
+- Added YAML front-matter to documentation files
+
+
 11.3.0 (2025-12-20)
 -------------------
 

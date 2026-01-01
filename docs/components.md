@@ -1,3 +1,8 @@
+---
+title: Composants
+order: 3
+---
+
 Components
 ==========
 
