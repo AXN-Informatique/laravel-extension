@@ -41,6 +41,7 @@ This package currently has no automated tests. Manual testing should be performe
 - `src/VersionNumber.php` - Semantic version to numeric ID conversion
 - `src/Components/RequiredFieldMarker.php` - Blade component for form required indicators
 - `resources/views/components/` - Blade view templates
+- `resources/boost/` - Laravel Boost guidelines asset (AI context for consuming applications)
 
 ### Key Patterns
 
@@ -65,6 +66,10 @@ The package uses aggressive modernization via Rector:
 - Dead code removal, strict booleans, early returns
 - Laravel-specific: Eloquent type hints, nullsafe operators, validation array syntax
 - Skipped: `FirstClassCallableRector` (preserves `array_map('intval', ...)` style)
+
+## Boost Guidelines Asset
+
+The `resources/boost/guidelines/core.blade.php` file provides a summary of the package's API (helpers, directives, components, enums) intended for AI assistants in consuming applications. **This file must be kept in sync with the codebase**: when adding, removing, or renaming a helper, directive, component, or enum, update the Boost guidelines accordingly.
 
 ## Dependencies
 
