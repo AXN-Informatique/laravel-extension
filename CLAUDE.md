@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Package Overview
 
-Tool Kit for Laravel is a utility package providing helpers, Blade directives, components, and enums for Laravel applications. It requires PHP 8.4+ and Laravel 12.x.
+Tool Kit for Laravel is a utility package providing helpers, Blade directives, components, and enums for Laravel applications. It requires PHP 8.4+ and Laravel 12.x or 13.x.
 
 **Namespace:** `Axn\ToolKit\`
 

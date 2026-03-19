@@ -80,7 +80,7 @@ Use the locales publisher of [Laravel Lang](https://laravel-lang.com/) to add/up
 ## Requirements
 
 - PHP 8.4+
-- Laravel 12.x
+- Laravel 12.x or 13.x
 
 
 ## License
