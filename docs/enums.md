@@ -41,6 +41,8 @@ AppEnv::isLocal('dev');                // true
 // Negation methods
 AppEnv::isNotProd('pre-prod');         // true
 AppEnv::isNotPreprod('prod');          // true
+AppEnv::isNotTest('prod');             // true
+AppEnv::isNotLocal('prod');            // true
 
 // Get recognized names for each type
 AppEnv::prodNames();     // ['prod', 'production']
