@@ -21,19 +21,19 @@ enum AppEnv
 
     case unknown;
 
-    private const PROD_NAMES = [
+    private const array PROD_NAMES = [
         'prod', 'production',
     ];
 
-    private const PREPROD_NAMES = [
+    private const array PREPROD_NAMES = [
         'preprod', 'pre-prod', 'preproduction', 'pre-production',
     ];
 
-    private const TEST_NAMES = [
+    private const array TEST_NAMES = [
         'test', 'tests', 'testing', 'stage', 'staging',
     ];
 
-    private const LOCAL_NAMES = [
+    private const array LOCAL_NAMES = [
         'local', 'develop', 'dev',
     ];
 

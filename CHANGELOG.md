@@ -1,6 +1,14 @@
 Changelog
 =========
 
+11.5.1 (2026-03-23)
+-------------------
+
+- Added typed array constants to AppEnv enum (PHP 8.3)
+- Reformatted Boost guidelines to match official Laravel pattern
+- Documented AppEnv::nameStringFromValue() method
+
+
 11.5.0 (2026-03-19)
 -------------------
 

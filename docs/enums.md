@@ -49,6 +49,10 @@ AppEnv::prodNames();     // ['prod', 'production']
 AppEnv::preprodNames();  // ['preprod', 'pre-prod', 'preproduction', 'pre-production']
 AppEnv::testNames();     // ['test', 'tests', 'testing', 'stage', 'staging']
 AppEnv::localNames();    // ['local', 'develop', 'dev']
+
+// Convert enum or string to lowercase ASCII name
+AppEnv::nameStringFromValue(AppEnv::preprod);  // 'preprod'
+AppEnv::nameStringFromValue('Pre-Production'); // 'pre-production'
 ```
 
 Usage example:
