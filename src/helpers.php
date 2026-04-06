@@ -18,7 +18,7 @@ if (! function_exists('app_env_enum')) {
      * Note that the return value is static, it always returns the first value in the same request.
      * If the environment is modified at runtime, this will not be taken into account (but who does that?).
      *
-     * @see Axn\ToolKit\Enums\AppEnv
+     * @see AppEnv
      */
     function app_env_enum(): AppEnv
     {
@@ -40,7 +40,7 @@ if (! function_exists('app_env_name')) {
      * Note that the return value is static, it always returns the first value in the same request.
      * If the environment is modified at runtime, this will not be taken into account (but who does that?).
      *
-     * @see Axn\ToolKit\Enums\AppEnv
+     * @see AppEnv
      */
     function app_env_name(): string
     {
@@ -231,7 +231,7 @@ if (! function_exists('compute_dec_to_time')) {
         $minutes = floor($seconds / 60);
 
         // finaly, get the rest of seconds
-        $seconds %= 60;
+        $seconds = (int) $seconds % 60;
 
         return ['hours' => $hours, 'minutes' => $minutes, 'seconds' => $seconds];
     }

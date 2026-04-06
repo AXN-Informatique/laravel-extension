@@ -1,6 +1,12 @@
 Changelog
 =========
 
+11.5.2 (2026-04-06)
+-------------------
+
+- Fixed implicit float to int conversion warning in `compute_dec_to_time()` (PHP 8.4)
+
+
 11.5.1 (2026-03-23)
 -------------------
 
