@@ -50,6 +50,7 @@ Use the locales publisher of [Laravel Lang](https://laravel-lang.com/) to add/up
 | `mime_type_to_fa5_class()` | MIME type to FontAwesome 5 icon |
 | `mime_type_to_fa6_class()` | MIME type to FontAwesome 6 icon |
 | `mime_type_to_fa7_class()` | MIME type to FontAwesome 7 icon |
+| `trans_lcfirst()` | Translate with first char lowercase |
 | `trans_ucfirst()` | Translate with first char uppercase |
 | `is_valid_model()` | Check if class is valid Eloquent model |
 | `semver_to_id()` | Convert semver to numeric ID |

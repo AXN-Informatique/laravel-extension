@@ -313,6 +313,24 @@ if (! function_exists('mime_type_to_fa7_class')) {
     }
 }
 
+if (! function_exists('trans_lcfirst')) {
+    /**
+     * Translate the given message with first character lowercase.
+     *
+     * @param  array<string, string>  $replace
+     */
+    function trans_lcfirst(string $key, array $replace = [], ?string $locale = null): string|array|null
+    {
+        $translation = app('translator')->get($key, $replace, $locale);
+
+        if (is_string($translation)) {
+            return mb_lcfirst($translation);
+        }
+
+        return $translation;
+    }
+}
+
 if (! function_exists('trans_ucfirst')) {
     /**
      * Translate the given message with first character uppercase.

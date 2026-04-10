@@ -23,6 +23,7 @@ Helpers
 - [mime_type_to_fa5_class()](#mime_type_to_fa5_class)
 - [mime_type_to_fa6_class()](#mime_type_to_fa6_class)
 - [mime_type_to_fa7_class()](#mime_type_to_fa7_class)
+- [trans_lcfirst()](#trans_lcfirst)
 - [trans_ucfirst()](#trans_ucfirst)
 - [is_valid_model()](#is_valid_model)
 - [semver_to_id()](#semver_to_id)
@@ -266,6 +267,16 @@ mime_type_to_fa7_class('image/jpeg');                 // "fa-file-jpg"
 mime_type_to_fa7_class('audio/mp3');                  // "fa-file-mp3"
 mime_type_to_fa7_class('video/mp4');                  // "fa-file-mp4"
 mime_type_to_fa7_class('application/vnd.ms-excel');   // "fa-file-xls"
+```
+
+
+## trans_lcfirst()
+
+Translate a message with the first character lowercased.
+
+```php
+trans_lcfirst('validation.required');
+// "the field is required" (with lowercase first letter)
 ```
 
 
