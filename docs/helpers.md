@@ -20,6 +20,8 @@ Helpers
 - [compute_dec_to_time()](#compute_dec_to_time)
 - [convert_dec_to_time()](#convert_dec_to_time)
 - [human_readable_bytes_size()](#human_readable_bytes_size)
+- [human_readable_bytes_size_si()](#human_readable_bytes_size_si)
+- [human_readable_bytes_size_iec()](#human_readable_bytes_size_iec)
 - [mime_type_to_fa5_class()](#mime_type_to_fa5_class)
 - [mime_type_to_fa6_class()](#mime_type_to_fa6_class)
 - [mime_type_to_fa7_class()](#mime_type_to_fa7_class)
@@ -207,8 +209,14 @@ Parameters:
 - `$bytes` - Size in bytes
 - `$decimals` - Number of decimal places (default: 0)
 - `$trimZeroDecimals` - If true, removes trailing zeros (default: false)
+- `$convention` - A `BytesConvention` case (`si` or `iec`), or `null` to keep the legacy behavior (default: `null`)
+
+> ⚠️ When `$convention` is `null`, the helper preserves its original behavior for backward compatibility: it divides by `1024` but uses **decimal** unit labels (`kB`, `MB`, `GB`, `TB`). This is technically inconsistent (binary computation with decimal labels). For new code, prefer passing an explicit convention or use the dedicated [`human_readable_bytes_size_si()`](#human_readable_bytes_size_si) and [`human_readable_bytes_size_iec()`](#human_readable_bytes_size_iec) helpers.
 
 ```php
+use Axn\ToolKit\Enums\BytesConvention;
+
+// Legacy behavior (kept for backward compatibility)
 human_readable_bytes_size(2048);
 // fr: 2 ko
 // en: 2 kB
@@ -225,6 +233,59 @@ human_readable_bytes_size(2048*1024*10000, 2);
 human_readable_bytes_size(1024, 2);        // fr: "1,00 ko" / en: "1.00 kB"
 human_readable_bytes_size(1024, 2, true);  // fr: "1 ko" / en: "1 kB"
 human_readable_bytes_size(1536, 2, true);  // fr: "1,50 ko" / en: "1.50 kB"
+
+// Explicit convention
+human_readable_bytes_size(15_000_000_000, 0, false, BytesConvention::si);
+// fr: 15 Go
+// en: 15 GB
+
+human_readable_bytes_size(15_000_000_000, 2, false, BytesConvention::iec);
+// fr: 13,97 Gio
+// en: 13.97 GiB
+```
+
+
+## human_readable_bytes_size_si()
+
+Convert bytes to a human-readable localized string using the **SI (decimal)** convention: base `1000` with labels `kB`, `MB`, `GB`, `TB`.
+
+This matches the convention used by storage vendors, hosting providers, and is what end users typically expect.
+
+Parameters:
+- `$bytes` - Size in bytes
+- `$decimals` - Number of decimal places (default: 0)
+- `$trimZeroDecimals` - If true, removes trailing zeros (default: false)
+
+```php
+human_readable_bytes_size_si(15_000_000_000);
+// fr: 15 Go
+// en: 15 GB
+
+human_readable_bytes_size_si(1_500_000, 2);
+// fr: 1,50 Mo
+// en: 1.50 MB
+```
+
+
+## human_readable_bytes_size_iec()
+
+Convert bytes to a human-readable localized string using the **IEC (binary)** convention: base `1024` with labels `KiB`, `MiB`, `GiB`, `TiB`.
+
+This is the convention used by most operating systems and is the technically correct way to display binary-based sizes.
+
+Parameters:
+- `$bytes` - Size in bytes
+- `$decimals` - Number of decimal places (default: 0)
+- `$trimZeroDecimals` - If true, removes trailing zeros (default: false)
+
+```php
+human_readable_bytes_size_iec(15_000_000_000, 2);
+// fr: 13,97 Gio
+// en: 13.97 GiB
+
+human_readable_bytes_size_iec(1024);
+// fr: 1 Kio
+// en: 1 KiB
 ```
 
 

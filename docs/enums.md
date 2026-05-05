@@ -7,6 +7,7 @@ Enums
 =====
 
 - [AppEnv](#appenv)
+- [BytesConvention](#bytesconvention)
 - [Civilities](#civilities)
 
 
@@ -61,6 +62,41 @@ Usage example:
 if (AppEnv::isProd(app()->environment())) {
     // production-specific code
 }
+```
+
+
+## BytesConvention
+
+Selects the convention used to convert byte sizes into human-readable strings, used by the [`human_readable_bytes_size()`](helpers.md#human_readable_bytes_size) family of helpers.
+
+Two conventions are available:
+- `si` — decimal SI (base `1000`, labels `kB`, `MB`, `GB`, `TB`). Used by storage vendors, hosting providers, and matches end-user expectations.
+- `iec` — binary IEC (base `1024`, labels `KiB`, `MiB`, `GiB`, `TiB`). Used by most operating systems for binary-based sizes.
+
+```php
+use Axn\ToolKit\Enums\BytesConvention;
+
+// Available cases
+BytesConvention::si;
+BytesConvention::iec;
+
+// Get the divisor base
+BytesConvention::si->base();   // 1000
+BytesConvention::iec->base();  // 1024
+
+// Get the ordered list of unit translation keys
+BytesConvention::si->unitKeys();
+// ['unit.B', 'unit.kB', 'unit.MB', 'unit.GB', 'unit.TB']
+
+BytesConvention::iec->unitKeys();
+// ['unit.B', 'unit.KiB', 'unit.MiB', 'unit.GiB', 'unit.TiB']
+```
+
+Typical usage is via the dedicated helpers rather than the enum directly:
+
+```php
+human_readable_bytes_size_si(15_000_000_000);   // "15 Go" (fr) / "15 GB" (en)
+human_readable_bytes_size_iec(15_000_000_000, 2); // "13,97 Gio" (fr) / "13.97 GiB" (en)
 ```
 
 

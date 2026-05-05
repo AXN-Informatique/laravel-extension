@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Axn\ToolKit\Enums\AppEnv;
+use Axn\ToolKit\Enums\BytesConvention;
 use Axn\ToolKit\MimeTypeToFontAwesomeIcon;
 use Axn\ToolKit\VersionNumber;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
@@ -262,24 +263,51 @@ if (! function_exists('convert_dec_to_time')) {
 if (! function_exists('human_readable_bytes_size')) {
     /**
      * Convert a byte size into a human-readable localized size.
+     *
+     * When $convention is null, the legacy behavior is preserved (base 1024 with
+     * decimal labels kB/MB/GB/TB) for backward compatibility. Prefer passing an
+     * explicit convention, or use the dedicated helpers human_readable_bytes_size_si()
+     * and human_readable_bytes_size_iec().
      */
-    function human_readable_bytes_size(int $bytes, int $decimals = 0, bool $trimZeroDecimals = false): string
+    function human_readable_bytes_size(int $bytes, int $decimals = 0, bool $trimZeroDecimals = false, ?BytesConvention $convention = null): string
     {
-        $units = [
-            trans('unit.B'),
-            trans('unit.kB'),
-            trans('unit.MB'),
-            trans('unit.GB'),
-            trans('unit.TB'),
-        ];
+        if ($convention === null) {
+            $base = 1024;
+            $unitKeys = ['unit.B', 'unit.kB', 'unit.MB', 'unit.GB', 'unit.TB'];
+        } else {
+            $base = $convention->base();
+            $unitKeys = $convention->unitKeys();
+        }
 
         $bytes = max($bytes, 0);
-        $pow = floor(($bytes !== 0 ? log($bytes) : 0) / log(1024));
-        $pow = min($pow, count($units) - 1);
+        $pow = (int) floor($bytes !== 0 ? log($bytes, $base) : 0);
+        $pow = min($pow, count($unitKeys) - 1);
 
-        $bytes /= (1 << (10 * $pow));
+        $bytes /= $base ** $pow;
 
-        return number_formatted($bytes, $decimals, $trimZeroDecimals).' '.$units[$pow];
+        return number_formatted($bytes, $decimals, $trimZeroDecimals).' '.trans($unitKeys[$pow]);
+    }
+}
+
+if (! function_exists('human_readable_bytes_size_si')) {
+    /**
+     * Convert a byte size into a human-readable localized size using the SI (decimal)
+     * convention: base 1000 with labels kB, MB, GB, TB.
+     */
+    function human_readable_bytes_size_si(int $bytes, int $decimals = 0, bool $trimZeroDecimals = false): string
+    {
+        return human_readable_bytes_size($bytes, $decimals, $trimZeroDecimals, BytesConvention::si);
+    }
+}
+
+if (! function_exists('human_readable_bytes_size_iec')) {
+    /**
+     * Convert a byte size into a human-readable localized size using the IEC (binary)
+     * convention: base 1024 with labels KiB, MiB, GiB, TiB.
+     */
+    function human_readable_bytes_size_iec(int $bytes, int $decimals = 0, bool $trimZeroDecimals = false): string
+    {
+        return human_readable_bytes_size($bytes, $decimals, $trimZeroDecimals, BytesConvention::iec);
     }
 }
 

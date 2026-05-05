@@ -1,6 +1,16 @@
 Changelog
 =========
 
+11.7.0 (2026-05-05)
+-------------------
+
+- Added `BytesConvention` enum (`si`, `iec`) for byte size formatting
+- Added optional `BytesConvention` parameter to `human_readable_bytes_size()` (defaults to `null` to preserve legacy behavior: base 1024 with decimal labels)
+- Added `human_readable_bytes_size_si()` helper (base 1000, labels kB/MB/GB/TB) for end-user display matching storage vendor conventions
+- Added `human_readable_bytes_size_iec()` helper (base 1024, labels KiB/MiB/GiB/TiB) for proper binary display
+- Bumped `forxer/generic-term-translations-for-laravel` requirement to `^1.12` for new IEC unit translations
+
+
 11.6.0 (2026-04-10)
 -------------------
 

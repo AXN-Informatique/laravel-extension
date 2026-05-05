@@ -17,7 +17,7 @@ Documentation
 - [Helpers](helpers.md) — Global helper functions
 - [Blade Directives](blade-directives.md) — @nltobr, @nltobrcompact, @nltop, @nltopflat
 - [Components](components.md) — Required field marker
-- [Enums](enums.md) — AppEnv, Civilities
+- [Enums](enums.md) — AppEnv, BytesConvention, Civilities
 
 
 Installation

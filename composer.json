@@ -15,7 +15,7 @@
     "require": {
         "php": "^8.4",
         "composer/semver": "^3.0.0",
-        "forxer/generic-term-translations-for-laravel": "^1.8",
+        "forxer/generic-term-translations-for-laravel": "^1.12",
         "laravel/framework": "^12.0 || ^13.0"
     },
     "require-dev": {

@@ -8,7 +8,7 @@ Includes a set of useful tools for the Laravel framework.
 - [Helpers](docs/helpers.md) - Global helper functions
 - [Blade Directives](docs/blade-directives.md) - @nltobr, @nltobrcompact, @nltop, @nltopflat
 - [Components](docs/components.md) - Required field marker
-- [Enums](docs/enums.md) - AppEnv, Civilities
+- [Enums](docs/enums.md) - AppEnv, BytesConvention, Civilities
 
 
 ## Installation
@@ -46,7 +46,9 @@ Use the locales publisher of [Laravel Lang](https://laravel-lang.com/) to add/up
 | `number_formatted()` | Format number with locale |
 | `compute_dec_to_time()` | Decimal to time array |
 | `convert_dec_to_time()` | Decimal to time string |
-| `human_readable_bytes_size()` | Format bytes to human readable |
+| `human_readable_bytes_size()` | Format bytes to human readable (legacy default, accepts `BytesConvention`) |
+| `human_readable_bytes_size_si()` | Format bytes using SI convention (1000-based, kB/MB/GB/TB) |
+| `human_readable_bytes_size_iec()` | Format bytes using IEC convention (1024-based, KiB/MiB/GiB/TiB) |
 | `mime_type_to_fa5_class()` | MIME type to FontAwesome 5 icon |
 | `mime_type_to_fa6_class()` | MIME type to FontAwesome 6 icon |
 | `mime_type_to_fa7_class()` | MIME type to FontAwesome 7 icon |
@@ -75,6 +77,7 @@ Use the locales publisher of [Laravel Lang](https://laravel-lang.com/) to add/up
 | Enum | Description |
 |------|-------------|
 | `AppEnv` | Standardized environment names |
+| `BytesConvention` | Byte size conventions (SI / IEC) |
 | `Civilities` | Form civilities (Mrs, Mr) |
 
 
